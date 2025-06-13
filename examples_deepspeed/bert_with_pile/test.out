@@ -1,0 +1,944 @@
+INFO: Number of nodes: 1
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 1
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 400
+Updated latest checkpoint files to iteration 400.
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478396.opbs) content ---
+mg1109
+--- Unique nodes in /tmp/478396.2381/tmp.P3UTkVvg6C ---
+mg1109
+--- nvidia-smi (on submission node) ---
+Wed May 21 19:41:32 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                   On |
+| N/A   24C    P0             72W /  700W |      90MiB /  97871MiB |     N/A      Default |
+|                                         |                        |              Enabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| MIG devices:                                                                            |
++------------------+----------------------------------+-----------+-----------------------+
+| GPU  GI  CI  MIG |                     Memory-Usage |        Vol|      Shared           |
+|      ID  ID  Dev |                       BAR1-Usage | SM     Unc| CE ENC DEC OFA JPG    |
+|                  |                                  |        ECC|                       |
+|==================+==================================+===========+=======================|
+|  0    3   0   0  |              27MiB / 23552MiB    | 32      0 |  2   0    2    0    2 |
+|                  |                 0MiB /     0MiB  |           |                       |
++------------------+----------------------------------+-----------+-----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg1109
+Master Port: 29500
+Number of Nodes for torchrun: 1
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp_mg1109_2025.05.21-19.41.32.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478396.2381/tmp.P3UTkVvg6C -np 1 -npernode 1 --bind-to none \
+torchrun     --nnodes 1     --nproc_per_node 1     --rdzv_id 478396.opbs     --rdzv_backend c10d     --rdzv_endpoint mg1109:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 16     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp_mg1109_2025.05.21-19.41.32     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz16_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478397.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478397.2322/tmp.JACnvtiYgO ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 19:44:24 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             83W /  700W |       1MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-19.44.24.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478397.2322/tmp.JACnvtiYgO -np 2 -npernode 1 --bind-to none \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478397.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-19.44.24     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478449.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478449.2992/tmp.mxZtl0SwAo ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 20:29:55 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             83W /  700W |      27MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.29.55.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478449.2992/tmp.mxZtl0SwAo -np 2 -npernode 1 --bind-to none \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478449.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.29.55     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478458.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478458.0780/tmp.WRfaT5DMr4 ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 20:42:49 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             82W /  700W |      23MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.42.49.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478458.0780/tmp.WRfaT5DMr4 -np 2 -npernode 1 --bind-to none \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478458.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.42.49     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 1
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 1
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 400
+Updated latest checkpoint files to iteration 400.
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478463.opbs) content ---
+mg0051
+--- Unique nodes in /tmp/478463.5041/tmp.otCmAHtp2C ---
+mg0051
+--- nvidia-smi (on submission node) ---
+Wed May 21 20:52:38 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             82W /  700W |      21MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 1
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.52.38.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478463.5041/tmp.otCmAHtp2C -np 1 -npernode 1 --bind-to none \
+torchrun     --nnodes 1     --nproc_per_node 1     --rdzv_id 478463.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 16     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-16-gpu-1-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.52.38     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz16_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478467.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478467.4716/tmp.Dq7Lkw1OUO ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 20:57:24 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             83W /  700W |      18MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.57.24.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478467.4716/tmp.Dq7Lkw1OUO -np 2 -npernode 1 --bind-to none \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478467.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-20.57.24     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478472.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478472.7805/tmp.gRnNBdsmgs ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 21:08:02 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             82W /  700W |      16MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.08.02.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478472.7805/tmp.gRnNBdsmgs -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478472.opbs     --rdzv_backend c10d     --rdzv_endpoint mg0051:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.08.02     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0051
+HOST_IP: 172.17.1.51
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478473.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478473.9751/tmp.soPU4TfuWA ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 21:10:11 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             82W /  700W |      15MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.10.11.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478473.9751/tmp.soPU4TfuWA -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478473.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.51:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.10.11     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0051
+HOST_IP: 172.17.1.51
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478477.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478477.6346/tmp.hkbUmw187b ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 21:16:24 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             82W /  700W |      14MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.16.24.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478477.6346/tmp.hkbUmw187b -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478477.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.51:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.16.24     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0051
+HOST_IP: 172.17.1.51
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478480.opbs) content ---
+mg0051
+mg0053
+--- Unique nodes in /tmp/478480.8592/tmp.RB030uM0mY ---
+mg0051
+mg0053
+--- nvidia-smi (on submission node) ---
+Wed May 21 21:22:30 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             82W /  700W |      13MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.22.30.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478480.8592/tmp.RB030uM0mY -np 2 -npernode 1 --map-by node                 -x LD_LIBRARY_PATH                 -x CUDA_HOME \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478480.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.51:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.21-21.22.30     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0051
+HOST_IP: 172.17.1.51
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478910.opbs) content ---
+mg0051
+mg0052
+--- Unique nodes in /tmp/478910.1429/tmp.If3Ozy8112 ---
+mg0051
+mg0052
+--- nvidia-smi (on submission node) ---
+Thu May 22 12:33:44 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             82W /  700W |       1MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0051
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.22-12.33.44.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478910.1429/tmp.If3Ozy8112 -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478910.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.51:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0051_2025.05.22-12.33.44     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0051
+HOST_IP: 172.17.1.51
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478914.opbs) content ---
+mg0049
+mg0051
+--- Unique nodes in /tmp/478914.5859/tmp.1hlCAqftCj ---
+mg0049
+mg0051
+--- nvidia-smi (on submission node) ---
+Thu May 22 12:37:29 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             75W /  700W |       5MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0049
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0049_2025.05.22-12.37.29.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478914.5859/tmp.1hlCAqftCj -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478914.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.49:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0049_2025.05.22-12.37.29     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0049
+HOST_IP: 172.17.1.49
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478925.opbs) content ---
+mg0052
+mg0055
+--- Unique nodes in /tmp/478925.5438/tmp.JKpGQSIrzJ ---
+mg0052
+mg0055
+--- nvidia-smi (on submission node) ---
+Thu May 22 12:48:44 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             81W /  700W |       6MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0052
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-12.48.44.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478925.5438/tmp.JKpGQSIrzJ -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478925.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.52:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-12.48.44     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0052
+HOST_IP: 172.17.1.52
+--------------------------------------------------------------------------
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478954.opbs) content ---
+mg0050
+mg0051
+--- Unique nodes in /tmp/478954.8666/tmp.wBVxgXCJty ---
+mg0050
+mg0051
+--- nvidia-smi (on submission node) ---
+Thu May 22 13:22:59 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             67W /  700W |       1MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0050
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.22.59.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478954.8666/tmp.wBVxgXCJty -np 2 -npernode 1 --map-by node \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478954.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.50:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.22.59     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0050
+HOST_IP: 172.17.1.50
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478957.opbs) content ---
+mg0050
+mg0051
+--- Unique nodes in /tmp/478957.7131/tmp.NrPo5xZJP7 ---
+mg0050
+mg0051
+--- nvidia-smi (on submission node) ---
+Thu May 22 13:26:20 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   22C    P0             67W /  700W |       2MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0050
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.26.20.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478957.7131/tmp.NrPo5xZJP7 -np 2 -npernode 1 --map-by node -x CUDA_HOME \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478957.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.50:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.26.20     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0050
+HOST_IP: 172.17.1.50
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 0
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/478961.opbs) content ---
+mg0050
+mg0051
+--- Unique nodes in /tmp/478961.4906/tmp.2AbpxtoCwr ---
+mg0050
+mg0051
+--- nvidia-smi (on submission node) ---
+Thu May 22 13:29:22 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   23C    P0             67W /  700W |       2MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0050
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.29.22.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/478961.4906/tmp.2AbpxtoCwr -np 2 -npernode 1 --map-by node -x CUDA_HOME -x LD_LIBRARY_PATH -x PATH \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 478961.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.50:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0050_2025.05.22-13.29.22     --wandb-project deepspeed-megatron     --wandb-exp-name test_1     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0050
+HOST_IP: 172.17.1.50
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 400
+Updated latest checkpoint files to iteration 400.
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/479464.opbs) content ---
+mg0052
+mg0053
+--- Unique nodes in /tmp/479464.8714/tmp.PJyhmy8gIm ---
+mg0052
+mg0053
+--- nvidia-smi (on submission node) ---
+Thu May 22 19:40:44 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   24C    P0             81W /  700W |      17MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0052
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-19.40.44.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/479464.8714/tmp.PJyhmy8gIm -np 2 -npernode 1 --map-by node -x CUDA_HOME -x LD_LIBRARY_PATH -x PATH \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 479464.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.52:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-19.40.44     --wandb-project deepspeed-megatron     --wandb-exp-name test_2gpus     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0052
+HOST_IP: 172.17.1.52
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 400
+Updated latest checkpoint files to iteration 400.
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/479498.opbs) content ---
+mg0052
+mg0053
+--- Unique nodes in /tmp/479498.4279/tmp.cDG4Z2DcWD ---
+mg0052
+mg0053
+--- nvidia-smi (on submission node) ---
+Thu May 22 20:20:40 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   24C    P0             81W /  700W |       7MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0052
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-20.20.40.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/479498.4279/tmp.cDG4Z2DcWD -np 2 -npernode 1 --map-by node -x CUDA_HOME -x LD_LIBRARY_PATH -x PATH \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 479498.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.52:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0052_2025.05.22-20.20.40     --wandb-project deepspeed-megatron     --wandb-exp-name test_2gpus     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0052
+HOST_IP: 172.17.1.52
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT
+INFO: Number of nodes: 2
+INFO: GPUs per node (this node): 1
+INFO: Total GPUs for training (world size): 2
+Attempting to find latest checkpoint iteration...
+Found latest iteration: 400
+Updated latest checkpoint files to iteration 400.
+START!
+--- PBS_NODEFILE (/var/spool/pbs/aux/508596.opbs) content ---
+mg0054
+mg0056
+--- Unique nodes in /tmp/508596.1965/tmp.fUDU0T094v ---
+mg0054
+mg0056
+--- nvidia-smi (on submission node) ---
+Wed Jun 11 20:35:16 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 120GB             On  |   00000009:01:00.0 Off |                    0 |
+| N/A   24C    P0             82W /  700W |       9MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Master Addr: mg0054
+Master Port: 29500
+Number of Nodes for torchrun: 2
+Processes per Node for torchrun: 1
+Python script: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py
+Logging to: /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/log//bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0054_2025.06.11-20.35.16.log
+--------------------------------------------------------------------------
+実行コマンド (mca_base_env_listに依存し、-x オプションなし): 
+mpirun --hostfile /tmp/508596.1965/tmp.fUDU0T094v -np 2 -npernode 1 --map-by node -x CUDA_HOME -x LD_LIBRARY_PATH -x PATH \
+torchrun     --nnodes 2     --nproc_per_node 1     --rdzv_id 508596.opbs     --rdzv_backend c10d     --rdzv_endpoint 172.17.1.54:29500     /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py          --bert-no-binary-head     --override-opt_param-scheduler     --adam-beta1 0.9     --adam-beta2 0.999     --init-method-std 0.02     --tensor-model-parallel-size 1     --lr-decay-iters 20000     --lr-warmup-iters 100     --micro-batch-size 8     --global-batch-size 16     --num-layers 12     --hidden-size 768     --num-attention-heads 12     --seq-length 512     --max-position-embeddings 512     --train-iters 20000     --lr 1e-4     --min-lr 1e-5     --lr-decay-style linear     --split 949,50,1     --log-interval 10     --eval-interval 100     --eval-iters 10     --save-interval 200     --weight-decay 1e-2     --clip-grad 1.0     --num-workers 4     --fp16     --load /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --save /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/checkpoint/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp     --tensorboard-queue-size 1     --log-timers-to-tensorboard     --log-batch-size-to-tensorboard     --log-validation-ppl-to-tensorboard     --tensorboard-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile/tensorboard/bert-pile-0.11B-iters-2M-lr-1e-4-min-1e-5-wmup-100-dcy-2M-sty-linear-gbs-16-mbs-8-gpu-2-zero-0-mp-1-pp-1-nopp_mg0054_2025.06.11-20.35.16     --wandb-project deepspeed-megatron     --wandb-exp-name test_2gpus     --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile     --log-optimizer-states-to-tensorboard          --vocab-file bert-large-uncased-vocab.txt     --data-path /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document     --num-workers 128     --data-impl mmap     --train-data-exact-num-epochs 10          --deepspeed     --deepspeed_config /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz16_mbsz8_log10_zero0.json     --zero-stage 0     --pipeline-model-parallel-size 1     --no-pipeline-parallel
+--------------------------------------------------------------------------
+/work/opt/local/aarch64/cores/cuda/12.6
+--------------------------------------------------------------------------
+HOST: mg0054
+HOST_IP: 172.17.1.54
+--------------------------------------------------------------------------
+mpirun LD_LIBRARY_PATH;PATH \
+END OF SCRIPT

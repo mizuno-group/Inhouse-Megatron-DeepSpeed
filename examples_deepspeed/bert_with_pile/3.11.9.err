@@ -1,0 +1,295 @@
+--2025-05-20 19:21:46--  https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-uncased-vocab.txt
+Resolving s3.amazonaws.com (s3.amazonaws.com)... 16.182.107.112, 52.217.84.46, 16.15.179.50, ...
+Connecting to s3.amazonaws.com (s3.amazonaws.com)|16.182.107.112|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 231508 (226K) [text/plain]
+Saving to: ‘bert-large-uncased-vocab.txt’
+
+     0K .......... .......... .......... .......... .......... 22%  287K 1s
+    50K .......... .......... .......... .......... .......... 44%  276K 0s
+   100K .......... .......... .......... .......... .......... 66%  287K 0s
+   150K .......... .......... .......... .......... .......... 88%  108M 0s
+   200K .......... .......... ......                          100%  151M=0.5s
+
+2025-05-20 19:21:48 (426 KB/s) - ‘bert-large-uncased-vocab.txt’ saved [231508/231508]
+
+mkdir: cannot create directory ‘/vc_data_blob’: Permission denied
+mkdir: cannot create directory ‘/vc_data_blob’: Permission denied
+mkdir: cannot create directory ‘/vc_data’: Permission denied
+sed: can't read ds_config_bert_TEMPLATE.json: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476726.opbs.SC: line 257: /vc_data_blob/users/a97006/project/bert_with_pile/log//bert-pile-0.336B-iters-2M-lr-1e-4-min-1e-5-wmup-10000-dcy-2M-sty-linear-gbs-1024-mbs-1024-gpu-1-zero-0-mp-1-pp-1-nopp_mg1109_2025.05.20-19.21.46.log: No such file or directory
+sed: can't read ./ds_config_bert_TEMPLATE.json: No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+--2025-05-20 19:38:23--  https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-uncased-vocab.txt
+Resolving s3.amazonaws.com (s3.amazonaws.com)... 16.182.65.240, 16.15.193.20, 54.231.128.176, ...
+Connecting to s3.amazonaws.com (s3.amazonaws.com)|16.182.65.240|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 231508 (226K) [text/plain]
+Saving to: ‘bert-large-uncased-vocab.txt’
+
+     0K .......... .......... .......... .......... .......... 22%  297K 1s
+    50K .......... .......... .......... .......... .......... 44%  149K 1s
+   100K .......... .......... .......... .......... .......... 66%  132M 0s
+   150K .......... .......... .......... .......... .......... 88%  297K 0s
+   200K .......... .......... ......                          100%  156M=0.7s
+
+2025-05-20 19:38:25 (336 KB/s) - ‘bert-large-uncased-vocab.txt’ saved [231508/231508]
+
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+/var/spool/pbs/mom_priv/jobs/476776.opbs.SC: line 275: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476776.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476776.opbs.SC: line 283: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476776.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476776.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476776.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+/var/spool/pbs/mom_priv/jobs/476777.opbs.SC: line 275: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476777.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476777.opbs.SC: line 283: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476777.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476777.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476777.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476795.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476795.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476795.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476795.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476795.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476795.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476800.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476800.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476800.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476800.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476800.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476845.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476845.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476845.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476845.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476845.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476845.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476848.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476848.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476848.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476848.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476848.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476848.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476850.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476850.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476850.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476850.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476850.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476850.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476852.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476852.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476852.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476852.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476852.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476852.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476854.opbs.SC: line 276: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476854.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476854.opbs.SC: line 284: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476854.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476854.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476873.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476873.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476873.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476873.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476873.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476873.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476876.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476876.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476876.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476876.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476876.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476876.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476881.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476881.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476881.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476881.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476881.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476886.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476886.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476886.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476886.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476886.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476886.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476908.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476908.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476908.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476908.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476908.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476920.opbs.SC: line 279: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476920.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476920.opbs.SC: line 287: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476920.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476920.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476920.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476926.opbs.SC: line 280: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476926.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476926.opbs.SC: line 288: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476926.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476926.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476953.opbs.SC: line 281: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476953.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476953.opbs.SC: line 289: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476953.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476953.opbs.txt': No such file or directory
+rm: cannot remove '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476953.opbs.txt': No such file or directory
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+/var/spool/pbs/mom_priv/jobs/476956.opbs.SC: line 281: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476956.opbs.txt: No such file or directory
+/var/spool/pbs/mom_priv/jobs/476956.opbs.SC: line 289: $/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476956.opbs.txt: No such file or directory
+cat: '$/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/deepspeed_hosts_476956.opbs.txt': No such file or directory
+=>> PBS: job killed: walltime 28871 exceeded limit 28800
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+ERROR: Unable to locate a modulefile for 'openmpi/4.1.6'
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+pyenv: /work/gg17/a97006/.g_pyenv/versions/3.12.4 already exists
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /work/gg17/a97006/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin

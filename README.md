@@ -1,2 +1,3 @@
-# Inhouse-Megatron-DeepSpeed
-Megatron-DeepSpeed for inhouse data
+# Inhouse deepspeed megatron
+cite from https://github.com/deepspeedai/Megatron-DeepSpeed  
+
