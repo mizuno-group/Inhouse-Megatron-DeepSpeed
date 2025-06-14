@@ -31,6 +31,7 @@ class BertDataset(torch.utils.data.Dataset):
         self.masked_lm_prob = masked_lm_prob
         self.max_seq_length = max_seq_length
         self.binary_head = binary_head
+        self.desc = f"BERT dataset: {name}\n" \
 
         # Dataset.
         self.indexed_dataset = indexed_dataset

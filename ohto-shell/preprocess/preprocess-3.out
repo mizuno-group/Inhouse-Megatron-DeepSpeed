@@ -1,0 +1,1225 @@
+==================================================
+Processing dataset: pubmed
+==================================================
+[2025-06-13 22:25:43,767] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:25:43,783] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:25:49,639] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Are you sure you don't want to split sentences?
+[2025-06-13 22:25:56,516] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:25:56,530] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:00,086] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Opening /work/gg17/a97006/250519_modern_bert_0/json/pubmed.jsonl
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-13 22:26:17,785] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,791] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,794] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,805] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,809] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,816] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,817] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,828] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,830] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,852] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,862] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,885] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,916] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,922] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:17,939] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:17,945] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,064] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,087] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,126] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,149] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,156] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,179] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,222] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,230] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,243] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,252] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,309] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,312] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,321] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,329] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,332] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,341] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,345] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,352] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,366] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,370] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,373] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,390] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,399] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,420] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,442] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,459] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,460] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,468] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,469] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,480] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,482] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,491] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,493] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,515] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,518] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,540] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,548] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,568] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,571] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,577] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,590] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,593] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,600] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,600] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,605] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,616] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,620] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,623] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,628] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,643] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,688] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,694] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,711] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,718] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,720] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,723] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,737] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,741] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,742] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,745] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,746] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,748] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,762] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,762] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,762] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,763] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,772] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,772] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,781] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,787] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,796] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,806] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,837] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,859] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,862] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,883] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,925] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,936] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:26:18,948] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:18,973] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:26:24,543] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:24,573] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:27,790] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,057] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,067] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,089] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,136] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,239] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,320] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,421] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,500] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,586] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,595] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-13 22:26:28,639] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,663] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-13 22:26:28,696] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,763] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,815] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,901] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,909] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,927] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,956] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,970] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,970] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,976] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,980] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,987] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:28,990] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,018] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,020] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,024] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,112] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,120] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,128] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,132] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,144] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,144] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,145] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,152] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,153] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,184] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,194] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,194] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,209] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,212] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,238] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,241] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:26:29,241] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+Time to startup: 0.14651036262512207
+Finished processing pubmed
+
+==================================================
+Processing dataset: pmc
+==================================================
+[2025-06-13 22:42:44,839] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:42:44,862] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:42:50,021] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Are you sure you don't want to split sentences?
+[2025-06-13 22:42:57,203] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:42:57,217] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:00,824] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Opening /work/gg17/a97006/250519_modern_bert_0/json/pmc.jsonl
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-13 22:43:17,697] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:17,722] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:17,772] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:17,785] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:17,795] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:17,808] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,164] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,188] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,275] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,300] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,361] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,384] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,403] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,426] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,439] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,444] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,461] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,467] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,502] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,524] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,543] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,556] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,565] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,579] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,717] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,717] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,738] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,740] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,747] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,771] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,792] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,796] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,801] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,808] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,813] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,813] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,818] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,823] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,829] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,834] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,838] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,841] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,857] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,859] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,862] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,872] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,878] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,894] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,904] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,922] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,926] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,939] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,945] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,961] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,970] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,975] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,983] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:18,992] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:18,996] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,005] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,009] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,016] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,019] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,021] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,039] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,043] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,044] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,050] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,065] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,066] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,073] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,077] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,088] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,101] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,130] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,151] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,155] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,166] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,169] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,174] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,176] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,190] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,191] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,191] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,194] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,199] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,213] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,217] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,220] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,245] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,262] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,263] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,288] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,289] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:19,326] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-13 22:43:19,352] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-13 22:43:24,756] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:24,756] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:25,788] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:27,663] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:27,930] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,511] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,536] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,598] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,651] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,688] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:28,797] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-13 22:43:28,939] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-13 22:43:29,045] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-13 22:43:29,123] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,186] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,195] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,210] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,241] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,279] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,287] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,300] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,310] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,320] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,333] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,385] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,397] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,417] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,422] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,443] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,452] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,457] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,466] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,467] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,470] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,472] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,524] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,529] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,534] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,539] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,548] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,562] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,580] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,586] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,609] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,619] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,693] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,700] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-13 22:43:29,736] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+Time to startup: 0.13751697540283203
+Finished processing pmc
+
+==================================================
+Processing dataset: fda_label
+==================================================
+[2025-06-14 00:29:30,111] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:29:30,140] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:29:36,049] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Are you sure you don't want to split sentences?
+[2025-06-14 00:29:43,414] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:29:43,429] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:29:47,045] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Opening /work/gg17/a97006/250519_modern_bert_0/json/fda_label.jsonl
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:30:03,739] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:03,763] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:03,851] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:03,876] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:03,950] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:03,976] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,107] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,131] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,253] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,256] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,275] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,278] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,380] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,391] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,403] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,413] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,437] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,459] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,493] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,515] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,574] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,587] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,595] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,609] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,643] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,644] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,660] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,665] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,665] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,681] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,744] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,771] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,789] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,805] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,806] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,811] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,829] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,829] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,833] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,833] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,856] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,856] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,863] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,873] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,885] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,896] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,903] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,922] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,929] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,932] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,933] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,941] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,945] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,952] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,954] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,956] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,963] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,968] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,975] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,977] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,988] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:04,990] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:04,998] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,010] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,014] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,015] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,025] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,034] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,035] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,036] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,037] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,038] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,043] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,052] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,058] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,058] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,059] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,064] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,067] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,082] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,083] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,103] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,106] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,130] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,140] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,146] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,164] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,169] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,172] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,176] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,196] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,199] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,207] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,208] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:30:05,230] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:05,235] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:30:11,216] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:11,223] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:13,621] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:13,732] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:13,745] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,075] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,553] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,586] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,606] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,820] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:14,835] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-14 00:30:14,936] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:30:14,956] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,051] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,143] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,214] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,219] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,230] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,249] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,254] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,258] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,260] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,266] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,277] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,303] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,306] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,331] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,331] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,347] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,350] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,369] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,388] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,388] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,431] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,436] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,438] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,449] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,455] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,458] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,458] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,461] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,473] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,480] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,483] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,499] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,505] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,517] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:30:15,830] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+Time to startup: 0.1512317657470703
+Finished processing fda_label
+
+==================================================
+Processing dataset: nih_books
+==================================================
+[2025-06-14 00:34:27,619] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:27,636] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:31,395] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Are you sure you don't want to split sentences?
+[2025-06-14 00:34:37,988] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:38,002] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:41,609] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+Opening /work/gg17/a97006/250519_modern_bert_0/json/nih_books.jsonl
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:34:58,195] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,220] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,233] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,236] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,240] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,258] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,260] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,263] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,288] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,289] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,311] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,313] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,444] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,468] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,715] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,738] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,860] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,883] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,886] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,888] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:58,908] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:58,911] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,046] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,055] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,068] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,078] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,096] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,116] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,124] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,138] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,146] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,151] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,160] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,162] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,174] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,182] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,195] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,217] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,230] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,244] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,251] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,256] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,256] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,259] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,266] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,278] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,280] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,280] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,281] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,284] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,302] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,307] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,321] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,324] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,345] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,345] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,347] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,353] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,361] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,369] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,377] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,384] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,393] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,404] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,415] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,427] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,453] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,476] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,476] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,476] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,492] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,500] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,502] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,506] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,512] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,515] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,525] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,528] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,529] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,531] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,534] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,534] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,546] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,548] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,551] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,555] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,560] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,561] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,570] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,571] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,581] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,585] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,593] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,605] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:34:59,606] [WARNING] [real_accelerator.py:209:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-06-14 00:34:59,630] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-06-14 00:35:05,988] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:06,009] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:06,381] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:07,005] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:07,064] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:07,607] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:07,877] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:08,250] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:08,412] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:08,642] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:08,663] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:08,997] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,058] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,113] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,185] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:35:09,274] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,303] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-14 00:35:09,400] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:35:09,423] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,451] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:35:09,501] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,545] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,547] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,552] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,555] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,571] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,623] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,629] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,636] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,645] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,652] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,657] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,662] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,664] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,665] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,675] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,680] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+[2025-06-14 00:35:09,688] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,689] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,693] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,696] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,701] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,711] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,721] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,738] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,747] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+[2025-06-14 00:35:09,750] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+[2025-06-14 00:35:09,755] [INFO] [logging.py:107:log_dist] [Rank -1] [TorchCheckpointEngine] Initialized with serialization = False
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+WARNING: flash_attn is not available. Using PyTorch attention fallback. Rotary Embedding and Sliding Window Attention will NOT be efficiently applied if flash_attn is missing.
+> building BertWordPieceCase tokenizer ...
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+ > padded vocab (size: 100002) with 94 dummy tokens (new size: 100096)
+Time to startup: 0.13257431983947754
+Finished processing nih_books
+
+All datasets have been processed.

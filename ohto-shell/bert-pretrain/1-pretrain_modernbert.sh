@@ -8,7 +8,7 @@
 module purge
 module load cmake
 module load gcc
-module load cuda/12.6 # Ensure your MPI build is compatible with this CUDA
+module load cuda/12.6
 module load cudnn/9.5.1.17
 module load ompi-cuda/4.1.6-12.6
 
@@ -22,7 +22,7 @@ source ./250/bin/activate
 dir='/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile'
 wandb login 65afaa936940cf3a198fba3da2d51b71b797b77e # Consider using environment variable WANDB_API_KEY
 ###############################################################################
-seq_len=512
+seq_len=1024
 global_batch_size=16
 lr=1e-4
 min_lr=1e-5
@@ -99,7 +99,7 @@ if [ ${batch_size} -eq 0 ]; then
 fi
 ###############################################################################
 ### Misc configs
-log_interval=10
+log_interval=1000
 eval_iters=10
 eval_interval=100
 num_save=100
@@ -111,20 +111,23 @@ log_optimizer_state="true"
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 host="${HOSTNAME}" # This will be the hostname of the node running this script (master PBS job)
 
-jobname="bert-pile"
-data_home="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset"
-# This host check might not be relevant if paths are consistent or NFS-mounted
-if [[ "$host" == *"webxt"* ]]; then
-    data_home="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset"
-fi
-data_path="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/dataset/arxiv_bert_preprocessed_text_document"
+jobname="bert-pubmed-test"
 
-vocab_path="bert-large-uncased-vocab.txt" # This will be created in the CWD of the script
-if [ ! -f "$vocab_path" ]; then
-    wget https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-uncased-vocab.txt
-fi
+# BLEND DATASET
+pubmed_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/pubmed/pubmed_30000/pubmed_text_document"
+weight_pubmed=1.0
+pmc_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/pmc/pubmed_30000/pmc_text_document"
+weight_pmc=0.0
+fda_label_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/fda_label/pubmed_30000/fda_label_text_document"
+weight_fda_label=0.0
+nih_books_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/nih_books/pubmed_30000/nih_books_text_document"
+weight_nih_books=0.0
+# Combine the datasets into a single data path
+data_path="${weight_pubmed} ${pubmed_path} ${weight_pmc} ${pmc_path} ${weight_fda_label} ${fda_label_path} ${weight_nih_books} ${nih_books_path}"
 
-num_workers=4 # Dataloader workers per process
+vocab_path="/work/gg17/a97006/250519_modern_bert_0/tokenizer/vocab_30000.txt"
+
+num_workers=4
 
 jobname="${jobname}-${model_size}B-iters-${train_iters_in_million}M"
 jobname="${jobname}-lr-${lr}-min-${min_lr}-wmup-${lr_warmup_iters}-dcy-${lr_decay_iters_in_million}M-sty-${lr_decay_style}"
@@ -134,14 +137,14 @@ if [ "${no_pp}" = "true" ]; then
 fi
 
 username=$(whoami)
-output_home="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/${username}/project/bert_with_pile"
+output_home="/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/users/${username}/project/bert_with_pile"
 # This host check might not be relevant
 if [[ "$host" == *"webxt"* ]]; then
     output_home="/blob/users/${username}/project/bert_with_pile"
 fi
 log_path="${output_home}/log/"
 checkpoint_path="${output_home}/checkpoint/${jobname}"
-tensorboard_dir="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/${username}/project/bert_with_pile/tensorboard/"
+tensorboard_dir="/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/users/${username}/project/bert_with_pile/tensorboard/"
 tensorboard_path="${tensorboard_dir}${jobname}_${host}_${current_time}" # host here refers to the master job submission host
 mkdir -p ${log_path}
 mkdir -p ${checkpoint_path}
@@ -151,8 +154,7 @@ data_options=" \
     --vocab-file ${vocab_path} \
     --data-path ${data_path} \
     --num-workers 128 \
-    --data-impl mmap \
-    --train-data-exact-num-epochs 10"
+    --data-impl mmap"
 
 megatron_options=" \
     --bert-no-binary-head \
@@ -192,7 +194,7 @@ megatron_options=" \
     --tensorboard-dir ${tensorboard_path} \
     --wandb-project deepspeed-megatron \
     --wandb-exp-name test_2gpus \
-    --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/users/a97006/project/bert_with_pile"
+    --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/users/a97006/project/bert_with_pile"
 
 if [ "${activation_checkpoint}" = "true" ]; then
 megatron_options="${megatron_options} \
@@ -204,8 +206,8 @@ megatron_options="${megatron_options} \
     --log-optimizer-states-to-tensorboard"
 fi
 
-template_json="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_TEMPLATE.json"
-config_json="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz${global_batch_size}_mbsz${batch_size}_log${log_interval}_zero${zero_stage}.json"
+template_json="/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_TEMPLATE.json"
+config_json="/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/examples_deepspeed/bert_with_pile/ds_config_bert_bsz${global_batch_size}_mbsz${batch_size}_log${log_interval}_zero${zero_stage}.json"
 if [[ $zero_stage -gt 0 ]]; then
 sed "s/CONFIG_BATCH_SIZE/${global_batch_size}/" ${template_json} \
     | sed "s/CONFIG_MBSIZE/${batch_size}/" \
@@ -311,7 +313,7 @@ export WANDB_DEBUG=true # Propagate this
 # `torchrun` launches `num_gpus_pernode` Python processes on that node.
 
 # Construct the command to be executed by mpirun on each node
-PYTHON_SCRIPT_PATH="/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/pretrain_bert.py"
+PYTHON_SCRIPT_PATH="/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/pretrain_modern_bert.py"
 LOG_FILE="${log_path}/${jobname}_${host}_${current_time}.log" # mpirun will pipe output here from rank 0 of its direct children
 
 echo "Master Addr: ${MASTER_ADDR}"
@@ -341,7 +343,6 @@ TORCHRUN_CMD="torchrun \
     ${deepspeed_options}"
 
 echo "--------------------------------------------------------------------------"
-echo "実行コマンド (mca_base_env_listに依存し、-x オプションなし): "
 echo "mpirun ${MPIRUN_OPTIONS} \\"
 echo "${TORCHRUN_CMD}"
 echo "--------------------------------------------------------------------------"
@@ -351,8 +352,7 @@ echo "HOST: $HOST"
 echo "HOST_IP: $HOST_IP"
 echo "--------------------------------------------------------------------------"
 echo "mpirun ${OMPI_MCA_mca_base_env_list} \\"
-# -x オプションなしでコマンドを実行します
-# 全てのtorchrunインスタンスからの出力(mpirun経由で転送される)はログファイルに記録されます
+
 export CUDA_HOME="/work/opt/local/aarch64/cores/cuda/12.6"
 unset OMPI_MCA_mca_base_env_list
 mpirun ${MPIRUN_OPTIONS} \
@@ -362,7 +362,6 @@ mpirun ${MPIRUN_OPTIONS} \
 # mpirun ${MPIRUN_OPTIONS} \
 #    -x ... \
 #    sh -c "${TORCHRUN_CMD} &>> \"${log_path}/${jobname}_rank_\${OMPI_COMM_WORLD_RANK}_${current_time}.log\""
-
 
 rm -f $UNIQUE_NODES_FILE # Clean up temporary file for unique nodes
 echo "END OF SCRIPT"

@@ -218,52 +218,52 @@ def pretrain(train_valid_test_dataset_provider,
     # if args.mos or args.kd: # Set up teacher model
     #     args.teacher_model = setup_teacher_model(args, model_provider)
 
-    # # Print setup timing.
-    # print_rank_0('done with setup ...')
-    # timers.log(['model-and-optimizer-setup',
-    #             'train/valid/test-data-iterators-setup'], barrier=True)
+    # Print setup timing.
+    print_rank_0('done with setup ...')
+    timers.log(['model-and-optimizer-setup',
+                'train/valid/test-data-iterators-setup'], barrier=True)
 
-    # if not args.skip_train:
-    #     print_rank_0('training ...')
+    if not args.skip_train:
+        print_rank_0('training ...')
 
-    #     if args.dataloader_type == 'cyclic' and args.retro_add_retriever:
-    #         args.train_iters = args.retro_cyclic_train_iters
-    #         print_rank_0("retro cyclic train iters : %d" % args.train_iters)
+        if args.dataloader_type == 'cyclic' and args.retro_add_retriever:
+            args.train_iters = args.retro_cyclic_train_iters
+            print_rank_0("retro cyclic train iters : %d" % args.train_iters)
 
-    #     iteration = 0
-    #     if args.do_train and args.train_iters > 0:
-    #         iteration = train(forward_step_func,
-    #                         model, optimizer, opt_param_scheduler,
-    #                         train_data_iterator, valid_data_iterator,
-    #                         process_non_loss_data_func)
+        iteration = 0
+        if args.do_train and args.train_iters > 0:
+            iteration = train(forward_step_func,
+                            model, optimizer, opt_param_scheduler,
+                            train_data_iterator, valid_data_iterator,
+                            process_non_loss_data_func)
 
-    #     print_datetime('after training is done')
-    #     # Clean the model
-    #     if args.compression_training:
-    #         model = [redundancy_clean(model[0], args.deepspeed_config_dict, mpu)]
+        print_datetime('after training is done')
+        # Clean the model
+        if args.compression_training:
+            model = [redundancy_clean(model[0], args.deepspeed_config_dict, mpu)]
 
-    #     if args.save and iteration != 0:
-    #         save_checkpoint(iteration, model, optimizer, opt_param_scheduler)
-    # else:
-    #     print_rank_0('skipping training (--skip-train is on) ...')
+        if args.save and iteration != 0:
+            save_checkpoint(iteration, model, optimizer, opt_param_scheduler)
+    else:
+        print_rank_0('skipping training (--skip-train is on) ...')
 
-    #     iteration = args.iteration
+        iteration = args.iteration
 
-    # config = core_transformer_config_from_args(args)
-    # if args.do_valid:
-    #     prefix = f'iteration {iteration} on {args.eval_iters * args.global_batch_size}-sample draw from validation set'
-    #     evaluate_and_print_results(prefix, forward_step_func,
-    #                                valid_data_iterator, model,
-    #                                iteration, process_non_loss_data_func, config,
-    #                                verbose=True, write_to_tensorboard=not args.skip_train)
+    config = core_transformer_config_from_args(args)
+    if args.do_valid:
+        prefix = f'iteration {iteration} on {args.eval_iters * args.global_batch_size}-sample draw from validation set'
+        evaluate_and_print_results(prefix, forward_step_func,
+                                   valid_data_iterator, model,
+                                   iteration, process_non_loss_data_func, config,
+                                   verbose=True, write_to_tensorboard=not args.skip_train)
 
-    # if args.do_test:
-    #     prefix = f'iteration {iteration} on {args.eval_iters * args.global_batch_size}-sample draw from test set'
-    #     evaluate_and_print_results(prefix, forward_step_func,
-    #                                test_data_iterator, model,
-    #                                iteration, process_non_loss_data_func, config,
-    #                                verbose=True, write_to_tensorboard=not args.skip_train, test=True)
-    # return model
+    if args.do_test:
+        prefix = f'iteration {iteration} on {args.eval_iters * args.global_batch_size}-sample draw from test set'
+        evaluate_and_print_results(prefix, forward_step_func,
+                                   test_data_iterator, model,
+                                   iteration, process_non_loss_data_func, config,
+                                   verbose=True, write_to_tensorboard=not args.skip_train, test=True)
+    return model
 
 
 def update_train_iters(args):
