@@ -9,6 +9,7 @@ import torch
 from megatron import get_args
 
 from deepspeed.runtime.zero import GatheredParameters
+import torch.nn.functional as F
 
 def init_method_normal(sigma):
     """Init method based on N(0, sigma)."""
@@ -49,13 +50,15 @@ def attention_mask_func(attention_scores, attention_mask):
 
 def get_linear_layer(rows, columns, init_method, gather_params_on_init=False):
     """Simple linear layer with weight initialization."""
-    layer = torch.nn.Linear(rows, columns)
+    args = get_args()
+    layer = torch.nn.Linear(rows, columns, bias=args.add_bias_linear)
     if get_args().perform_initialization:
         with GatheredParameters(layer.weight, modifier_rank=0, enabled=gather_params_on_init):
             init_method(layer.weight)
-    with torch.no_grad():
-        with GatheredParameters(layer.bias, modifier_rank=0, enabled=gather_params_on_init):
-            layer.bias.zero_()
+    if args.add_bias_linear:
+        with torch.no_grad():
+            with GatheredParameters(layer.bias, modifier_rank=0, enabled=gather_params_on_init):
+                layer.bias.zero_()
     return layer
 
 @torch.jit.script

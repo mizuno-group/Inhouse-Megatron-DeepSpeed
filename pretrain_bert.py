@@ -5,9 +5,11 @@
 from functools import partial
 
 import math
+import wandb
 import torch
 import torch.nn.functional as F
 
+from megatron import is_rank_0
 from megatron import get_args
 from megatron import print_rank_0
 from megatron import get_timers
@@ -157,10 +159,8 @@ def train_valid_test_datasets_provider(train_val_test_num_samples):
 
     return train_ds, valid_ds, test_ds
 
-import wandb
-from megatron import is_rank_0
 if __name__ == "__main__": 
     pretrain(train_valid_test_datasets_provider, model_provider,
              ModelType.encoder_or_decoder,
-             forward_step, args_defaults={'tokenizer_type': 'BertWordPieceLowerCase'},
+             forward_step, args_defaults={'tokenizer_type': 'BertWordPieceCase'},
              data_post_process=data_post_process)

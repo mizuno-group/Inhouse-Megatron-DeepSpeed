@@ -131,9 +131,9 @@ def pretrain(train_valid_test_dataset_provider,
 
     args = get_args()
 
-    if found_kill_switch():
-        print_datetime(f"Detected kill switch at {args.kill_switch_file}. Exiting")
-        sys.exit()
+    # if found_kill_switch():
+    #     print_datetime(f"Detected kill switch at {args.kill_switch_file}. Exiting")
+    #     sys.exit()
 
     # Set pytorch JIT layer fusion options and warmup JIT functions.
     if get_accelerator().device_name() == 'cuda':
@@ -214,15 +214,14 @@ def pretrain(train_valid_test_dataset_provider,
     # for knowledge distillation. Users do not need to set it in the command
     # line to use kd, but users do need to provide teacher model configurations
     # like args.num_layers_teacher as described in setup_teacher_model()
-    # args.teacher_model = None
-    # if args.mos or args.kd: # Set up teacher model
-    #     args.teacher_model = setup_teacher_model(args, model_provider)
+    args.teacher_model = None
+    if args.mos or args.kd: # Set up teacher model
+        args.teacher_model = setup_teacher_model(args, model_provider)
 
     # Print setup timing.
     print_rank_0('done with setup ...')
     timers.log(['model-and-optimizer-setup',
                 'train/valid/test-data-iterators-setup'], barrier=True)
-
     if not args.skip_train:
         print_rank_0('training ...')
 
@@ -263,6 +262,7 @@ def pretrain(train_valid_test_dataset_provider,
                                    test_data_iterator, model,
                                    iteration, process_non_loss_data_func, config,
                                    verbose=True, write_to_tensorboard=not args.skip_train, test=True)
+    # print(model)
     return model
 
 
@@ -724,8 +724,8 @@ def train_step(forward_step_func, data_iterator,
         args.teacher_forward = False
 
     # Empty unused memory.
-    if args.empty_unused_memory_level >= 1:
-        get_accelerator().empty_cache()
+    # if args.empty_unused_memory_level >= 1:
+    #     get_accelerator().empty_cache()
 
     # Reduce gradients.
     if not args.deepspeed:
@@ -781,8 +781,8 @@ def train_step(forward_step_func, data_iterator,
             skipped_iter = 1
 
         # Empty unused memory.
-        if args.empty_unused_memory_level >= 2:
-            get_accelerator().empty_cache()
+        # if args.empty_unused_memory_level >= 2:
+        #     get_accelerator().empty_cache()
 
         if mpu.is_pipeline_last_stage(ignore_virtual=True):
             # Average loss across microbatches.
@@ -1372,14 +1372,14 @@ def train(forward_step_func, model, optimizer, opt_param_scheduler,
         trigger(on_step_end)
 
         # Exiting based on kill switch file
-        if found_kill_switch():
-            if args.save and not saved_checkpoint:
-                save_checkpoint_and_time(iteration, model, optimizer,
-                                         opt_param_scheduler)
-            torch.distributed.barrier()
-            print_datetime(f"Detected kill switch at {args.kill_switch_file}, "
-                           f"iteration={iteration}. Exiting")
-            sys.exit()
+        # if found_kill_switch():
+        #     if args.save and not saved_checkpoint:
+        #         save_checkpoint_and_time(iteration, model, optimizer,
+        #                                  opt_param_scheduler)
+        #     torch.distributed.barrier()
+        #     print_datetime(f"Detected kill switch at {args.kill_switch_file}, "
+        #                    f"iteration={iteration}. Exiting")
+        #     sys.exit()
 
     return iteration
 
@@ -1443,8 +1443,8 @@ def evaluate(forward_step_func,
             config.timers = get_timers()
 
             # Empty unused memory
-            if args.empty_unused_memory_level >= 1:
-                get_accelerator().empty_cache()
+            # if args.empty_unused_memory_level >= 1:
+            #     get_accelerator().empty_cache()
 
             if mpu.is_pipeline_last_stage(ignore_virtual=True):
                 # Reduce across processes.

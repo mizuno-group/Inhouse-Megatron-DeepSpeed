@@ -1,0 +1,1387 @@
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py:147: SyntaxWarning: invalid escape sequence '\d'
+  self.decoder_pat = re.compile("(\d+)\.(.+)")
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+Traceback (most recent call last):
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py", line 561, in <module>
+    initialize_megatron(extra_args_provider=add_extra_args)
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/initialize.py", line 59, in initialize_megatron
+    validate_args(args, args_defaults)
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/arguments.py", line 321, in validate_args
+    assert args.save_interval is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+[W702 12:43:31.159811561 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0051]:29500 (errno: 97 - Address family not supported by protocol).
+[W702 12:43:31.408657299 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0051]:45943 (errno: 97 - Address family not supported by protocol).
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+usage: finetune_llama.py [-h] [--num-layers NUM_LAYERS]
+                         [--encoder-num-layers ENCODER_NUM_LAYERS]
+                         [--decoder-num-layers DECODER_NUM_LAYERS]
+                         [--num-experts NUM_EXPERTS [NUM_EXPERTS ...]]
+                         [--mlp-type MLP_TYPE] [--topk TOPK]
+                         [--expert-interval EXPERT_INTERVAL]
+                         [--hidden-size HIDDEN_SIZE]
+                         [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                         [--num-attention-heads NUM_ATTENTION_HEADS]
+                         [--num-key-value-heads NUM_KEY_VALUE_HEADS]
+                         [--kv-channels KV_CHANNELS]
+                         [--max-position-embeddings MAX_POSITION_EMBEDDINGS]
+                         [--use-rotary-position-embeddings]
+                         [--rotary-position-embeddings-theta ROPE_THETA]
+                         [--rotary-percent ROTARY_PERCENT]
+                         [--no-position-embedding]
+                         [--make-vocab-size-divisible-by MAKE_VOCAB_SIZE_DIVISIBLE_BY]
+                         [--normalization {layernorm,rmsnorm}]
+                         [--layernorm-embedding]
+                         [--layernorm-epsilon LAYERNORM_EPSILON]
+                         [--apply-layernorm-1p] [--disable-mem-efficient-ln]
+                         [--apply-residual-connection-post-layernorm]
+                         [--openai-gelu] [--squared-relu] [--swiglu] [--geglu]
+                         [--onnx-safe ONNX_SAFE] [--bert-no-binary-head]
+                         [--num-experts-switch NUM_EXPERTS_SWITCH]
+                         [--untie-embeddings-and-output-weights]
+                         [--embedding-weights-in-fp32]
+                         [--kill-switch-file KILL_SWITCH_FILE]
+                         [--use-switch-attention]
+                         [--use-switch-attention-rope]
+                         [--global-rope-theta GLOBAL_ROPE_THETA]
+                         [--local-rope-theta LOCAL_ROPE_THETA]
+                         [--global-attn-every-n-layers GLOBAL_ATTN_EVERY_N_LAYERS]
+                         [--local-window-size LOCAL_WINDOW_SIZE]
+                         [--attention-dropout ATTENTION_DROPOUT]
+                         [--hidden-dropout HIDDEN_DROPOUT]
+                         [--weight-decay WEIGHT_DECAY]
+                         [--start-weight-decay START_WEIGHT_DECAY]
+                         [--end-weight-decay END_WEIGHT_DECAY]
+                         [--weight-decay-incr-style {constant,linear,cosine}]
+                         [--clip-grad CLIP_GRAD] [--adam-beta1 ADAM_BETA1]
+                         [--adam-beta2 ADAM_BETA2] [--adam-eps ADAM_EPS]
+                         [--sgd-momentum SGD_MOMENTUM]
+                         [--micro-batch-size MICRO_BATCH_SIZE]
+                         [--batch-size BATCH_SIZE]
+                         [--global-batch-size GLOBAL_BATCH_SIZE]
+                         [--rampup-batch-size [RAMPUP_BATCH_SIZE ...]]
+                         [--recompute-activations]
+                         [--recompute-granularity {full,selective}]
+                         [--distribute-saved-activations]
+                         [--recompute-method {uniform,block}]
+                         [--recompute-num-layers RECOMPUTE_NUM_LAYERS]
+                         [--enable-zbh1-pipeline]
+                         [--enable-zbh1-exact-semantics]
+                         [--checkpoint-activations]
+                         [--distribute-checkpointed-activations]
+                         [--checkpoint-num-layers CHECKPOINT_NUM_LAYERS]
+                         [--train-iters TRAIN_ITERS]
+                         [--train-samples TRAIN_SAMPLES]
+                         [--train-tokens TRAIN_TOKENS] [--random-ltd]
+                         [--log-interval LOG_INTERVAL]
+                         [--exit-interval EXIT_INTERVAL]
+                         [--exit-duration-in-mins EXIT_DURATION_IN_MINS]
+                         [--exit-signal-handler]
+                         [--tensorboard-dir TENSORBOARD_DIR]
+                         [--no-masked-softmax-fusion] [--no-bias-gelu-fusion]
+                         [--no-bias-dropout-fusion]
+                         [--disable-moe-token-dropping]
+                         [--moe-train-capacity-factor MOE_TRAIN_CAPACITY_FACTOR]
+                         [--moe-eval-capacity-factor MOE_EVAL_CAPACITY_FACTOR]
+                         [--moe-min-capacity MOE_MIN_CAPACITY]
+                         [--moe-loss-coeff MOE_LOSS_COEFF]
+                         [--create-moe-param-group]
+                         [--disable-moe-top2-2nd-expert-sampling]
+                         [--use-flash-attn] [--use-flash-attn-v2]
+                         [--use-flash-attn-triton] [--use-flash-attn-builder]
+                         [--disable-bias-linear] [--optimizer {adam,sgd}]
+                         [--dataloader-type {single,cyclic}] [--ds-inference]
+                         [--cpu-optimizer] [--cpu_torch_adam]
+                         [--ds_fused_adam] [--no-pipeline-parallel]
+                         [--use-tutel] [--inference]
+                         [--no-async-tensor-model-parallel-allreduce]
+                         [--no-persist-layer-norm] [--sequence-parallel]
+                         [--ds-sequence-parallel-size DS_SEQUENCE_PARALLEL_SIZE]
+                         [--force-ds-sequence-parallel]
+                         [--ds-sequence-parallel-fpdt]
+                         [--ds-sequence-parallel-fpdt-chunk-size DS_SEQUENCE_PARALLEL_FPDT_CHUNK_SIZE]
+                         [--ds-sequence-parallel-fpdt-offloading]
+                         [--no-gradient-accumulation-fusion]
+                         [--use-dataset-only USE_DATASET_ONLY] [--seed SEED]
+                         [--data-parallel-random-init]
+                         [--init-method-std INIT_METHOD_STD]
+                         [--init-method-xavier-uniform] [--lr LR]
+                         [--lr-decay-style {constant,linear,cosine,inverse-square-root}]
+                         [--lr-decay-iters LR_DECAY_ITERS]
+                         [--lr-decay-samples LR_DECAY_SAMPLES]
+                         [--lr-decay-tokens LR_DECAY_TOKENS]
+                         [--lr-warmup-fraction LR_WARMUP_FRACTION]
+                         [--lr-warmup-iters LR_WARMUP_ITERS]
+                         [--lr-warmup-samples LR_WARMUP_SAMPLES]
+                         [--lr-warmup-tokens LR_WARMUP_TOKENS]
+                         [--warmup WARMUP] [--min-lr MIN_LR]
+                         [--override-opt_param-scheduler]
+                         [--use-checkpoint-opt_param-scheduler] [--save SAVE]
+                         [--save-interval SAVE_INTERVAL] [--no-save-optim]
+                         [--no-save-rng] [--load LOAD] [--load-tag LOAD_TAG]
+                         [--no-load-optim] [--no-load-rng]
+                         [--no-load-lr-state] [--finetune]
+                         [--no-initialization] [--use-checkpoint-args]
+                         [--exit-on-missing-checkpoint]
+                         [--universal-checkpoint] [--fp16] [--bf16]
+                         [--loss-scale LOSS_SCALE]
+                         [--initial-loss-scale INITIAL_LOSS_SCALE]
+                         [--min-loss-scale MIN_LOSS_SCALE]
+                         [--loss-scale-window LOSS_SCALE_WINDOW]
+                         [--hysteresis HYSTERESIS]
+                         [--fp32-residual-connection]
+                         [--no-query-key-layer-scaling]
+                         [--attention-softmax-in-fp32]
+                         [--accumulate-allreduce-grads-in-fp32]
+                         [--fp16-lm-cross-entropy]
+                         [--tensor-model-parallel-size TENSOR_MODEL_PARALLEL_SIZE]
+                         [--enable-expert-tensor-parallelism]
+                         [--pipeline-model-parallel-size PIPELINE_MODEL_PARALLEL_SIZE]
+                         [--pipeline-model-parallel-split-rank PIPELINE_MODEL_PARALLEL_SPLIT_RANK]
+                         [--moe-expert-parallel-size MOE_EXPERT_PARALLEL_SIZE]
+                         [--model-parallel-size MODEL_PARALLEL_SIZE]
+                         [--num-layers-per-virtual-pipeline-stage NUM_LAYERS_PER_VIRTUAL_PIPELINE_STAGE]
+                         [--overlap-p2p-communication]
+                         [--distributed-backend {nccl,gloo,ccl,hccl}]
+                         [--distributed-timeout-minutes DISTRIBUTED_TIMEOUT_MINUTES]
+                         [--DDP-impl {local,torch,FSDP}]
+                         [--no-contiguous-buffers-in-local-ddp]
+                         [--no-scatter-gather-tensors-in-pipeline]
+                         [--use-ring-exchange-p2p] [--local-rank LOCAL_RANK]
+                         [--lazy-mpu-init LAZY_MPU_INIT]
+                         [--use-cpu-initialization]
+                         [--empty-unused-memory-level {0,1,2}]
+                         [--standalone-embedding-stage]
+                         [--use-distributed-optimizer]
+                         [--eval-iters EVAL_ITERS]
+                         [--eval-interval EVAL_INTERVAL] [--skip-train]
+                         [--aml-data-download-path AML_DATA_DOWNLOAD_PATH]
+                         [--data-path [DATA_PATH ...]] [--split SPLIT]
+                         [--train-data-path [TRAIN_DATA_PATH ...]]
+                         [--valid-data-path [VALID_DATA_PATH ...]]
+                         [--test-data-path [TEST_DATA_PATH ...]]
+                         [--data-cache-path DATA_CACHE_PATH]
+                         [--vocab-size VOCAB_SIZE] [--vocab-file VOCAB_FILE]
+                         [--merge-file MERGE_FILE]
+                         [--vocab-extra-ids VOCAB_EXTRA_IDS]
+                         [--seq-length SEQ_LENGTH]
+                         [--encoder-seq-length ENCODER_SEQ_LENGTH]
+                         [--decoder-seq-length DECODER_SEQ_LENGTH]
+                         [--retriever-seq-length RETRIEVER_SEQ_LENGTH]
+                         [--sample-rate SAMPLE_RATE] [--mask-prob MASK_PROB]
+                         [--short-seq-prob SHORT_SEQ_PROB] [--mmap-warmup]
+                         [--num-workers NUM_WORKERS]
+                         [--tokenizer-type {BertWordPieceLowerCase,BertWordPieceCase,GPT2BPETokenizer,SentencePieceTokenizer,GPTSentencePieceTokenizer,HFTokenizer,NullTokenizer}]
+                         [--tokenizer-model TOKENIZER_MODEL]
+                         [--trust-remote-code] [--data-impl {mmap,infer}]
+                         [--reset-position-ids] [--reset-attention-mask]
+                         [--eod-mask-loss]
+                         [--train-data-exact-num-epochs TRAIN_DATA_EXACT_NUM_EPOCHS]
+                         [--return-data-index]
+                         [--data-efficiency-curriculum-learning]
+                         [--train-idx-path TRAIN_IDX_PATH]
+                         [--train-desc-path TRAIN_DESC_PATH]
+                         [--train-doc-idx-path TRAIN_DOC_IDX_PATH]
+                         [--train-sample-idx-path TRAIN_SAMPLE_IDX_PATH]
+                         [--train-shuffle-idx-path TRAIN_SHUFFLE_IDX_PATH]
+                         [--repeated-dataloader] [--adlr-autoresume]
+                         [--adlr-autoresume-interval ADLR_AUTORESUME_INTERVAL]
+                         [--ict-head-size ICT_HEAD_SIZE]
+                         [--biencoder-projection-dim BIENCODER_PROJECTION_DIM]
+                         [--biencoder-shared-query-context-model]
+                         [--ict-load ICT_LOAD] [--bert-load BERT_LOAD]
+                         [--titles-data-path TITLES_DATA_PATH]
+                         [--query-in-block-prob QUERY_IN_BLOCK_PROB]
+                         [--use-one-sent-docs]
+                         [--evidence-data-path EVIDENCE_DATA_PATH]
+                         [--retriever-report-topk-accuracies RETRIEVER_REPORT_TOPK_ACCURACIES [RETRIEVER_REPORT_TOPK_ACCURACIES ...]]
+                         [--retriever-score-scaling]
+                         [--block-data-path BLOCK_DATA_PATH]
+                         [--embedding-path EMBEDDING_PATH]
+                         [--indexer-batch-size INDEXER_BATCH_SIZE]
+                         [--indexer-log-interval INDEXER_LOG_INTERVAL]
+                         [--num-classes NUM_CLASSES] [--img-h IMG_H]
+                         [--img-w IMG_W] [--num-channels NUM_CHANNELS]
+                         [--patch-dim PATCH_DIM]
+                         [--classes-fraction CLASSES_FRACTION]
+                         [--data-per-class-fraction DATA_PER_CLASS_FRACTION]
+                         [--no-data-sharding] [--head-lr-mult HEAD_LR_MULT]
+                         [--vision-pretraining]
+                         [--vision-pretraining-type {classify,inpaint,dino}]
+                         [--vision-backbone-type {vit,mit,swin}]
+                         [--swin-backbone-type {tiny,base,h3}]
+                         [--mask-type {random,row}]
+                         [--mask-factor MASK_FACTOR]
+                         [--iter-per-epoch ITER_PER_EPOCH]
+                         [--dino-local-img-size DINO_LOCAL_IMG_SIZE]
+                         [--dino-local-crops-number DINO_LOCAL_CROPS_NUMBER]
+                         [--dino-head-hidden-size DINO_HEAD_HIDDEN_SIZE]
+                         [--dino-bottleneck-size DINO_BOTTLENECK_SIZE]
+                         [--dino-freeze-last-layer DINO_FREEZE_LAST_LAYER]
+                         [--dino-norm-last-layer]
+                         [--dino-warmup-teacher-temp DINO_WARMUP_TEACHER_TEMP]
+                         [--dino-teacher-temp DINO_TEACHER_TEMP]
+                         [--dino-warmup-teacher-temp-epochs DINO_WARMUP_TEACHER_TEMP_EPOCHS]
+                         [--log-params-norm] [--log-num-zeros-in-grad]
+                         [--timing-log-level {0,1,2}]
+                         [--no-barrier-with-level-1-timing]
+                         [--timing-log-option {max,minmax,all}]
+                         [--tensorboard-log-interval TENSORBOARD_LOG_INTERVAL]
+                         [--tensorboard-queue-size TENSORBOARD_QUEUE_SIZE]
+                         [--log-timers-to-tensorboard]
+                         [--log-batch-size-to-tensorboard]
+                         [--no-log-learnig-rate-to-tensorboard]
+                         [--no-log-loss-scale-to-tensorboard]
+                         [--log-validation-ppl-to-tensorboard]
+                         [--log-optimizer-states-to-tensorboard]
+                         [--log-memory-to-tensorboard]
+                         [--log-world-size-to-tensorboard]
+                         [--wandb-project WANDB_PROJECT]
+                         [--wandb-exp-name WANDB_EXP_NAME]
+                         [--wandb-save-dir WANDB_SAVE_DIR]
+                         [--zero-stage ZERO_STAGE] [--zero-reduce-scatter]
+                         [--zero-contigious-gradients]
+                         [--zero-reduce-bucket-size ZERO_REDUCE_BUCKET_SIZE]
+                         [--zero-allgather-bucket-size ZERO_ALLGATHER_BUCKET_SIZE]
+                         [--remote-device {none,cpu,nvme}] [--use-pin-memory]
+                         [--scattered-embeddings] [--split-transformers]
+                         [--memory-centric-tiled-linear]
+                         [--tile-factor TILE_FACTOR]
+                         [--deepspeed-activation-checkpointing]
+                         [--partition-activations]
+                         [--contigious-checkpointing] [--checkpoint-in-cpu]
+                         [--synchronize-each-layer] [--profile-backward]
+                         [--num-layers-teacher NUM_LAYERS_TEACHER]
+                         [--num-experts-teacher NUM_EXPERTS_TEACHER [NUM_EXPERTS_TEACHER ...]]
+                         [--hidden-size-teacher HIDDEN_SIZE_TEACHER]
+                         [--num-attention-heads-teacher NUM_ATTENTION_HEADS_TEACHER]
+                         [--mos] [--kd] [--kd-alpha-ce KD_ALPHA_CE]
+                         [--kd-beta-ce KD_BETA_CE] [--kd-temp KD_TEMP]
+                         [--reset-iteration] [--load-teacher LOAD_TEACHER]
+                         [--inference-batch-times-seqlen-threshold INFERENCE_BATCH_TIMES_SEQLEN_THRESHOLD]
+                         [--max-tokens-to-oom MAX_TOKENS_TO_OOM]
+                         [--output-bert-embeddings]
+                         [--bert-embedder-type {megatron,huggingface}]
+                         [--fp8-e4m3] [--fp8-hybrid] [--no-fp8-wgrad]
+                         [--fp8-margin FP8_MARGIN]
+                         [--fp8-interval FP8_INTERVAL]
+                         [--transformer-impl {local,transformer_engine}]
+                         [--fp8-amax-history-len FP8_AMAX_HISTORY_LEN]
+                         [--fp8-amax-compute-algo {most_recent,max}]
+                         [--retro-workdir RETRO_WORKDIR]
+                         [--retro-add-retriever]
+                         [--retro-cyclic-train-iters RETRO_CYCLIC_TRAIN_ITERS]
+                         [--retro-encoder-layers RETRO_ENCODER_LAYERS]
+                         [--retro-encoder-hidden-dropout RETRO_ENCODER_HIDDEN_DROPOUT]
+                         [--retro-encoder-attention-dropout RETRO_ENCODER_ATTENTION_DROPOUT]
+                         [--retro-num-neighbors RETRO_NUM_NEIGHBORS]
+                         [--retro-num-retrieved-chunks RETRO_NUM_RETRIEVED_CHUNKS]
+                         [--retro-return-doc-ids] [--profile {pt,pt-full}]
+                         [--profile_steps PROFILE_STEPS]
+                         [--profile-ranks PROFILE_RANKS [PROFILE_RANKS ...]]
+                         [--deepspeed] [--deepspeed_config DEEPSPEED_CONFIG]
+                         [--deepscale] [--deepscale_config DEEPSCALE_CONFIG]
+finetune_llama.py: error: argument --num-layers: expected one argument
+E0702 12:43:38.905000 87792 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 87800) of binary: /work/gg17/a97006/env/llm-pyenv-3/250/bin/python
+Traceback (most recent call last):
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/finetune_llama.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-02_12:43:38
+  host      : mg0051
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 87800)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[22382,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py:147: SyntaxWarning: invalid escape sequence '\d'
+  self.decoder_pat = re.compile("(\d+)\.(.+)")
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+Traceback (most recent call last):
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py", line 561, in <module>
+    initialize_megatron(extra_args_provider=add_extra_args)
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/initialize.py", line 59, in initialize_megatron
+    validate_args(args, args_defaults)
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/arguments.py", line 409, in validate_args
+    raise RuntimeError(
+RuntimeError: Using async gradient all reduce requires setting the environment variable CUDA_DEVICE_MAX_CONNECTIONS to 1
+[W702 12:49:13.210412781 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0051]:29500 (errno: 97 - Address family not supported by protocol).
+[W702 12:49:13.306988050 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0051]:37737 (errno: 97 - Address family not supported by protocol).
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+usage: finetune_llama.py [-h] [--num-layers NUM_LAYERS]
+                         [--encoder-num-layers ENCODER_NUM_LAYERS]
+                         [--decoder-num-layers DECODER_NUM_LAYERS]
+                         [--num-experts NUM_EXPERTS [NUM_EXPERTS ...]]
+                         [--mlp-type MLP_TYPE] [--topk TOPK]
+                         [--expert-interval EXPERT_INTERVAL]
+                         [--hidden-size HIDDEN_SIZE]
+                         [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                         [--num-attention-heads NUM_ATTENTION_HEADS]
+                         [--num-key-value-heads NUM_KEY_VALUE_HEADS]
+                         [--kv-channels KV_CHANNELS]
+                         [--max-position-embeddings MAX_POSITION_EMBEDDINGS]
+                         [--use-rotary-position-embeddings]
+                         [--rotary-position-embeddings-theta ROPE_THETA]
+                         [--rotary-percent ROTARY_PERCENT]
+                         [--no-position-embedding]
+                         [--make-vocab-size-divisible-by MAKE_VOCAB_SIZE_DIVISIBLE_BY]
+                         [--normalization {layernorm,rmsnorm}]
+                         [--layernorm-embedding]
+                         [--layernorm-epsilon LAYERNORM_EPSILON]
+                         [--apply-layernorm-1p] [--disable-mem-efficient-ln]
+                         [--apply-residual-connection-post-layernorm]
+                         [--openai-gelu] [--squared-relu] [--swiglu] [--geglu]
+                         [--onnx-safe ONNX_SAFE] [--bert-no-binary-head]
+                         [--num-experts-switch NUM_EXPERTS_SWITCH]
+                         [--untie-embeddings-and-output-weights]
+                         [--embedding-weights-in-fp32]
+                         [--kill-switch-file KILL_SWITCH_FILE]
+                         [--use-switch-attention]
+                         [--use-switch-attention-rope]
+                         [--global-rope-theta GLOBAL_ROPE_THETA]
+                         [--local-rope-theta LOCAL_ROPE_THETA]
+                         [--global-attn-every-n-layers GLOBAL_ATTN_EVERY_N_LAYERS]
+                         [--local-window-size LOCAL_WINDOW_SIZE]
+                         [--attention-dropout ATTENTION_DROPOUT]
+                         [--hidden-dropout HIDDEN_DROPOUT]
+                         [--weight-decay WEIGHT_DECAY]
+                         [--start-weight-decay START_WEIGHT_DECAY]
+                         [--end-weight-decay END_WEIGHT_DECAY]
+                         [--weight-decay-incr-style {constant,linear,cosine}]
+                         [--clip-grad CLIP_GRAD] [--adam-beta1 ADAM_BETA1]
+                         [--adam-beta2 ADAM_BETA2] [--adam-eps ADAM_EPS]
+                         [--sgd-momentum SGD_MOMENTUM]
+                         [--micro-batch-size MICRO_BATCH_SIZE]
+                         [--batch-size BATCH_SIZE]
+                         [--global-batch-size GLOBAL_BATCH_SIZE]
+                         [--rampup-batch-size [RAMPUP_BATCH_SIZE ...]]
+                         [--recompute-activations]
+                         [--recompute-granularity {full,selective}]
+                         [--distribute-saved-activations]
+                         [--recompute-method {uniform,block}]
+                         [--recompute-num-layers RECOMPUTE_NUM_LAYERS]
+                         [--enable-zbh1-pipeline]
+                         [--enable-zbh1-exact-semantics]
+                         [--checkpoint-activations]
+                         [--distribute-checkpointed-activations]
+                         [--checkpoint-num-layers CHECKPOINT_NUM_LAYERS]
+                         [--train-iters TRAIN_ITERS]
+                         [--train-samples TRAIN_SAMPLES]
+                         [--train-tokens TRAIN_TOKENS] [--random-ltd]
+                         [--log-interval LOG_INTERVAL]
+                         [--exit-interval EXIT_INTERVAL]
+                         [--exit-duration-in-mins EXIT_DURATION_IN_MINS]
+                         [--exit-signal-handler]
+                         [--tensorboard-dir TENSORBOARD_DIR]
+                         [--no-masked-softmax-fusion] [--no-bias-gelu-fusion]
+                         [--no-bias-dropout-fusion]
+                         [--disable-moe-token-dropping]
+                         [--moe-train-capacity-factor MOE_TRAIN_CAPACITY_FACTOR]
+                         [--moe-eval-capacity-factor MOE_EVAL_CAPACITY_FACTOR]
+                         [--moe-min-capacity MOE_MIN_CAPACITY]
+                         [--moe-loss-coeff MOE_LOSS_COEFF]
+                         [--create-moe-param-group]
+                         [--disable-moe-top2-2nd-expert-sampling]
+                         [--use-flash-attn] [--use-flash-attn-v2]
+                         [--use-flash-attn-triton] [--use-flash-attn-builder]
+                         [--disable-bias-linear] [--optimizer {adam,sgd}]
+                         [--dataloader-type {single,cyclic}] [--ds-inference]
+                         [--cpu-optimizer] [--cpu_torch_adam]
+                         [--ds_fused_adam] [--no-pipeline-parallel]
+                         [--use-tutel] [--inference]
+                         [--no-async-tensor-model-parallel-allreduce]
+                         [--no-persist-layer-norm] [--sequence-parallel]
+                         [--ds-sequence-parallel-size DS_SEQUENCE_PARALLEL_SIZE]
+                         [--force-ds-sequence-parallel]
+                         [--ds-sequence-parallel-fpdt]
+                         [--ds-sequence-parallel-fpdt-chunk-size DS_SEQUENCE_PARALLEL_FPDT_CHUNK_SIZE]
+                         [--ds-sequence-parallel-fpdt-offloading]
+                         [--no-gradient-accumulation-fusion]
+                         [--use-dataset-only USE_DATASET_ONLY] [--seed SEED]
+                         [--data-parallel-random-init]
+                         [--init-method-std INIT_METHOD_STD]
+                         [--init-method-xavier-uniform] [--lr LR]
+                         [--lr-decay-style {constant,linear,cosine,inverse-square-root}]
+                         [--lr-decay-iters LR_DECAY_ITERS]
+                         [--lr-decay-samples LR_DECAY_SAMPLES]
+                         [--lr-decay-tokens LR_DECAY_TOKENS]
+                         [--lr-warmup-fraction LR_WARMUP_FRACTION]
+                         [--lr-warmup-iters LR_WARMUP_ITERS]
+                         [--lr-warmup-samples LR_WARMUP_SAMPLES]
+                         [--lr-warmup-tokens LR_WARMUP_TOKENS]
+                         [--warmup WARMUP] [--min-lr MIN_LR]
+                         [--override-opt_param-scheduler]
+                         [--use-checkpoint-opt_param-scheduler] [--save SAVE]
+                         [--save-interval SAVE_INTERVAL] [--no-save-optim]
+                         [--no-save-rng] [--load LOAD] [--load-tag LOAD_TAG]
+                         [--no-load-optim] [--no-load-rng]
+                         [--no-load-lr-state] [--finetune]
+                         [--no-initialization] [--use-checkpoint-args]
+                         [--exit-on-missing-checkpoint]
+                         [--universal-checkpoint] [--fp16] [--bf16]
+                         [--loss-scale LOSS_SCALE]
+                         [--initial-loss-scale INITIAL_LOSS_SCALE]
+                         [--min-loss-scale MIN_LOSS_SCALE]
+                         [--loss-scale-window LOSS_SCALE_WINDOW]
+                         [--hysteresis HYSTERESIS]
+                         [--fp32-residual-connection]
+                         [--no-query-key-layer-scaling]
+                         [--attention-softmax-in-fp32]
+                         [--accumulate-allreduce-grads-in-fp32]
+                         [--fp16-lm-cross-entropy]
+                         [--tensor-model-parallel-size TENSOR_MODEL_PARALLEL_SIZE]
+                         [--enable-expert-tensor-parallelism]
+                         [--pipeline-model-parallel-size PIPELINE_MODEL_PARALLEL_SIZE]
+                         [--pipeline-model-parallel-split-rank PIPELINE_MODEL_PARALLEL_SPLIT_RANK]
+                         [--moe-expert-parallel-size MOE_EXPERT_PARALLEL_SIZE]
+                         [--model-parallel-size MODEL_PARALLEL_SIZE]
+                         [--num-layers-per-virtual-pipeline-stage NUM_LAYERS_PER_VIRTUAL_PIPELINE_STAGE]
+                         [--overlap-p2p-communication]
+                         [--distributed-backend {nccl,gloo,ccl,hccl}]
+                         [--distributed-timeout-minutes DISTRIBUTED_TIMEOUT_MINUTES]
+                         [--DDP-impl {local,torch,FSDP}]
+                         [--no-contiguous-buffers-in-local-ddp]
+                         [--no-scatter-gather-tensors-in-pipeline]
+                         [--use-ring-exchange-p2p] [--local-rank LOCAL_RANK]
+                         [--lazy-mpu-init LAZY_MPU_INIT]
+                         [--use-cpu-initialization]
+                         [--empty-unused-memory-level {0,1,2}]
+                         [--standalone-embedding-stage]
+                         [--use-distributed-optimizer]
+                         [--eval-iters EVAL_ITERS]
+                         [--eval-interval EVAL_INTERVAL] [--skip-train]
+                         [--aml-data-download-path AML_DATA_DOWNLOAD_PATH]
+                         [--data-path [DATA_PATH ...]] [--split SPLIT]
+                         [--train-data-path [TRAIN_DATA_PATH ...]]
+                         [--valid-data-path [VALID_DATA_PATH ...]]
+                         [--test-data-path [TEST_DATA_PATH ...]]
+                         [--data-cache-path DATA_CACHE_PATH]
+                         [--vocab-size VOCAB_SIZE] [--vocab-file VOCAB_FILE]
+                         [--merge-file MERGE_FILE]
+                         [--vocab-extra-ids VOCAB_EXTRA_IDS]
+                         [--seq-length SEQ_LENGTH]
+                         [--encoder-seq-length ENCODER_SEQ_LENGTH]
+                         [--decoder-seq-length DECODER_SEQ_LENGTH]
+                         [--retriever-seq-length RETRIEVER_SEQ_LENGTH]
+                         [--sample-rate SAMPLE_RATE] [--mask-prob MASK_PROB]
+                         [--short-seq-prob SHORT_SEQ_PROB] [--mmap-warmup]
+                         [--num-workers NUM_WORKERS]
+                         [--tokenizer-type {BertWordPieceLowerCase,BertWordPieceCase,GPT2BPETokenizer,SentencePieceTokenizer,GPTSentencePieceTokenizer,HFTokenizer,NullTokenizer}]
+                         [--tokenizer-model TOKENIZER_MODEL]
+                         [--trust-remote-code] [--data-impl {mmap,infer}]
+                         [--reset-position-ids] [--reset-attention-mask]
+                         [--eod-mask-loss]
+                         [--train-data-exact-num-epochs TRAIN_DATA_EXACT_NUM_EPOCHS]
+                         [--return-data-index]
+                         [--data-efficiency-curriculum-learning]
+                         [--train-idx-path TRAIN_IDX_PATH]
+                         [--train-desc-path TRAIN_DESC_PATH]
+                         [--train-doc-idx-path TRAIN_DOC_IDX_PATH]
+                         [--train-sample-idx-path TRAIN_SAMPLE_IDX_PATH]
+                         [--train-shuffle-idx-path TRAIN_SHUFFLE_IDX_PATH]
+                         [--repeated-dataloader] [--adlr-autoresume]
+                         [--adlr-autoresume-interval ADLR_AUTORESUME_INTERVAL]
+                         [--ict-head-size ICT_HEAD_SIZE]
+                         [--biencoder-projection-dim BIENCODER_PROJECTION_DIM]
+                         [--biencoder-shared-query-context-model]
+                         [--ict-load ICT_LOAD] [--bert-load BERT_LOAD]
+                         [--titles-data-path TITLES_DATA_PATH]
+                         [--query-in-block-prob QUERY_IN_BLOCK_PROB]
+                         [--use-one-sent-docs]
+                         [--evidence-data-path EVIDENCE_DATA_PATH]
+                         [--retriever-report-topk-accuracies RETRIEVER_REPORT_TOPK_ACCURACIES [RETRIEVER_REPORT_TOPK_ACCURACIES ...]]
+                         [--retriever-score-scaling]
+                         [--block-data-path BLOCK_DATA_PATH]
+                         [--embedding-path EMBEDDING_PATH]
+                         [--indexer-batch-size INDEXER_BATCH_SIZE]
+                         [--indexer-log-interval INDEXER_LOG_INTERVAL]
+                         [--num-classes NUM_CLASSES] [--img-h IMG_H]
+                         [--img-w IMG_W] [--num-channels NUM_CHANNELS]
+                         [--patch-dim PATCH_DIM]
+                         [--classes-fraction CLASSES_FRACTION]
+                         [--data-per-class-fraction DATA_PER_CLASS_FRACTION]
+                         [--no-data-sharding] [--head-lr-mult HEAD_LR_MULT]
+                         [--vision-pretraining]
+                         [--vision-pretraining-type {classify,inpaint,dino}]
+                         [--vision-backbone-type {vit,mit,swin}]
+                         [--swin-backbone-type {tiny,base,h3}]
+                         [--mask-type {random,row}]
+                         [--mask-factor MASK_FACTOR]
+                         [--iter-per-epoch ITER_PER_EPOCH]
+                         [--dino-local-img-size DINO_LOCAL_IMG_SIZE]
+                         [--dino-local-crops-number DINO_LOCAL_CROPS_NUMBER]
+                         [--dino-head-hidden-size DINO_HEAD_HIDDEN_SIZE]
+                         [--dino-bottleneck-size DINO_BOTTLENECK_SIZE]
+                         [--dino-freeze-last-layer DINO_FREEZE_LAST_LAYER]
+                         [--dino-norm-last-layer]
+                         [--dino-warmup-teacher-temp DINO_WARMUP_TEACHER_TEMP]
+                         [--dino-teacher-temp DINO_TEACHER_TEMP]
+                         [--dino-warmup-teacher-temp-epochs DINO_WARMUP_TEACHER_TEMP_EPOCHS]
+                         [--log-params-norm] [--log-num-zeros-in-grad]
+                         [--timing-log-level {0,1,2}]
+                         [--no-barrier-with-level-1-timing]
+                         [--timing-log-option {max,minmax,all}]
+                         [--tensorboard-log-interval TENSORBOARD_LOG_INTERVAL]
+                         [--tensorboard-queue-size TENSORBOARD_QUEUE_SIZE]
+                         [--log-timers-to-tensorboard]
+                         [--log-batch-size-to-tensorboard]
+                         [--no-log-learnig-rate-to-tensorboard]
+                         [--no-log-loss-scale-to-tensorboard]
+                         [--log-validation-ppl-to-tensorboard]
+                         [--log-optimizer-states-to-tensorboard]
+                         [--log-memory-to-tensorboard]
+                         [--log-world-size-to-tensorboard]
+                         [--wandb-project WANDB_PROJECT]
+                         [--wandb-exp-name WANDB_EXP_NAME]
+                         [--wandb-save-dir WANDB_SAVE_DIR]
+                         [--zero-stage ZERO_STAGE] [--zero-reduce-scatter]
+                         [--zero-contigious-gradients]
+                         [--zero-reduce-bucket-size ZERO_REDUCE_BUCKET_SIZE]
+                         [--zero-allgather-bucket-size ZERO_ALLGATHER_BUCKET_SIZE]
+                         [--remote-device {none,cpu,nvme}] [--use-pin-memory]
+                         [--scattered-embeddings] [--split-transformers]
+                         [--memory-centric-tiled-linear]
+                         [--tile-factor TILE_FACTOR]
+                         [--deepspeed-activation-checkpointing]
+                         [--partition-activations]
+                         [--contigious-checkpointing] [--checkpoint-in-cpu]
+                         [--synchronize-each-layer] [--profile-backward]
+                         [--num-layers-teacher NUM_LAYERS_TEACHER]
+                         [--num-experts-teacher NUM_EXPERTS_TEACHER [NUM_EXPERTS_TEACHER ...]]
+                         [--hidden-size-teacher HIDDEN_SIZE_TEACHER]
+                         [--num-attention-heads-teacher NUM_ATTENTION_HEADS_TEACHER]
+                         [--mos] [--kd] [--kd-alpha-ce KD_ALPHA_CE]
+                         [--kd-beta-ce KD_BETA_CE] [--kd-temp KD_TEMP]
+                         [--reset-iteration] [--load-teacher LOAD_TEACHER]
+                         [--inference-batch-times-seqlen-threshold INFERENCE_BATCH_TIMES_SEQLEN_THRESHOLD]
+                         [--max-tokens-to-oom MAX_TOKENS_TO_OOM]
+                         [--output-bert-embeddings]
+                         [--bert-embedder-type {megatron,huggingface}]
+                         [--fp8-e4m3] [--fp8-hybrid] [--no-fp8-wgrad]
+                         [--fp8-margin FP8_MARGIN]
+                         [--fp8-interval FP8_INTERVAL]
+                         [--transformer-impl {local,transformer_engine}]
+                         [--fp8-amax-history-len FP8_AMAX_HISTORY_LEN]
+                         [--fp8-amax-compute-algo {most_recent,max}]
+                         [--retro-workdir RETRO_WORKDIR]
+                         [--retro-add-retriever]
+                         [--retro-cyclic-train-iters RETRO_CYCLIC_TRAIN_ITERS]
+                         [--retro-encoder-layers RETRO_ENCODER_LAYERS]
+                         [--retro-encoder-hidden-dropout RETRO_ENCODER_HIDDEN_DROPOUT]
+                         [--retro-encoder-attention-dropout RETRO_ENCODER_ATTENTION_DROPOUT]
+                         [--retro-num-neighbors RETRO_NUM_NEIGHBORS]
+                         [--retro-num-retrieved-chunks RETRO_NUM_RETRIEVED_CHUNKS]
+                         [--retro-return-doc-ids] [--profile {pt,pt-full}]
+                         [--profile_steps PROFILE_STEPS]
+                         [--profile-ranks PROFILE_RANKS [PROFILE_RANKS ...]]
+                         [--deepspeed] [--deepspeed_config DEEPSPEED_CONFIG]
+                         [--deepscale] [--deepscale_config DEEPSCALE_CONFIG]
+finetune_llama.py: error: argument --num-layers: expected one argument
+E0702 12:49:20.911000 89014 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 89022) of binary: /work/gg17/a97006/env/llm-pyenv-3/250/bin/python
+Traceback (most recent call last):
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/finetune_llama.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-02_12:49:20
+  host      : mg0051
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 89022)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[23080,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py:147: SyntaxWarning: invalid escape sequence '\d'
+  self.decoder_pat = re.compile("(\d+)\.(.+)")
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+Traceback (most recent call last):
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py", line 561, in <module>
+    initialize_megatron(extra_args_provider=add_extra_args)
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/initialize.py", line 89, in initialize_megatron
+    finish_mpu_init()
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/initialize.py", line 69, in finish_mpu_init
+    _initialize_distributed()
+  File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/initialize.py", line 236, in _initialize_distributed
+    torch.distributed.init_process_group(
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/c10d_logger.py", line 81, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/c10d_logger.py", line 95, in wrapper
+    func_return = func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/distributed_c10d.py", line 1714, in init_process_group
+    store, rank, world_size = next(rendezvous_iterator)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/rendezvous.py", line 270, in _env_rendezvous_handler
+    master_addr = _get_env_or_raise("MASTER_ADDR")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/rendezvous.py", line 248, in _get_env_or_raise
+    raise _env_error(env_var)
+ValueError: Error initializing torch.distributed using env:// rendezvous: environment variable MASTER_ADDR expected, but not set
+[W702 12:54:22.871854752 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0049]:29500 (errno: 97 - Address family not supported by protocol).
+[W702 12:54:22.982780886 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0049]:41733 (errno: 97 - Address family not supported by protocol).
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+usage: finetune_llama.py [-h] [--num-layers NUM_LAYERS]
+                         [--encoder-num-layers ENCODER_NUM_LAYERS]
+                         [--decoder-num-layers DECODER_NUM_LAYERS]
+                         [--num-experts NUM_EXPERTS [NUM_EXPERTS ...]]
+                         [--mlp-type MLP_TYPE] [--topk TOPK]
+                         [--expert-interval EXPERT_INTERVAL]
+                         [--hidden-size HIDDEN_SIZE]
+                         [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                         [--num-attention-heads NUM_ATTENTION_HEADS]
+                         [--num-key-value-heads NUM_KEY_VALUE_HEADS]
+                         [--kv-channels KV_CHANNELS]
+                         [--max-position-embeddings MAX_POSITION_EMBEDDINGS]
+                         [--use-rotary-position-embeddings]
+                         [--rotary-position-embeddings-theta ROPE_THETA]
+                         [--rotary-percent ROTARY_PERCENT]
+                         [--no-position-embedding]
+                         [--make-vocab-size-divisible-by MAKE_VOCAB_SIZE_DIVISIBLE_BY]
+                         [--normalization {layernorm,rmsnorm}]
+                         [--layernorm-embedding]
+                         [--layernorm-epsilon LAYERNORM_EPSILON]
+                         [--apply-layernorm-1p] [--disable-mem-efficient-ln]
+                         [--apply-residual-connection-post-layernorm]
+                         [--openai-gelu] [--squared-relu] [--swiglu] [--geglu]
+                         [--onnx-safe ONNX_SAFE] [--bert-no-binary-head]
+                         [--num-experts-switch NUM_EXPERTS_SWITCH]
+                         [--untie-embeddings-and-output-weights]
+                         [--embedding-weights-in-fp32]
+                         [--kill-switch-file KILL_SWITCH_FILE]
+                         [--use-switch-attention]
+                         [--use-switch-attention-rope]
+                         [--global-rope-theta GLOBAL_ROPE_THETA]
+                         [--local-rope-theta LOCAL_ROPE_THETA]
+                         [--global-attn-every-n-layers GLOBAL_ATTN_EVERY_N_LAYERS]
+                         [--local-window-size LOCAL_WINDOW_SIZE]
+                         [--attention-dropout ATTENTION_DROPOUT]
+                         [--hidden-dropout HIDDEN_DROPOUT]
+                         [--weight-decay WEIGHT_DECAY]
+                         [--start-weight-decay START_WEIGHT_DECAY]
+                         [--end-weight-decay END_WEIGHT_DECAY]
+                         [--weight-decay-incr-style {constant,linear,cosine}]
+                         [--clip-grad CLIP_GRAD] [--adam-beta1 ADAM_BETA1]
+                         [--adam-beta2 ADAM_BETA2] [--adam-eps ADAM_EPS]
+                         [--sgd-momentum SGD_MOMENTUM]
+                         [--micro-batch-size MICRO_BATCH_SIZE]
+                         [--batch-size BATCH_SIZE]
+                         [--global-batch-size GLOBAL_BATCH_SIZE]
+                         [--rampup-batch-size [RAMPUP_BATCH_SIZE ...]]
+                         [--recompute-activations]
+                         [--recompute-granularity {full,selective}]
+                         [--distribute-saved-activations]
+                         [--recompute-method {uniform,block}]
+                         [--recompute-num-layers RECOMPUTE_NUM_LAYERS]
+                         [--enable-zbh1-pipeline]
+                         [--enable-zbh1-exact-semantics]
+                         [--checkpoint-activations]
+                         [--distribute-checkpointed-activations]
+                         [--checkpoint-num-layers CHECKPOINT_NUM_LAYERS]
+                         [--train-iters TRAIN_ITERS]
+                         [--train-samples TRAIN_SAMPLES]
+                         [--train-tokens TRAIN_TOKENS] [--random-ltd]
+                         [--log-interval LOG_INTERVAL]
+                         [--exit-interval EXIT_INTERVAL]
+                         [--exit-duration-in-mins EXIT_DURATION_IN_MINS]
+                         [--exit-signal-handler]
+                         [--tensorboard-dir TENSORBOARD_DIR]
+                         [--no-masked-softmax-fusion] [--no-bias-gelu-fusion]
+                         [--no-bias-dropout-fusion]
+                         [--disable-moe-token-dropping]
+                         [--moe-train-capacity-factor MOE_TRAIN_CAPACITY_FACTOR]
+                         [--moe-eval-capacity-factor MOE_EVAL_CAPACITY_FACTOR]
+                         [--moe-min-capacity MOE_MIN_CAPACITY]
+                         [--moe-loss-coeff MOE_LOSS_COEFF]
+                         [--create-moe-param-group]
+                         [--disable-moe-top2-2nd-expert-sampling]
+                         [--use-flash-attn] [--use-flash-attn-v2]
+                         [--use-flash-attn-triton] [--use-flash-attn-builder]
+                         [--disable-bias-linear] [--optimizer {adam,sgd}]
+                         [--dataloader-type {single,cyclic}] [--ds-inference]
+                         [--cpu-optimizer] [--cpu_torch_adam]
+                         [--ds_fused_adam] [--no-pipeline-parallel]
+                         [--use-tutel] [--inference]
+                         [--no-async-tensor-model-parallel-allreduce]
+                         [--no-persist-layer-norm] [--sequence-parallel]
+                         [--ds-sequence-parallel-size DS_SEQUENCE_PARALLEL_SIZE]
+                         [--force-ds-sequence-parallel]
+                         [--ds-sequence-parallel-fpdt]
+                         [--ds-sequence-parallel-fpdt-chunk-size DS_SEQUENCE_PARALLEL_FPDT_CHUNK_SIZE]
+                         [--ds-sequence-parallel-fpdt-offloading]
+                         [--no-gradient-accumulation-fusion]
+                         [--use-dataset-only USE_DATASET_ONLY] [--seed SEED]
+                         [--data-parallel-random-init]
+                         [--init-method-std INIT_METHOD_STD]
+                         [--init-method-xavier-uniform] [--lr LR]
+                         [--lr-decay-style {constant,linear,cosine,inverse-square-root}]
+                         [--lr-decay-iters LR_DECAY_ITERS]
+                         [--lr-decay-samples LR_DECAY_SAMPLES]
+                         [--lr-decay-tokens LR_DECAY_TOKENS]
+                         [--lr-warmup-fraction LR_WARMUP_FRACTION]
+                         [--lr-warmup-iters LR_WARMUP_ITERS]
+                         [--lr-warmup-samples LR_WARMUP_SAMPLES]
+                         [--lr-warmup-tokens LR_WARMUP_TOKENS]
+                         [--warmup WARMUP] [--min-lr MIN_LR]
+                         [--override-opt_param-scheduler]
+                         [--use-checkpoint-opt_param-scheduler] [--save SAVE]
+                         [--save-interval SAVE_INTERVAL] [--no-save-optim]
+                         [--no-save-rng] [--load LOAD] [--load-tag LOAD_TAG]
+                         [--no-load-optim] [--no-load-rng]
+                         [--no-load-lr-state] [--finetune]
+                         [--no-initialization] [--use-checkpoint-args]
+                         [--exit-on-missing-checkpoint]
+                         [--universal-checkpoint] [--fp16] [--bf16]
+                         [--loss-scale LOSS_SCALE]
+                         [--initial-loss-scale INITIAL_LOSS_SCALE]
+                         [--min-loss-scale MIN_LOSS_SCALE]
+                         [--loss-scale-window LOSS_SCALE_WINDOW]
+                         [--hysteresis HYSTERESIS]
+                         [--fp32-residual-connection]
+                         [--no-query-key-layer-scaling]
+                         [--attention-softmax-in-fp32]
+                         [--accumulate-allreduce-grads-in-fp32]
+                         [--fp16-lm-cross-entropy]
+                         [--tensor-model-parallel-size TENSOR_MODEL_PARALLEL_SIZE]
+                         [--enable-expert-tensor-parallelism]
+                         [--pipeline-model-parallel-size PIPELINE_MODEL_PARALLEL_SIZE]
+                         [--pipeline-model-parallel-split-rank PIPELINE_MODEL_PARALLEL_SPLIT_RANK]
+                         [--moe-expert-parallel-size MOE_EXPERT_PARALLEL_SIZE]
+                         [--model-parallel-size MODEL_PARALLEL_SIZE]
+                         [--num-layers-per-virtual-pipeline-stage NUM_LAYERS_PER_VIRTUAL_PIPELINE_STAGE]
+                         [--overlap-p2p-communication]
+                         [--distributed-backend {nccl,gloo,ccl,hccl}]
+                         [--distributed-timeout-minutes DISTRIBUTED_TIMEOUT_MINUTES]
+                         [--DDP-impl {local,torch,FSDP}]
+                         [--no-contiguous-buffers-in-local-ddp]
+                         [--no-scatter-gather-tensors-in-pipeline]
+                         [--use-ring-exchange-p2p] [--local-rank LOCAL_RANK]
+                         [--lazy-mpu-init LAZY_MPU_INIT]
+                         [--use-cpu-initialization]
+                         [--empty-unused-memory-level {0,1,2}]
+                         [--standalone-embedding-stage]
+                         [--use-distributed-optimizer]
+                         [--eval-iters EVAL_ITERS]
+                         [--eval-interval EVAL_INTERVAL] [--skip-train]
+                         [--aml-data-download-path AML_DATA_DOWNLOAD_PATH]
+                         [--data-path [DATA_PATH ...]] [--split SPLIT]
+                         [--train-data-path [TRAIN_DATA_PATH ...]]
+                         [--valid-data-path [VALID_DATA_PATH ...]]
+                         [--test-data-path [TEST_DATA_PATH ...]]
+                         [--data-cache-path DATA_CACHE_PATH]
+                         [--vocab-size VOCAB_SIZE] [--vocab-file VOCAB_FILE]
+                         [--merge-file MERGE_FILE]
+                         [--vocab-extra-ids VOCAB_EXTRA_IDS]
+                         [--seq-length SEQ_LENGTH]
+                         [--encoder-seq-length ENCODER_SEQ_LENGTH]
+                         [--decoder-seq-length DECODER_SEQ_LENGTH]
+                         [--retriever-seq-length RETRIEVER_SEQ_LENGTH]
+                         [--sample-rate SAMPLE_RATE] [--mask-prob MASK_PROB]
+                         [--short-seq-prob SHORT_SEQ_PROB] [--mmap-warmup]
+                         [--num-workers NUM_WORKERS]
+                         [--tokenizer-type {BertWordPieceLowerCase,BertWordPieceCase,GPT2BPETokenizer,SentencePieceTokenizer,GPTSentencePieceTokenizer,HFTokenizer,NullTokenizer}]
+                         [--tokenizer-model TOKENIZER_MODEL]
+                         [--trust-remote-code] [--data-impl {mmap,infer}]
+                         [--reset-position-ids] [--reset-attention-mask]
+                         [--eod-mask-loss]
+                         [--train-data-exact-num-epochs TRAIN_DATA_EXACT_NUM_EPOCHS]
+                         [--return-data-index]
+                         [--data-efficiency-curriculum-learning]
+                         [--train-idx-path TRAIN_IDX_PATH]
+                         [--train-desc-path TRAIN_DESC_PATH]
+                         [--train-doc-idx-path TRAIN_DOC_IDX_PATH]
+                         [--train-sample-idx-path TRAIN_SAMPLE_IDX_PATH]
+                         [--train-shuffle-idx-path TRAIN_SHUFFLE_IDX_PATH]
+                         [--repeated-dataloader] [--adlr-autoresume]
+                         [--adlr-autoresume-interval ADLR_AUTORESUME_INTERVAL]
+                         [--ict-head-size ICT_HEAD_SIZE]
+                         [--biencoder-projection-dim BIENCODER_PROJECTION_DIM]
+                         [--biencoder-shared-query-context-model]
+                         [--ict-load ICT_LOAD] [--bert-load BERT_LOAD]
+                         [--titles-data-path TITLES_DATA_PATH]
+                         [--query-in-block-prob QUERY_IN_BLOCK_PROB]
+                         [--use-one-sent-docs]
+                         [--evidence-data-path EVIDENCE_DATA_PATH]
+                         [--retriever-report-topk-accuracies RETRIEVER_REPORT_TOPK_ACCURACIES [RETRIEVER_REPORT_TOPK_ACCURACIES ...]]
+                         [--retriever-score-scaling]
+                         [--block-data-path BLOCK_DATA_PATH]
+                         [--embedding-path EMBEDDING_PATH]
+                         [--indexer-batch-size INDEXER_BATCH_SIZE]
+                         [--indexer-log-interval INDEXER_LOG_INTERVAL]
+                         [--num-classes NUM_CLASSES] [--img-h IMG_H]
+                         [--img-w IMG_W] [--num-channels NUM_CHANNELS]
+                         [--patch-dim PATCH_DIM]
+                         [--classes-fraction CLASSES_FRACTION]
+                         [--data-per-class-fraction DATA_PER_CLASS_FRACTION]
+                         [--no-data-sharding] [--head-lr-mult HEAD_LR_MULT]
+                         [--vision-pretraining]
+                         [--vision-pretraining-type {classify,inpaint,dino}]
+                         [--vision-backbone-type {vit,mit,swin}]
+                         [--swin-backbone-type {tiny,base,h3}]
+                         [--mask-type {random,row}]
+                         [--mask-factor MASK_FACTOR]
+                         [--iter-per-epoch ITER_PER_EPOCH]
+                         [--dino-local-img-size DINO_LOCAL_IMG_SIZE]
+                         [--dino-local-crops-number DINO_LOCAL_CROPS_NUMBER]
+                         [--dino-head-hidden-size DINO_HEAD_HIDDEN_SIZE]
+                         [--dino-bottleneck-size DINO_BOTTLENECK_SIZE]
+                         [--dino-freeze-last-layer DINO_FREEZE_LAST_LAYER]
+                         [--dino-norm-last-layer]
+                         [--dino-warmup-teacher-temp DINO_WARMUP_TEACHER_TEMP]
+                         [--dino-teacher-temp DINO_TEACHER_TEMP]
+                         [--dino-warmup-teacher-temp-epochs DINO_WARMUP_TEACHER_TEMP_EPOCHS]
+                         [--log-params-norm] [--log-num-zeros-in-grad]
+                         [--timing-log-level {0,1,2}]
+                         [--no-barrier-with-level-1-timing]
+                         [--timing-log-option {max,minmax,all}]
+                         [--tensorboard-log-interval TENSORBOARD_LOG_INTERVAL]
+                         [--tensorboard-queue-size TENSORBOARD_QUEUE_SIZE]
+                         [--log-timers-to-tensorboard]
+                         [--log-batch-size-to-tensorboard]
+                         [--no-log-learnig-rate-to-tensorboard]
+                         [--no-log-loss-scale-to-tensorboard]
+                         [--log-validation-ppl-to-tensorboard]
+                         [--log-optimizer-states-to-tensorboard]
+                         [--log-memory-to-tensorboard]
+                         [--log-world-size-to-tensorboard]
+                         [--wandb-project WANDB_PROJECT]
+                         [--wandb-exp-name WANDB_EXP_NAME]
+                         [--wandb-save-dir WANDB_SAVE_DIR]
+                         [--zero-stage ZERO_STAGE] [--zero-reduce-scatter]
+                         [--zero-contigious-gradients]
+                         [--zero-reduce-bucket-size ZERO_REDUCE_BUCKET_SIZE]
+                         [--zero-allgather-bucket-size ZERO_ALLGATHER_BUCKET_SIZE]
+                         [--remote-device {none,cpu,nvme}] [--use-pin-memory]
+                         [--scattered-embeddings] [--split-transformers]
+                         [--memory-centric-tiled-linear]
+                         [--tile-factor TILE_FACTOR]
+                         [--deepspeed-activation-checkpointing]
+                         [--partition-activations]
+                         [--contigious-checkpointing] [--checkpoint-in-cpu]
+                         [--synchronize-each-layer] [--profile-backward]
+                         [--num-layers-teacher NUM_LAYERS_TEACHER]
+                         [--num-experts-teacher NUM_EXPERTS_TEACHER [NUM_EXPERTS_TEACHER ...]]
+                         [--hidden-size-teacher HIDDEN_SIZE_TEACHER]
+                         [--num-attention-heads-teacher NUM_ATTENTION_HEADS_TEACHER]
+                         [--mos] [--kd] [--kd-alpha-ce KD_ALPHA_CE]
+                         [--kd-beta-ce KD_BETA_CE] [--kd-temp KD_TEMP]
+                         [--reset-iteration] [--load-teacher LOAD_TEACHER]
+                         [--inference-batch-times-seqlen-threshold INFERENCE_BATCH_TIMES_SEQLEN_THRESHOLD]
+                         [--max-tokens-to-oom MAX_TOKENS_TO_OOM]
+                         [--output-bert-embeddings]
+                         [--bert-embedder-type {megatron,huggingface}]
+                         [--fp8-e4m3] [--fp8-hybrid] [--no-fp8-wgrad]
+                         [--fp8-margin FP8_MARGIN]
+                         [--fp8-interval FP8_INTERVAL]
+                         [--transformer-impl {local,transformer_engine}]
+                         [--fp8-amax-history-len FP8_AMAX_HISTORY_LEN]
+                         [--fp8-amax-compute-algo {most_recent,max}]
+                         [--retro-workdir RETRO_WORKDIR]
+                         [--retro-add-retriever]
+                         [--retro-cyclic-train-iters RETRO_CYCLIC_TRAIN_ITERS]
+                         [--retro-encoder-layers RETRO_ENCODER_LAYERS]
+                         [--retro-encoder-hidden-dropout RETRO_ENCODER_HIDDEN_DROPOUT]
+                         [--retro-encoder-attention-dropout RETRO_ENCODER_ATTENTION_DROPOUT]
+                         [--retro-num-neighbors RETRO_NUM_NEIGHBORS]
+                         [--retro-num-retrieved-chunks RETRO_NUM_RETRIEVED_CHUNKS]
+                         [--retro-return-doc-ids] [--profile {pt,pt-full}]
+                         [--profile_steps PROFILE_STEPS]
+                         [--profile-ranks PROFILE_RANKS [PROFILE_RANKS ...]]
+                         [--deepspeed] [--deepspeed_config DEEPSPEED_CONFIG]
+                         [--deepscale] [--deepscale_config DEEPSCALE_CONFIG]
+finetune_llama.py: error: argument --num-layers: expected one argument
+E0702 12:54:29.561000 380101 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 380109) of binary: /work/gg17/a97006/env/llm-pyenv-3/250/bin/python
+Traceback (most recent call last):
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/finetune_llama.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-02_12:54:29
+  host      : mg0049
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 380109)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[34743,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py:147: SyntaxWarning: invalid escape sequence '\d'
+  self.decoder_pat = re.compile("(\d+)\.(.+)")
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+[W702 12:56:56.844373902 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0049]:29500 (errno: 97 - Address family not supported by protocol).
+Detected CUDA files, patching ldflags
+Emitting ninja build file /work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/fused_kernels/build/build.ninja...
+/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Building extension module scaled_upper_triang_masked_softmax_cuda...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Loading extension module scaled_upper_triang_masked_softmax_cuda...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/fused_kernels/build/build.ninja...
+/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Building extension module scaled_masked_softmax_cuda...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Loading extension module scaled_masked_softmax_cuda...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/fused_kernels/build/build.ninja...
+/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Building extension module scaled_softmax_cuda...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Loading extension module scaled_softmax_cuda...
+[rank0]:[W702 12:56:57.360595403 ProcessGroupNCCL.cpp:4561] [PG ID 0 PG GUID 0 Rank 0]  using GPU 0 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect. Specify device_ids in barrier() to force use of a particular device, or call init_process_group() with a device_id.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py", line 562, in <module>
+[rank0]:     convert_ckpt()
+[rank0]:   File "/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/tools/hf2megads_weight_converter.py", line 485, in convert_ckpt
+[rank0]:     with deepspeed.zero.Init(
+[rank0]:          ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/deepspeed/runtime/zero/partition_parameters.py", line 997, in __init__
+[rank0]:     self.local_device = torch.device(get_accelerator().device_name(os.environ["LOCAL_RANK"]))
+[rank0]:                                                                    ~~~~~~~~~~^^^^^^^^^^^^^^
+[rank0]:   File "<frozen os>", line 714, in __getitem__
+[rank0]: KeyError: 'LOCAL_RANK'
+[rank0]:[W702 12:56:58.095560504 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[W702 12:57:01.864353371 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0049]:29500 (errno: 97 - Address family not supported by protocol).
+[W702 12:57:01.161038553 socket.cpp:759] [c10d] The client socket cannot be initialized to connect to [mg0049]:34291 (errno: 97 - Address family not supported by protocol).
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:249: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/megatron/core/tensor_parallel/layers.py:287: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+usage: finetune_llama.py [-h] [--num-layers NUM_LAYERS]
+                         [--encoder-num-layers ENCODER_NUM_LAYERS]
+                         [--decoder-num-layers DECODER_NUM_LAYERS]
+                         [--num-experts NUM_EXPERTS [NUM_EXPERTS ...]]
+                         [--mlp-type MLP_TYPE] [--topk TOPK]
+                         [--expert-interval EXPERT_INTERVAL]
+                         [--hidden-size HIDDEN_SIZE]
+                         [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                         [--num-attention-heads NUM_ATTENTION_HEADS]
+                         [--num-key-value-heads NUM_KEY_VALUE_HEADS]
+                         [--kv-channels KV_CHANNELS]
+                         [--max-position-embeddings MAX_POSITION_EMBEDDINGS]
+                         [--use-rotary-position-embeddings]
+                         [--rotary-position-embeddings-theta ROPE_THETA]
+                         [--rotary-percent ROTARY_PERCENT]
+                         [--no-position-embedding]
+                         [--make-vocab-size-divisible-by MAKE_VOCAB_SIZE_DIVISIBLE_BY]
+                         [--normalization {layernorm,rmsnorm}]
+                         [--layernorm-embedding]
+                         [--layernorm-epsilon LAYERNORM_EPSILON]
+                         [--apply-layernorm-1p] [--disable-mem-efficient-ln]
+                         [--apply-residual-connection-post-layernorm]
+                         [--openai-gelu] [--squared-relu] [--swiglu] [--geglu]
+                         [--onnx-safe ONNX_SAFE] [--bert-no-binary-head]
+                         [--num-experts-switch NUM_EXPERTS_SWITCH]
+                         [--untie-embeddings-and-output-weights]
+                         [--embedding-weights-in-fp32]
+                         [--kill-switch-file KILL_SWITCH_FILE]
+                         [--use-switch-attention]
+                         [--use-switch-attention-rope]
+                         [--global-rope-theta GLOBAL_ROPE_THETA]
+                         [--local-rope-theta LOCAL_ROPE_THETA]
+                         [--global-attn-every-n-layers GLOBAL_ATTN_EVERY_N_LAYERS]
+                         [--local-window-size LOCAL_WINDOW_SIZE]
+                         [--attention-dropout ATTENTION_DROPOUT]
+                         [--hidden-dropout HIDDEN_DROPOUT]
+                         [--weight-decay WEIGHT_DECAY]
+                         [--start-weight-decay START_WEIGHT_DECAY]
+                         [--end-weight-decay END_WEIGHT_DECAY]
+                         [--weight-decay-incr-style {constant,linear,cosine}]
+                         [--clip-grad CLIP_GRAD] [--adam-beta1 ADAM_BETA1]
+                         [--adam-beta2 ADAM_BETA2] [--adam-eps ADAM_EPS]
+                         [--sgd-momentum SGD_MOMENTUM]
+                         [--micro-batch-size MICRO_BATCH_SIZE]
+                         [--batch-size BATCH_SIZE]
+                         [--global-batch-size GLOBAL_BATCH_SIZE]
+                         [--rampup-batch-size [RAMPUP_BATCH_SIZE ...]]
+                         [--recompute-activations]
+                         [--recompute-granularity {full,selective}]
+                         [--distribute-saved-activations]
+                         [--recompute-method {uniform,block}]
+                         [--recompute-num-layers RECOMPUTE_NUM_LAYERS]
+                         [--enable-zbh1-pipeline]
+                         [--enable-zbh1-exact-semantics]
+                         [--checkpoint-activations]
+                         [--distribute-checkpointed-activations]
+                         [--checkpoint-num-layers CHECKPOINT_NUM_LAYERS]
+                         [--train-iters TRAIN_ITERS]
+                         [--train-samples TRAIN_SAMPLES]
+                         [--train-tokens TRAIN_TOKENS] [--random-ltd]
+                         [--log-interval LOG_INTERVAL]
+                         [--exit-interval EXIT_INTERVAL]
+                         [--exit-duration-in-mins EXIT_DURATION_IN_MINS]
+                         [--exit-signal-handler]
+                         [--tensorboard-dir TENSORBOARD_DIR]
+                         [--no-masked-softmax-fusion] [--no-bias-gelu-fusion]
+                         [--no-bias-dropout-fusion]
+                         [--disable-moe-token-dropping]
+                         [--moe-train-capacity-factor MOE_TRAIN_CAPACITY_FACTOR]
+                         [--moe-eval-capacity-factor MOE_EVAL_CAPACITY_FACTOR]
+                         [--moe-min-capacity MOE_MIN_CAPACITY]
+                         [--moe-loss-coeff MOE_LOSS_COEFF]
+                         [--create-moe-param-group]
+                         [--disable-moe-top2-2nd-expert-sampling]
+                         [--use-flash-attn] [--use-flash-attn-v2]
+                         [--use-flash-attn-triton] [--use-flash-attn-builder]
+                         [--disable-bias-linear] [--optimizer {adam,sgd}]
+                         [--dataloader-type {single,cyclic}] [--ds-inference]
+                         [--cpu-optimizer] [--cpu_torch_adam]
+                         [--ds_fused_adam] [--no-pipeline-parallel]
+                         [--use-tutel] [--inference]
+                         [--no-async-tensor-model-parallel-allreduce]
+                         [--no-persist-layer-norm] [--sequence-parallel]
+                         [--ds-sequence-parallel-size DS_SEQUENCE_PARALLEL_SIZE]
+                         [--force-ds-sequence-parallel]
+                         [--ds-sequence-parallel-fpdt]
+                         [--ds-sequence-parallel-fpdt-chunk-size DS_SEQUENCE_PARALLEL_FPDT_CHUNK_SIZE]
+                         [--ds-sequence-parallel-fpdt-offloading]
+                         [--no-gradient-accumulation-fusion]
+                         [--use-dataset-only USE_DATASET_ONLY] [--seed SEED]
+                         [--data-parallel-random-init]
+                         [--init-method-std INIT_METHOD_STD]
+                         [--init-method-xavier-uniform] [--lr LR]
+                         [--lr-decay-style {constant,linear,cosine,inverse-square-root}]
+                         [--lr-decay-iters LR_DECAY_ITERS]
+                         [--lr-decay-samples LR_DECAY_SAMPLES]
+                         [--lr-decay-tokens LR_DECAY_TOKENS]
+                         [--lr-warmup-fraction LR_WARMUP_FRACTION]
+                         [--lr-warmup-iters LR_WARMUP_ITERS]
+                         [--lr-warmup-samples LR_WARMUP_SAMPLES]
+                         [--lr-warmup-tokens LR_WARMUP_TOKENS]
+                         [--warmup WARMUP] [--min-lr MIN_LR]
+                         [--override-opt_param-scheduler]
+                         [--use-checkpoint-opt_param-scheduler] [--save SAVE]
+                         [--save-interval SAVE_INTERVAL] [--no-save-optim]
+                         [--no-save-rng] [--load LOAD] [--load-tag LOAD_TAG]
+                         [--no-load-optim] [--no-load-rng]
+                         [--no-load-lr-state] [--finetune]
+                         [--no-initialization] [--use-checkpoint-args]
+                         [--exit-on-missing-checkpoint]
+                         [--universal-checkpoint] [--fp16] [--bf16]
+                         [--loss-scale LOSS_SCALE]
+                         [--initial-loss-scale INITIAL_LOSS_SCALE]
+                         [--min-loss-scale MIN_LOSS_SCALE]
+                         [--loss-scale-window LOSS_SCALE_WINDOW]
+                         [--hysteresis HYSTERESIS]
+                         [--fp32-residual-connection]
+                         [--no-query-key-layer-scaling]
+                         [--attention-softmax-in-fp32]
+                         [--accumulate-allreduce-grads-in-fp32]
+                         [--fp16-lm-cross-entropy]
+                         [--tensor-model-parallel-size TENSOR_MODEL_PARALLEL_SIZE]
+                         [--enable-expert-tensor-parallelism]
+                         [--pipeline-model-parallel-size PIPELINE_MODEL_PARALLEL_SIZE]
+                         [--pipeline-model-parallel-split-rank PIPELINE_MODEL_PARALLEL_SPLIT_RANK]
+                         [--moe-expert-parallel-size MOE_EXPERT_PARALLEL_SIZE]
+                         [--model-parallel-size MODEL_PARALLEL_SIZE]
+                         [--num-layers-per-virtual-pipeline-stage NUM_LAYERS_PER_VIRTUAL_PIPELINE_STAGE]
+                         [--overlap-p2p-communication]
+                         [--distributed-backend {nccl,gloo,ccl,hccl}]
+                         [--distributed-timeout-minutes DISTRIBUTED_TIMEOUT_MINUTES]
+                         [--DDP-impl {local,torch,FSDP}]
+                         [--no-contiguous-buffers-in-local-ddp]
+                         [--no-scatter-gather-tensors-in-pipeline]
+                         [--use-ring-exchange-p2p] [--local-rank LOCAL_RANK]
+                         [--lazy-mpu-init LAZY_MPU_INIT]
+                         [--use-cpu-initialization]
+                         [--empty-unused-memory-level {0,1,2}]
+                         [--standalone-embedding-stage]
+                         [--use-distributed-optimizer]
+                         [--eval-iters EVAL_ITERS]
+                         [--eval-interval EVAL_INTERVAL] [--skip-train]
+                         [--aml-data-download-path AML_DATA_DOWNLOAD_PATH]
+                         [--data-path [DATA_PATH ...]] [--split SPLIT]
+                         [--train-data-path [TRAIN_DATA_PATH ...]]
+                         [--valid-data-path [VALID_DATA_PATH ...]]
+                         [--test-data-path [TEST_DATA_PATH ...]]
+                         [--data-cache-path DATA_CACHE_PATH]
+                         [--vocab-size VOCAB_SIZE] [--vocab-file VOCAB_FILE]
+                         [--merge-file MERGE_FILE]
+                         [--vocab-extra-ids VOCAB_EXTRA_IDS]
+                         [--seq-length SEQ_LENGTH]
+                         [--encoder-seq-length ENCODER_SEQ_LENGTH]
+                         [--decoder-seq-length DECODER_SEQ_LENGTH]
+                         [--retriever-seq-length RETRIEVER_SEQ_LENGTH]
+                         [--sample-rate SAMPLE_RATE] [--mask-prob MASK_PROB]
+                         [--short-seq-prob SHORT_SEQ_PROB] [--mmap-warmup]
+                         [--num-workers NUM_WORKERS]
+                         [--tokenizer-type {BertWordPieceLowerCase,BertWordPieceCase,GPT2BPETokenizer,SentencePieceTokenizer,GPTSentencePieceTokenizer,HFTokenizer,NullTokenizer}]
+                         [--tokenizer-model TOKENIZER_MODEL]
+                         [--trust-remote-code] [--data-impl {mmap,infer}]
+                         [--reset-position-ids] [--reset-attention-mask]
+                         [--eod-mask-loss]
+                         [--train-data-exact-num-epochs TRAIN_DATA_EXACT_NUM_EPOCHS]
+                         [--return-data-index]
+                         [--data-efficiency-curriculum-learning]
+                         [--train-idx-path TRAIN_IDX_PATH]
+                         [--train-desc-path TRAIN_DESC_PATH]
+                         [--train-doc-idx-path TRAIN_DOC_IDX_PATH]
+                         [--train-sample-idx-path TRAIN_SAMPLE_IDX_PATH]
+                         [--train-shuffle-idx-path TRAIN_SHUFFLE_IDX_PATH]
+                         [--repeated-dataloader] [--adlr-autoresume]
+                         [--adlr-autoresume-interval ADLR_AUTORESUME_INTERVAL]
+                         [--ict-head-size ICT_HEAD_SIZE]
+                         [--biencoder-projection-dim BIENCODER_PROJECTION_DIM]
+                         [--biencoder-shared-query-context-model]
+                         [--ict-load ICT_LOAD] [--bert-load BERT_LOAD]
+                         [--titles-data-path TITLES_DATA_PATH]
+                         [--query-in-block-prob QUERY_IN_BLOCK_PROB]
+                         [--use-one-sent-docs]
+                         [--evidence-data-path EVIDENCE_DATA_PATH]
+                         [--retriever-report-topk-accuracies RETRIEVER_REPORT_TOPK_ACCURACIES [RETRIEVER_REPORT_TOPK_ACCURACIES ...]]
+                         [--retriever-score-scaling]
+                         [--block-data-path BLOCK_DATA_PATH]
+                         [--embedding-path EMBEDDING_PATH]
+                         [--indexer-batch-size INDEXER_BATCH_SIZE]
+                         [--indexer-log-interval INDEXER_LOG_INTERVAL]
+                         [--num-classes NUM_CLASSES] [--img-h IMG_H]
+                         [--img-w IMG_W] [--num-channels NUM_CHANNELS]
+                         [--patch-dim PATCH_DIM]
+                         [--classes-fraction CLASSES_FRACTION]
+                         [--data-per-class-fraction DATA_PER_CLASS_FRACTION]
+                         [--no-data-sharding] [--head-lr-mult HEAD_LR_MULT]
+                         [--vision-pretraining]
+                         [--vision-pretraining-type {classify,inpaint,dino}]
+                         [--vision-backbone-type {vit,mit,swin}]
+                         [--swin-backbone-type {tiny,base,h3}]
+                         [--mask-type {random,row}]
+                         [--mask-factor MASK_FACTOR]
+                         [--iter-per-epoch ITER_PER_EPOCH]
+                         [--dino-local-img-size DINO_LOCAL_IMG_SIZE]
+                         [--dino-local-crops-number DINO_LOCAL_CROPS_NUMBER]
+                         [--dino-head-hidden-size DINO_HEAD_HIDDEN_SIZE]
+                         [--dino-bottleneck-size DINO_BOTTLENECK_SIZE]
+                         [--dino-freeze-last-layer DINO_FREEZE_LAST_LAYER]
+                         [--dino-norm-last-layer]
+                         [--dino-warmup-teacher-temp DINO_WARMUP_TEACHER_TEMP]
+                         [--dino-teacher-temp DINO_TEACHER_TEMP]
+                         [--dino-warmup-teacher-temp-epochs DINO_WARMUP_TEACHER_TEMP_EPOCHS]
+                         [--log-params-norm] [--log-num-zeros-in-grad]
+                         [--timing-log-level {0,1,2}]
+                         [--no-barrier-with-level-1-timing]
+                         [--timing-log-option {max,minmax,all}]
+                         [--tensorboard-log-interval TENSORBOARD_LOG_INTERVAL]
+                         [--tensorboard-queue-size TENSORBOARD_QUEUE_SIZE]
+                         [--log-timers-to-tensorboard]
+                         [--log-batch-size-to-tensorboard]
+                         [--no-log-learnig-rate-to-tensorboard]
+                         [--no-log-loss-scale-to-tensorboard]
+                         [--log-validation-ppl-to-tensorboard]
+                         [--log-optimizer-states-to-tensorboard]
+                         [--log-memory-to-tensorboard]
+                         [--log-world-size-to-tensorboard]
+                         [--wandb-project WANDB_PROJECT]
+                         [--wandb-exp-name WANDB_EXP_NAME]
+                         [--wandb-save-dir WANDB_SAVE_DIR]
+                         [--zero-stage ZERO_STAGE] [--zero-reduce-scatter]
+                         [--zero-contigious-gradients]
+                         [--zero-reduce-bucket-size ZERO_REDUCE_BUCKET_SIZE]
+                         [--zero-allgather-bucket-size ZERO_ALLGATHER_BUCKET_SIZE]
+                         [--remote-device {none,cpu,nvme}] [--use-pin-memory]
+                         [--scattered-embeddings] [--split-transformers]
+                         [--memory-centric-tiled-linear]
+                         [--tile-factor TILE_FACTOR]
+                         [--deepspeed-activation-checkpointing]
+                         [--partition-activations]
+                         [--contigious-checkpointing] [--checkpoint-in-cpu]
+                         [--synchronize-each-layer] [--profile-backward]
+                         [--num-layers-teacher NUM_LAYERS_TEACHER]
+                         [--num-experts-teacher NUM_EXPERTS_TEACHER [NUM_EXPERTS_TEACHER ...]]
+                         [--hidden-size-teacher HIDDEN_SIZE_TEACHER]
+                         [--num-attention-heads-teacher NUM_ATTENTION_HEADS_TEACHER]
+                         [--mos] [--kd] [--kd-alpha-ce KD_ALPHA_CE]
+                         [--kd-beta-ce KD_BETA_CE] [--kd-temp KD_TEMP]
+                         [--reset-iteration] [--load-teacher LOAD_TEACHER]
+                         [--inference-batch-times-seqlen-threshold INFERENCE_BATCH_TIMES_SEQLEN_THRESHOLD]
+                         [--max-tokens-to-oom MAX_TOKENS_TO_OOM]
+                         [--output-bert-embeddings]
+                         [--bert-embedder-type {megatron,huggingface}]
+                         [--fp8-e4m3] [--fp8-hybrid] [--no-fp8-wgrad]
+                         [--fp8-margin FP8_MARGIN]
+                         [--fp8-interval FP8_INTERVAL]
+                         [--transformer-impl {local,transformer_engine}]
+                         [--fp8-amax-history-len FP8_AMAX_HISTORY_LEN]
+                         [--fp8-amax-compute-algo {most_recent,max}]
+                         [--retro-workdir RETRO_WORKDIR]
+                         [--retro-add-retriever]
+                         [--retro-cyclic-train-iters RETRO_CYCLIC_TRAIN_ITERS]
+                         [--retro-encoder-layers RETRO_ENCODER_LAYERS]
+                         [--retro-encoder-hidden-dropout RETRO_ENCODER_HIDDEN_DROPOUT]
+                         [--retro-encoder-attention-dropout RETRO_ENCODER_ATTENTION_DROPOUT]
+                         [--retro-num-neighbors RETRO_NUM_NEIGHBORS]
+                         [--retro-num-retrieved-chunks RETRO_NUM_RETRIEVED_CHUNKS]
+                         [--retro-return-doc-ids] [--profile {pt,pt-full}]
+                         [--profile_steps PROFILE_STEPS]
+                         [--profile-ranks PROFILE_RANKS [PROFILE_RANKS ...]]
+                         [--deepspeed] [--deepspeed_config DEEPSPEED_CONFIG]
+                         [--deepscale] [--deepscale_config DEEPSCALE_CONFIG]
+finetune_llama.py: error: argument --num-layers: expected one argument
+E0702 12:57:08.745000 380908 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 380921) of binary: /work/gg17/a97006/env/llm-pyenv-3/250/bin/python
+Traceback (most recent call last):
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/gg17/a97006/env/llm-pyenv-3/250/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/finetune_llama.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-07-02_12:57:08
+  host      : mg0049
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 380921)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[34030,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------

@@ -285,7 +285,7 @@ def validate_args(args, defaults={}):
     # Checks.
     if not args.use_dataset_only:
         if args.ffn_hidden_size is None:
-            if args.swiglu:
+            if args.swiglu or args.geglu:  # add for modern bert
                 # reduce the dimnesion for MLP since projections happens on
                 # two linear layers. this keeps the number of paramters in
                 # the same ballpark as the counterpart with 4*h size
@@ -494,6 +494,10 @@ def core_transformer_config_from_args(args):
         kw_args['activation_func'] = F.silu
         kw_args['gated_linear_unit'] = True
         kw_args['bias_gelu_fusion'] = False
+    if args.geglu:
+        kw_args['activation_func'] = F.gelu
+        kw_args['gated_linear_unit'] = True
+        kw_args['bias_gelu_fusion'] = False
     if args.init_method_xavier_uniform:
         kw_args['init_method'] = torch.nn.init.xavier_uniform_
         kw_args['scaled_init_method'] = torch.nn.init.xavier_uniform_
@@ -572,7 +576,7 @@ def _add_retro_args(parser):
                        help='Number of layers to use for the retrieval '
                        'encoder.')
     group.add_argument('--retro-encoder-hidden-dropout',
-                       type=float, default=0.1, help='Hidden dropout for '
+                       type=float, default=0.0, help='Hidden dropout for '
                        'retrieval encoder.')
     group.add_argument('--retro-encoder-attention-dropout',
                        type=float, default=0.1, help='Attention dropout for '
@@ -649,6 +653,9 @@ def _add_network_size_args(parser):
                        help='Options for layer normalization type:'
                             '  layernorm'
                             '  rmsnorm')
+    group.add_argument('--layernorm-embedding', action='store_true',
+                       help='If set, use layernorm on the input embeddings. '
+                       'This is useful for training BERT-like models.')
     group.add_argument('--layernorm-epsilon', type=float, default=1e-5,
                        help='Layer norm epsilon.')
     group.add_argument('--apply-layernorm-1p', action='store_true',
@@ -669,6 +676,8 @@ def _add_network_size_args(parser):
                        help='Use squared relu activation instead of default gelu')
     group.add_argument('--swiglu', action='store_true',
                        help='Use gated linear units and SiLU activation instead of default gelu')
+    group.add_argument('--geglu', action='store_true',
+                       help='Use gated linear units and glu activation instead of default gelu')
     group.add_argument('--onnx-safe', type=bool, required=False,
                        help='Use workarounds for known problems with '
                        'Torch ONNX exporter')
@@ -767,7 +776,7 @@ def _add_regularization_args(parser):
 
     group.add_argument('--attention-dropout', type=float, default=0.1,
                        help='Post attention dropout probability.')
-    group.add_argument('--hidden-dropout', type=float, default=0.1,
+    group.add_argument('--hidden-dropout', type=float, default=0.0,
                        help='Dropout probability for hidden state transformer.')
     group.add_argument('--weight-decay', type=float, default=0.01,
                        help='Weight decay coefficient for L2 regularization.')
@@ -789,8 +798,26 @@ def _add_regularization_args(parser):
     group.add_argument('--adam-eps', type=float, default=1e-08,
                        help='Term added to the denominator to improve'
                        'numerical stability')
+    group.add_argument('--stable-adamw-decouple-lr', action='store_true',
+                       help='Use fully decoupled weight decay for StableAdamW. '
+                            'Requires max_lr to be set correctly.')
+    group.add_argument('--stable-adamw-kahan-sum', action='store_true',
+                       help='Enable Kahan summation for StableAdamW for better '
+                            'precision in low-precision training (fp16/bf16).')
     group.add_argument('--sgd-momentum', type=float, default=0.9,
                        help='Momentum factor for sgd')
+    parser.add_argument('--use-switch-attention', action='store_true',
+                        help='Use Switch Attention instead of standard attention.')
+    parser.add_argument('--use-switch-attention-rope', action='store_true',
+                        help='Use Switch Attention instead of standard attention.')
+    parser.add_argument('--global-rope-theta', type=float, default=10000.0,
+                        help='Theta for RoPE in global attention layers.')
+    parser.add_argument('--local-rope-theta', type=float, default=10000.0,
+                        help='Theta for RoPE in local sliding window attention layers.')
+    parser.add_argument('--global-attn-every-n-layers', type=int, default=3,
+                        help='Frequency of global attention layers.')
+    parser.add_argument('--local-window-size', type=int, default=128,
+                        help='Window size for local sliding attention.')
 
     return parser
 
@@ -937,8 +964,8 @@ def _add_training_args(parser):
     group.add_argument('--disable-bias-linear', action='store_false',
                        help='Disable bias in the linear layers',
                        dest='add_bias_linear')
-    group.add_argument('--optimizer', type=str, default='adam',
-                       choices=['adam', 'sgd'],
+    group.add_argument('--optimizer', type=str, default='stable_adamw',
+                       choices=['adam', 'sgd', 'stable_adamw'],
                        help='Optimizer function')
     group.add_argument('--dataloader-type', type=str, default=None,
                        choices=['single', 'cyclic'],
@@ -1007,7 +1034,8 @@ def _add_initialization_args(parser):
                        'distribution used for weight initialization.')
     group.add_argument('--init-method-xavier-uniform', action='store_true',
                        help='Enable Xavier uniform parameter initialization')
-
+    group.add_argument('--full-megatron-model-init', action='store_true',
+                        help='Used in modern bert to initialize the full model')
     return parser
 
 
@@ -1339,6 +1367,11 @@ def _add_data_args(parser):
                        help='Force to use certain index file.')
     group.add_argument('--repeated-dataloader', action='store_true',
                        help='Once all the data has been loaded, reuse the DataLoader.')
+    group.add_argument('--use-sliding-window', action='store_true',
+                    help='If set, uses a sliding window approach for creating samples. '
+                            'Should be used with --bert-no-binary-head.')
+    group.add_argument('--sliding-window-stride', type=int, default=512,
+                    help='Stride for the sliding window. Default is max_seq_length.')
     return parser
 
 

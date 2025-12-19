@@ -19,6 +19,12 @@ from megatron.training import pretrain
 from megatron.utils import average_losses_across_data_parallel_group
 from megatron.arguments import core_transformer_config_from_args
 
+try:
+    from flash_attn import flash_attn_func
+except ImportError:
+    print("Warning: flash-attn is not installed. It is required for HybridFlashAttention.")
+    flash_attn_func = None
+    
 
 def model_provider(pre_process=True, post_process=True):
     """Build the model."""
@@ -31,10 +37,7 @@ def model_provider(pre_process=True, post_process=True):
     model = ModernBertModel(
         config=config,
         num_tokentypes=num_tokentypes,
-        add_binary_head=args.bert_binary_head,
-        parallel_output=True,
-        pre_process=pre_process,
-        post_process=post_process)
+        parallel_output=True)
 
     return model
 
@@ -86,55 +89,42 @@ def data_post_process(data, data_sampler_state_dict):
             data['padding_mask'] = data['padding_mask'][:, :effective_seqlen].contiguous()
     return data
 
-def loss_func(loss_mask, sentence_order, output_tensor):
-    lm_loss_, sop_logits, _ = output_tensor
-
-    lm_loss_ = lm_loss_.float()
+# [修正] loss_func の実装を、loss_mask を使う形に書き換えます
+def loss_func(loss_mask, output_tensor):
+    # モデルが返すトークンごとのlossが output_tensor になります
+    lm_loss_per_token = output_tensor.float()
     loss_mask = loss_mask.float()
-    lm_loss = torch.sum(
-        lm_loss_.view(-1) * loss_mask.reshape(-1)) / loss_mask.sum()
+    
+    # loss_maskを使い、本当に学習したい部分のlossだけを合計します
+    loss = torch.sum(
+        lm_loss_per_token.view(-1) * loss_mask.view(-1)) / loss_mask.sum()
+        
+    averaged_loss = average_losses_across_data_parallel_group([loss])
 
-    if sop_logits is not None:
-        sop_loss = F.cross_entropy(sop_logits.view(-1, 2).float(),
-                                   sentence_order.view(-1),
-                                   ignore_index=-1)
-        sop_loss = sop_loss.float()
-        loss = lm_loss + sop_loss
-        averaged_losses = average_losses_across_data_parallel_group(
-            [lm_loss, sop_loss])
-        return loss, {'lm loss': averaged_losses[0],
-                      'sop loss': averaged_losses[1]}
-
-    else:
-        loss = lm_loss
-        averaged_losses = average_losses_across_data_parallel_group(
-            [lm_loss])
-        return loss, {'lm loss': averaged_losses[0]}
-
+    return loss, {'lm loss': averaged_loss[0]}
 
 def forward_step(data_iterator, model):
-    """Forward step."""
+    """Forward step for ModernBertModel."""
     args = get_args()
     timers = get_timers()
 
     # Get the batch.
     timers('batch-generator', log_level=2).start()
-    tokens, types, sentence_order, loss_mask, lm_labels, padding_mask = get_batch(
+    tokens, types, _, loss_mask, lm_labels, padding_mask = get_batch(
         data_iterator)
     timers('batch-generator').stop()
 
     if args.data_efficiency_curriculum_learning:
         args.curriculum_seqlen = tokens.size()[1]
-
-    if not args.bert_binary_head:
-        types = None
-
-    # Forward pass through the model.
-    output_tensor = model(tokens, padding_mask, tokentype_ids=types,
+    
+    # モデルはトークンごとのloss (output_tensor) を返す
+    output_tensor = model(input_ids=tokens,
+                          attention_mask=padding_mask, # この引数を追加！
+                          tokentype_ids=types,
                           lm_labels=lm_labels)
 
-    return output_tensor, partial(loss_func, loss_mask, sentence_order)
-
+    # 新しいloss_funcに、loss_maskとモデルの出力を渡す
+    return output_tensor, partial(loss_func, loss_mask)
 
 def train_valid_test_datasets_provider(train_val_test_num_samples):
     """Build train, valid, and test datasets."""

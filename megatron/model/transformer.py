@@ -2,29 +2,36 @@
 # Copyright (c) 2023, NVIDIA CORPORATION. All rights reserved.
 
 """Transformer."""
-from contextlib import nullcontext
+import inspect  # Added for FA3 signature check
 import math
+from contextlib import nullcontext
+from typing import Optional, Tuple
+
+import deepspeed
+import deepspeed.comm as dist
 import numpy as np
 import torch
 import torch.nn.functional as F
-from torch.nn.parameter import Parameter
-from typing import Optional
-import deepspeed.comm as dist
-
-from megatron import get_timers, get_args, get_retro_args, core, get_num_microbatches
-from .module import MegatronModule
-from megatron.core import parallel_state, tensor_parallel, mpu
+from deepspeed.accelerator import get_accelerator
+from deepspeed.moe.layer import MoE
+from deepspeed.sequence.fpdt_layer import FPDT_FFN, FPDT_Attention
+from megatron import (core, get_args, get_num_microbatches, get_retro_args,
+                      get_timers)
+from megatron.core import mpu, parallel_state, tensor_parallel
 from megatron.core.enums import ModelType
 from megatron.model import LayerNorm, RMSNorm
-from megatron.model.enums import AttnMaskType, LayerType, AttnType
-from megatron.model.fused_softmax import FusedScaleMaskSoftmax
+from megatron.model.enums import AttnMaskType, AttnType, LayerType
+from megatron.model.full_megatron_init import ModuleType
 from megatron.model.fused_bias_gelu import bias_gelu_impl
-from megatron.model.rotary_pos_embedding import apply_rotary_pos_emb
-from megatron.model.utils import attention_mask_func, openai_gelu, erf_gelu
-import deepspeed
-from deepspeed.moe.layer import MoE
-from deepspeed.accelerator import get_accelerator
-from deepspeed.sequence.fpdt_layer import FPDT_FFN, FPDT_Attention
+from megatron.model.fused_softmax import FusedScaleMaskSoftmax
+from megatron.model.rotary_pos_embedding import (RotaryEmbedding,
+                                                 apply_rotary_emb_unpad,
+                                                 apply_rotary_pos_emb)
+from megatron.model.utils import attention_mask_func, erf_gelu, openai_gelu
+from torch.nn.parameter import Parameter
+
+from .module import MegatronModule
+from .rotary_pos_embedding import RotaryEmbedding, apply_rotary_pos_emb
 
 try:
     from deepspeed.sequence.layer import DistributedAttention
@@ -37,26 +44,81 @@ try:
 except ImportError:
     rearrange = None
 
-try:
-    # FlashAttention (1.x)
-    from flash_attn.flash_attn_interface import flash_attn_unpadded_func
-except ImportError:
-    flash_attn_unpadded_func = None
+def print_rank_0(message):
+    if not torch.distributed.is_initialized() or torch.distributed.get_rank() == 0:
+        print(message, flush=True)
 
+# =============================================================================
+# FlashAttention Imports (Legacy Support + ModernBERT FA3/FA2 Priority)
+# =============================================================================
+
+# Initialize all legacy variables to None to maintain compatibility
+flash_attn_unpadded_func = None # FA1 / FA2 (Legacy)
+flash_attn_func = None          # Triton (Legacy)
+flash_attn_varlen_func = None   # FA2 / FA3 (Modern)
+flash_attn_builder = None       # DeepSpeed Builder (Legacy)
+
+HAVE_FLASH_ATTN_3 = False
+HAVE_FLASH_ATTN_2 = False
+
+# 1. Try Loading FlashAttention-3 (Hopper Optimized)
+try:
+    # Check 'flash_attn_interface' (Top-level module style for FA3 Beta)
+    import flash_attn_interface
+    
+    if hasattr(flash_attn_interface, 'flash_attn_varlen_func'):
+        _raw_fa3_func = flash_attn_interface.flash_attn_varlen_func
+        
+        # FA3 Beta signature check (Handle missing dropout_p arg)
+        _fa3_sig = inspect.signature(_raw_fa3_func)
+        _fa3_has_dropout = 'dropout_p' in _fa3_sig.parameters
+        
+        if not _fa3_has_dropout:
+            print_rank_0(">>> [Attention] FA3 loaded. Note: 'dropout_p' not supported in this beta. Disabled.")
+            # Wrapper to filter out dropout_p
+            def _fa3_wrapper(*args, **kwargs):
+                kwargs.pop('dropout_p', None)
+                return _raw_fa3_func(*args, **kwargs)
+            flash_attn_varlen_func = _fa3_wrapper
+        else:
+            print_rank_0(">>> [Attention] FA3 loaded. 'dropout_p' is supported.")
+            flash_attn_varlen_func = _raw_fa3_func
+            
+        HAVE_FLASH_ATTN_3 = True
+        print_rank_0(">>> [Attention] Using FlashAttention-3.")
+
+except ImportError:
+    HAVE_FLASH_ATTN_3 = False
+
+# 2. If FA3 missing, Try Loading FlashAttention-2 (Standard)
+if not HAVE_FLASH_ATTN_3:
+    try:
+        from flash_attn.flash_attn_interface import \
+            flash_attn_unpadded_func as _fa2_unpadded
+        from flash_attn.flash_attn_interface import \
+            flash_attn_varlen_func as _fa2_varlen
+        
+        flash_attn_varlen_func = _fa2_varlen
+        flash_attn_unpadded_func = _fa2_unpadded # Keep legacy unpadded func available
+        
+        HAVE_FLASH_ATTN_2 = True
+        print_rank_0(">>> [Attention] FlashAttention-3 not found. Using FlashAttention-2.")
+    except ImportError:
+        HAVE_FLASH_ATTN_2 = False
+        print_rank_0(">>> [Attention] WARNING: No FlashAttention (v2/v3) found.")
+
+# 3. Try Loading Triton Version (Legacy / Optional)
 try:
     from flash_attn.flash_attn_triton import flash_attn_func
 except ImportError:
     flash_attn_func = None
 
-try:
-    # FlashAttention-2
-    from flash_attn.flash_attn_interface import flash_attn_varlen_func
-except ImportError:
-    flash_attn_varlen_func = None
-
+# 4. DeepSpeed Op Builder (Legacy)
 FlashAttentionBuilder = get_accelerator().get_op_builder("FlashAttentionBuilder")
-flash_attn_builder = None
-
+try:
+    flash_attn_builder = FlashAttentionBuilder().load()
+except (TypeError, ImportError, RuntimeError):
+    flash_attn_builder = None
 
 """ We use the following notation throughout this file:
      h: hidden size
@@ -125,6 +187,7 @@ class ParallelMLP(MegatronModule):
             moe=moe,
             enable_expert_tensor_parallelism=enable_expert_tensor_parallelism
         )
+        self.dense_h_to_4h.type_of_module = ModuleType.in_module
 
         self.bias_gelu_fusion = False
         self.activation_func = None
@@ -143,6 +206,12 @@ class ParallelMLP(MegatronModule):
             def squared_relu(x):
                 return torch.pow(F.relu(x), 2)
             self.activation_func = squared_relu
+        elif args.geglu:
+            def geglu(x):
+                x = torch.chunk(x, 2, dim=-1)
+                return F.gelu(x[0]) * x[1]
+            self.activation_func = geglu
+            print("Using GEGLU activation function")
         else:
             self.bias_gelu_fusion = args.bias_gelu_fusion
             self.activation_func = F.gelu
@@ -158,6 +227,7 @@ class ParallelMLP(MegatronModule):
             moe=moe,
             enable_expert_tensor_parallelism=enable_expert_tensor_parallelism
         )
+        self.dense_4h_to_h.type_of_module = ModuleType.out_module
         
         self.ds_sequence_parallel_fpdt = args.ds_sequence_parallel_fpdt
         if self.ds_sequence_parallel_fpdt:
@@ -185,6 +255,7 @@ class ParallelMLP(MegatronModule):
             output, output_bias = self.dense_4h_to_h(intermediate_parallel)
         return output, output_bias
 
+# used for Mixture of Experts
 class SwitchMLP(MegatronModule):
     """
     Routes input to one of N MLP "experts"
@@ -233,7 +304,7 @@ class SwitchMLP(MegatronModule):
 
         return output_total, output_bias_total
 
-
+# not used in this repository but kept for compatibility
 class CoreAttention(MegatronModule):
 
     def __init__(self, layer_number, config,
@@ -372,7 +443,7 @@ class CoreAttention(MegatronModule):
 
         return context_layer
 
-
+# not used in this repository but kept for compatibility
 class FlashSelfAttention(torch.nn.Module):
     """Implement the scaled dot product attention with softmax.
     Arguments
@@ -469,6 +540,7 @@ class FlashSelfAttention(torch.nn.Module):
 
         return output
 
+# not used in this repository but kept for compatibility
 class FlashSelfAttentionTriton(torch.nn.Module):
     """Implement the scaled dot product attention with softmax.
     Arguments
@@ -504,6 +576,34 @@ class FlashSelfAttentionTriton(torch.nn.Module):
         output = rearrange(output, 'b s h d -> s b (h d)').contiguous()
         return output
 
+def unpad_input(hidden_states, attention_mask, unused_mask=None):
+    if attention_mask.dim() == 4:
+        attention_mask = attention_mask.squeeze(1).squeeze(1)
+
+    all_masks = (attention_mask + unused_mask) if unused_mask is not None else attention_mask
+    seqlens_in_batch = all_masks.sum(dim=-1, dtype=torch.int32)
+    indices = torch.nonzero(all_masks.flatten(), as_tuple=False).flatten()
+    max_seqlen_in_batch = int(seqlens_in_batch.max().item())
+    cu_seqlens = F.pad(torch.cumsum(seqlens_in_batch, dim=0, dtype=torch.int32), (1, 0))
+    
+    if rearrange is not None:
+        output = rearrange(hidden_states, "b s ... -> (b s) ...")[indices]
+    else:
+        b, s, *rest = hidden_states.shape
+        output = hidden_states.view(b * s, *rest)[indices]
+
+    return output, indices, cu_seqlens, max_seqlen_in_batch
+
+def pad_input(hidden_states, indices, batch, seqlen):
+        dim = hidden_states.shape[1:]
+        output = torch.zeros((batch * seqlen), *dim, device=hidden_states.device, dtype=hidden_states.dtype)
+        output[indices] = hidden_states
+        
+        if rearrange is not None:
+            return rearrange(output, "(b s) ... -> b s ...", b=batch)
+        else:
+            return output.view(batch, seqlen, *dim)
+
 class ParallelAttention(MegatronModule):
     """Parallel self-attention layer abstract class.
 
@@ -513,7 +613,9 @@ class ParallelAttention(MegatronModule):
 
     def __init__(self, config, layer_number,
                  attention_type=AttnType.self_attn,
-                 attn_mask_type=AttnMaskType.padding):
+                 attn_mask_type=AttnMaskType.padding,
+                 is_global_attention=True,
+                 local_window_size=256):
         super(ParallelAttention, self).__init__()
         args = get_args()
         self.layer_number = max(1, layer_number)
@@ -525,55 +627,61 @@ class ParallelAttention(MegatronModule):
         self.num_key_value_heads = config.num_key_value_heads
         self.use_gqa = (self.num_attention_heads != self.num_key_value_heads)
 
-        self.use_flash_attn = (args.use_flash_attn_v1 or args.use_flash_attn_triton or args.use_flash_attn_v2 or \
-            args.use_flash_attn_builder) \
-            and attention_type == AttnType.self_attn \
-            and self.attn_mask_type == AttnMaskType.causal
+        self.is_global_attention = is_global_attention
+        self.local_window_size = local_window_size
+
+        self.use_switch_attention_rope = args.use_switch_attention_rope
+        if self.use_switch_attention_rope:
+            if self.is_global_attention:
+                theta = args.global_rope_theta
+            else:
+                theta = args.local_rope_theta
+            rotary_dim = config.kv_channels
+            if args.rotary_percent < 1.0:
+                rotary_dim = int(rotary_dim * args.rotary_percent)
+            self.rotary_pos_emb = RotaryEmbedding(rotary_dim, theta=theta)
+        else:
+            # Legacy logic
+            if args.use_rotary_position_embeddings:
+                rotary_dim = config.kv_channels
+                if args.rotary_percent < 1.0:
+                    rotary_dim = int(rotary_dim * args.rotary_percent)
+                self.rotary_pos_emb = RotaryEmbedding(rotary_dim, theta=args.rope_theta)
+            else:
+                 self.rotary_pos_emb = None
+                    
+        self.use_flash_attn_varlen = (flash_attn_varlen_func is not None)
+        self.use_flash_attn = args.use_flash_attn_v1 or args.use_flash_attn_triton or args.use_flash_attn_v2 or args.use_flash_attn_builder
         self.use_flash_attn_triton = args.use_flash_attn_triton
-        if self.use_flash_attn:
-            global flash_attn_builder
-            try:
-                flash_attn_builder = FlashAttentionBuilder().load()
-            except TypeError:
-                flash_attn_builder = None
 
-            if args.use_flash_attn_v1:
-                assert flash_attn_unpadded_func != None, "Cannot import FlashAttention v1 "
-            if args.use_flash_attn_v2:
-                assert flash_attn_varlen_func != None, "Cannot import FlashAttention v2 "
-            if args.use_flash_attn_triton:
-                assert flash_attn_func != None, "Cannot import FlashAttention triton "
-            if args.use_flash_attn_builder:
-                assert flash_attn_builder != None, "Cannot find FlashAttention op builder "
+        if self.use_switch_attention_rope and not self.use_flash_attn_varlen:
+             raise RuntimeError("ModernBERT (switch_attention_rope) requires FlashAttention (v2 or v3) with VarLen API.")
 
-            assert attention_type == AttnType.self_attn, ('FlashAttention code path only supports '
-                                                          'self-attention for now')
-            assert self.attn_mask_type == AttnMaskType.causal, ('FlashAttention code path only '
-                                                                'supports causal mask for now')
-            if rearrange is None:
-                raise ImportError('einops is not installed, please install with pip install einops')
+        if self.sequence_parallel and self.use_switch_attention_rope:
+             print(f"WARNING: Sequence Parallelism enabled in Layer {self.layer_number} with ModernBERT config. Unpadding will be disabled.")
 
+        if self.sequence_parallel:
+             print(f"WARNING: Sequence Parallelism is enabled in Layer {self.layer_number}. "
+                   "Unpadding optimization might conflict with SP. "
+                   "It is recommended to DISABLE sequence_parallel for ModernBERT (Encoder) training.")
+             
         projection_size = config.kv_channels * config.num_attention_heads
-
-        # Per attention head and per partition values.
-        world_size = parallel_state.get_tensor_model_parallel_world_size()
         self.hidden_size_per_attention_head = core.utils.divide(
             projection_size, config.num_attention_heads)
+        
+        kv_projection_size = config.kv_channels * config.num_key_value_heads
+        self.projection_size = projection_size
+        self.kv_projection_size = kv_projection_size
+        self.head_dim = config.kv_channels
+
+        # Per partition values
+        world_size = parallel_state.get_tensor_model_parallel_world_size()
         self.num_attention_heads_per_partition = core.utils.divide(
             config.num_attention_heads, world_size)
-
-        # Per GQA head and per partition values
         self.num_key_value_heads_per_partition = core.utils.divide(
             config.num_key_value_heads, world_size)
         self.num_key_value_groups = core.utils.divide(
             config.num_attention_heads, config.num_key_value_heads)
-        kv_projection_size = config.kv_channels * config.num_key_value_heads
-        assert self.hidden_size_per_attention_head == core.utils.divide(
-            kv_projection_size, config.num_key_value_heads)
-
-        self.projection_size = projection_size
-        self.kv_projection_size = kv_projection_size
-        self.head_dim = config.kv_channels
 
         # Strided linear layer.
         if attention_type == AttnType.self_attn:
@@ -584,6 +692,7 @@ class ParallelAttention(MegatronModule):
                 init_method=config.init_method,
                 bias=args.add_bias_linear,
                 gather_output=False)
+            self.query_key_value.type_of_module = ModuleType.in_module
         else:
             assert attention_type == AttnType.cross_attn
             self.query = tensor_parallel.ColumnParallelLinear(
@@ -594,7 +703,6 @@ class ParallelAttention(MegatronModule):
                 bias=config.add_bias_linear,
                 gather_output=False)
 
-
             self.key_value = tensor_parallel.ColumnParallelLinear(
                 config.hidden_size,
                 2 * projection_size,
@@ -602,33 +710,34 @@ class ParallelAttention(MegatronModule):
                 init_method=config.init_method,
                 bias=config.add_bias_linear,
                 gather_output=False)
-
-        # Currently FlashAttention only works with causal mask
-        if self.use_flash_attn_triton:
-            local_attn = FlashSelfAttentionTriton(causal=True, attention_dropout=args.attention_dropout)
-        elif self.use_flash_attn:
-            local_attn = FlashSelfAttention(causal=True, attention_dropout=config.attention_dropout)
-        else:
-            local_attn = CoreAttention(self.layer_number, config, self.attn_mask_type)
-
+            
         self.enable_ds_sequence_parallel = parallel_state.get_sequence_parallel_world_size() > 1 \
                                            or args.force_ds_sequence_parallel
+
         if self.enable_ds_sequence_parallel:
-            assert dist_attn_supported, 'Distributed attention is not supported in this DeepSpeed version'
-            assert args.num_attention_heads % parallel_state.get_sequence_parallel_world_size() == 0
+            assert dist_attn_supported, 'Distributed attention is not supported'
+            if self.use_flash_attn_triton:
+                local_attn = FlashSelfAttentionTriton(causal=True, attention_dropout=args.attention_dropout)
+            elif self.use_flash_attn:
+                local_attn = FlashSelfAttention(causal=True, attention_dropout=config.attention_dropout)
+            else:
+                local_attn = CoreAttention(self.layer_number, config, self.attn_mask_type)
+            
             self.dist_attn = DistributedAttention(
                 local_attn, 
                 parallel_state.get_sequence_parallel_group(), 
                 gather_idx=1 if args.use_flash_attn_v1 or args.use_flash_attn_v2 else 0) 
-            # flash_attn_cuda assumes [b, s, nh, hd] layout, we need to make sure all2all gathers into the correct sequence dimension.
+        
         else:
             if self.use_flash_attn:
-                self.core_attention_flash = local_attn
+                if self.use_flash_attn_triton:
+                     self.core_attention_flash = FlashSelfAttentionTriton(causal=True, attention_dropout=args.attention_dropout)
+                else:
+                     self.core_attention_flash = FlashSelfAttention(causal=True, attention_dropout=config.attention_dropout)
             else:
-                self.core_attention = local_attn
+                self.core_attention = CoreAttention(self.layer_number, config, self.attn_mask_type)
                 self.checkpoint_core_attention = config.recompute_granularity == 'selective'
 
-        # Output.
         self.dense = tensor_parallel.RowParallelLinear(
             projection_size,
             config.hidden_size,
@@ -637,7 +746,9 @@ class ParallelAttention(MegatronModule):
             bias=args.add_bias_linear,
             input_is_parallel=True,
             skip_bias_add=True)
+        self.dense.type_of_module = ModuleType.out_module
 
+        self.attention_dropout = torch.nn.Dropout(config.attention_dropout)
 
     def _checkpointed_attention_forward(self, query_layer, key_layer,
                                         value_layer, attention_mask,
@@ -694,197 +805,286 @@ class ParallelAttention(MegatronModule):
 
         return query_layer, key_layer, value_layer
 
+    def _split_qkv_unpadded(self, mixed_x_layer):
+        n_kv_local = self.num_key_value_heads_per_partition
+        group_size = self.num_key_value_groups
+        head_dim = self.hidden_size_per_attention_head
+        
+        new_shape = mixed_x_layer.shape[:-1] + (n_kv_local, group_size + 2, head_dim)
+        mixed_x_layer = mixed_x_layer.view(*new_shape)
+        
+        query_layer, key_layer, value_layer = torch.split(
+            mixed_x_layer, [group_size, 1, 1], dim=2
+        )
+        
+        query_layer = query_layer.reshape(
+            query_layer.shape[0], 
+            n_kv_local * group_size, 
+            head_dim
+        )
+        
+        key_layer = key_layer.reshape(
+            key_layer.shape[0], 
+            n_kv_local, 
+            head_dim
+        )
+        value_layer = value_layer.reshape(
+            value_layer.shape[0], 
+            n_kv_local, 
+            head_dim
+        )
+        
+        return query_layer, key_layer, value_layer
+
     def forward(self, hidden_states, attention_mask,
                 encoder_output=None, inference_params=None,
                 rotary_pos_emb=None):
         # hidden_states: [sq, b, h]
+        if self.use_switch_attention_rope:
+            seq_len = hidden_states.size(0)
+            rotary_pos_emb_cos, rotary_pos_emb_sin = self.rotary_pos_emb(seq_len)
+            rotary_pos_emb = (rotary_pos_emb_cos.to(hidden_states.dtype), 
+                              rotary_pos_emb_sin.to(hidden_states.dtype))
 
-        # =================================================
-        # Pre-allocate memory for key-values for inference.
-        # =================================================
-        is_first_step = False
-        if inference_params:
-            if self.layer_number not in inference_params.key_value_memory_dict:
-                inf_max_seq_len = inference_params.max_sequence_len
-                inf_max_batch_size = inference_params.max_batch_size
-                inference_key_memory = self._allocate_memory(
-                    inf_max_seq_len, inf_max_batch_size)
-                inference_value_memory = self._allocate_memory(
-                    inf_max_seq_len, inf_max_batch_size)
-                inference_params.key_value_memory_dict[self.layer_number] = (
-                    inference_key_memory, inference_value_memory)
-                is_first_step = True
+        use_unpadding = (
+            self.use_flash_attn_varlen and 
+            not self.enable_ds_sequence_parallel and 
+            inference_params is None and
+            unpad_input is not None and
+            self.attention_type == AttnType.self_attn and
+            (self.use_switch_attention_rope or self.is_global_attention is not None)
+        )
+
+        if use_unpadding:
+            print("use_unpadding is True in Layer")
+            if attention_mask.dim() == 4:
+                # Megatron [B, 1, 1, S] -> [B, S]
+                mask_for_unpad = attention_mask[:, 0, 0, :]
             else:
-                inference_key_memory, inference_value_memory = \
-                    inference_params.key_value_memory_dict[self.layer_number]
-
-        # =====================
-        # Query, Key, and Value
-        # =====================
-        if self.attention_type == AttnType.self_attn:
-            # Attention heads [sq, b, h] --> [sq, b, ((nq + 2 * nkv) * hn)]
-            mixed_x_layer, _ = self.query_key_value(hidden_states)
+                mask_for_unpad = attention_mask
             
-            if self.enable_ds_sequence_parallel:
-                assert self.projection_size == self.kv_projection_size
-                seq_len, bs = mixed_x_layer.shape[0], mixed_x_layer.shape[1]
-                query_layer = mixed_x_layer[:, :, :self.projection_size].reshape(seq_len, bs, -1, self.head_dim)
-                key_layer = mixed_x_layer[:, :, self.projection_size:self.projection_size+self.kv_projection_size].reshape(seq_len, bs, -1, self.head_dim)
-                value_layer = mixed_x_layer[:, :, self.projection_size+self.kv_projection_size:].reshape(seq_len, bs, -1, self.head_dim)
-            if self.sequence_parallel and not self.enable_ds_sequence_parallel:
-                seq_len, bs = mixed_x_layer.shape[0], mixed_x_layer.shape[1]
-                each_hidden_size = mixed_x_layer.shape[-1] // 3
-                query_layer = mixed_x_layer[:, :, :each_hidden_size].reshape(seq_len, bs, -1, self.head_dim)
-                key_layer = mixed_x_layer[:, :, each_hidden_size:each_hidden_size+each_hidden_size].reshape(seq_len, bs, -1, self.head_dim)
-                value_layer = mixed_x_layer[:, :, each_hidden_size+each_hidden_size:].reshape(seq_len, bs, -1, self.head_dim)
+            mask_for_unpad = (mask_for_unpad > 0.5).bool()
+            hidden_states_bsh = hidden_states.transpose(0, 1).contiguous()
+            
+            hidden_unpad, indices, cu_seqlens, max_seqlen_in_batch = unpad_input(
+                hidden_states_bsh, mask_for_unpad
+            )
+
+            mixed_x_layer, _ = self.query_key_value(hidden_unpad)
+
+            query_layer, key_layer, value_layer = self._split_qkv_unpadded(mixed_x_layer)
+
+            if self.use_switch_attention_rope:
+                cos, sin = self.rotary_pos_emb(max_seqlen_in_batch)
+
+                query_layer = apply_rotary_emb_unpad(
+                    query_layer, cos, sin, cu_seqlens=cu_seqlens, max_seqlen=max_seqlen_in_batch
+                )
+                key_layer = apply_rotary_emb_unpad(
+                    key_layer, cos, sin, cu_seqlens=cu_seqlens, max_seqlen=max_seqlen_in_batch
+                )
+
+            if self.is_global_attention:
+                window_size = (-1, -1) # Global Attention
             else:
-                # [sq, b, ((nq + 2 * nkv) * hn)] --> [sq, b, nkv, (nq // nkv + 2), hn]
-                new_tensor_shape = mixed_x_layer.size()[:-1] + \
-                    (-1, (self.num_key_value_groups + 2),
+                w = self.local_window_size // 2
+                window_size = (w, w)   
+
+            context_layer = flash_attn_varlen_func(
+                query_layer,
+                key_layer,
+                value_layer,
+                cu_seqlens_q=cu_seqlens,
+                cu_seqlens_k=cu_seqlens,
+                max_seqlen_q=max_seqlen_in_batch,
+                max_seqlen_k=max_seqlen_in_batch,
+                dropout_p=self.attention_dropout.p if self.training else 0.0,
+                softmax_scale=None,
+                causal=False,
+                window_size=window_size
+            )
+            context_layer = context_layer.view(*context_layer.shape[:1], -1)
+            output, bias = self.dense(context_layer)
+            output = pad_input(
+                output, indices, hidden_states_bsh.shape[0], hidden_states_bsh.shape[1]
+            )
+            output = output.transpose(0, 1).contiguous()
+
+            return output, bias
+
+        else:
+            if not self.is_global_attention:
+
+                seq_len_q = hidden_states.size(0)
+                seq_len_k = hidden_states.size(0) 
+                
+                window_size = self.local_window_size // 2
+                
+                q_indices = torch.arange(seq_len_q, device=hidden_states.device).view(-1, 1)
+                k_indices = torch.arange(seq_len_k, device=hidden_states.device).view(1, -1)
+                
+                relative_indices = k_indices - q_indices
+                local_mask = (relative_indices >= -window_size) & (relative_indices <= window_size)
+
+                attention_mask = attention_mask & local_mask.unsqueeze(0).unsqueeze(0)
+
+            is_first_step = False
+            if inference_params:
+                if self.layer_number not in inference_params.key_value_memory_dict:
+                    inf_max_seq_len = inference_params.max_sequence_len
+                    inf_max_batch_size = inference_params.max_batch_size
+                    inference_key_memory = self._allocate_memory(
+                        inf_max_seq_len, inf_max_batch_size)
+                    inference_value_memory = self._allocate_memory(
+                        inf_max_seq_len, inf_max_batch_size)
+                    inference_params.key_value_memory_dict[self.layer_number] = (
+                        inference_key_memory, inference_value_memory)
+                    is_first_step = True
+                else:
+                    inference_key_memory, inference_value_memory = \
+                        inference_params.key_value_memory_dict[self.layer_number]
+
+            if self.attention_type == AttnType.self_attn:
+                # Attention heads [sq, b, h] --> [sq, b, ((nq + 2 * nkv) * hn)]
+                mixed_x_layer, _ = self.query_key_value(hidden_states)
+                
+                if self.enable_ds_sequence_parallel:
+                    assert self.projection_size == self.kv_projection_size
+                    seq_len, bs = mixed_x_layer.shape[0], mixed_x_layer.shape[1]
+                    query_layer = mixed_x_layer[:, :, :self.projection_size].reshape(seq_len, bs, -1, self.head_dim)
+                    key_layer = mixed_x_layer[:, :, self.projection_size:self.projection_size+self.kv_projection_size].reshape(seq_len, bs, -1, self.head_dim)
+                    value_layer = mixed_x_layer[:, :, self.projection_size+self.kv_projection_size:].reshape(seq_len, bs, -1, self.head_dim)
+                if self.sequence_parallel and not self.enable_ds_sequence_parallel:
+                    seq_len, bs = mixed_x_layer.shape[0], mixed_x_layer.shape[1]
+                    each_hidden_size = mixed_x_layer.shape[-1] // 3
+                    query_layer = mixed_x_layer[:, :, :each_hidden_size].reshape(seq_len, bs, -1, self.head_dim)
+                    key_layer = mixed_x_layer[:, :, each_hidden_size:each_hidden_size+each_hidden_size].reshape(seq_len, bs, -1, self.head_dim)
+                    value_layer = mixed_x_layer[:, :, each_hidden_size+each_hidden_size:].reshape(seq_len, bs, -1, self.head_dim)
+                else:
+                    # [sq, b, ((nq + 2 * nkv) * hn)] --> [sq, b, nkv, (nq // nkv + 2), hn]
+                    new_tensor_shape = mixed_x_layer.size()[:-1] + \
+                        (-1, (self.num_key_value_groups + 2),
+                        self.hidden_size_per_attention_head)
+                    mixed_x_layer = mixed_x_layer.view(*new_tensor_shape)
+
+                    # [sq, b, nkv, (nq // nkv + 2), hn] --> 3 [sq, b, np, hn]
+                    (query_layer,
+                    key_layer,
+                    value_layer) = self.split_tensor(mixed_x_layer)
+                # Repeat kv
+                if self.use_gqa:
+                    key_layer = self.repeat_kv(key_layer, self.num_key_value_groups)
+                    value_layer = self.repeat_kv(value_layer,
+                                                self.num_key_value_groups)
+            else:
+                assert not self.use_gqa, 'GQA + cross-attn not tested yet'
+
+                # Attention heads [sk, b, h] --> [sk, b, (np * 2 * hn)]
+                mixed_kv_layer, _ = self.key_value(encoder_output)
+
+                # [sk, b, (np * 2 * hn)] --> [sk, b, np, 2 * hn]
+                new_tensor_shape = mixed_kv_layer.size()[:-1] + \
+                    (self.num_attention_heads_per_partition,
+                    2 * self.hidden_size_per_attention_head)
+                mixed_kv_layer = mixed_kv_layer.view(*new_tensor_shape)
+
+                # [sk, b, np, 2 * hn] --> 2 [sk, b, np, hn]
+                (key_layer,
+                value_layer) = tensor_parallel.split_tensor_along_last_dim(mixed_kv_layer, 2)
+
+                # Attention head [sq, b, h] --> [sq, b, hp]
+                query_layer, _ = self.query(hidden_states)
+                # [sq, b, hp] --> [sq, b, np, hn]
+                new_tensor_shape = query_layer.size()[:-1] + \
+                    (self.num_attention_heads_per_partition,
                     self.hidden_size_per_attention_head)
-                mixed_x_layer = mixed_x_layer.view(*new_tensor_shape)
+                query_layer = query_layer.view(*new_tensor_shape)
 
-                # [sq, b, nkv, (nq // nkv + 2), hn] --> 3 [sq, b, np, hn]
-                (query_layer,
-                 key_layer,
-                 value_layer) = self.split_tensor(mixed_x_layer)
-            # Repeat kv
-            if self.use_gqa:
-                key_layer = self.repeat_kv(key_layer, self.num_key_value_groups)
-                value_layer = self.repeat_kv(value_layer,
-                                             self.num_key_value_groups)
-        else:
-            assert not self.use_gqa, 'GQA + cross-attn not tested yet'
-
-            # Attention heads [sk, b, h] --> [sk, b, (np * 2 * hn)]
-            mixed_kv_layer, _ = self.key_value(encoder_output)
-
-            # [sk, b, (np * 2 * hn)] --> [sk, b, np, 2 * hn]
-            new_tensor_shape = mixed_kv_layer.size()[:-1] + \
-                (self.num_attention_heads_per_partition,
-                 2 * self.hidden_size_per_attention_head)
-            mixed_kv_layer = mixed_kv_layer.view(*new_tensor_shape)
-
-            # [sk, b, np, 2 * hn] --> 2 [sk, b, np, hn]
-            (key_layer,
-             value_layer) = tensor_parallel.split_tensor_along_last_dim(mixed_kv_layer, 2)
-
-            # Attention head [sq, b, h] --> [sq, b, hp]
-            query_layer, _ = self.query(hidden_states)
-            # [sq, b, hp] --> [sq, b, np, hn]
-            new_tensor_shape = query_layer.size()[:-1] + \
-                (self.num_attention_heads_per_partition,
-                 self.hidden_size_per_attention_head)
-            query_layer = query_layer.view(*new_tensor_shape)
-
-        # ==================================
-        # Adjust key and value for inference
-        # ==================================
-
-        # duplicate the pos_emb for self attention
-        if rotary_pos_emb is not None:
-            if isinstance(rotary_pos_emb, tuple):
-                rotary_pos_emb = rotary_pos_emb
-            else:
-                rotary_pos_emb = ((rotary_pos_emb,) * 2)
-
-        if inference_params:
-            batch_start = inference_params.batch_size_offset
-            batch_end = batch_start + key_layer.size(1)
-            assert batch_end <= inference_key_memory.size(1)
-            sequence_start = inference_params.sequence_len_offset
-            sequence_end = sequence_start + key_layer.size(0)
-            assert sequence_end <= inference_key_memory.size(0)
-            # Copy key and values.
-            inference_key_memory[sequence_start:sequence_end,
-                                 batch_start:batch_end, ...] = key_layer
-            inference_value_memory[sequence_start:sequence_end,
-                                   batch_start:batch_end, ...] = value_layer
-            key_layer = inference_key_memory[
-                :sequence_end, batch_start:batch_end, ...]
-            value_layer = inference_value_memory[
-                :sequence_end, batch_start:batch_end, ...]
+            if inference_params:
+                batch_start = inference_params.batch_size_offset
+                batch_end = batch_start + key_layer.size(1)
+                assert batch_end <= inference_key_memory.size(1)
+                sequence_start = inference_params.sequence_len_offset
+                sequence_end = sequence_start + key_layer.size(0)
+                assert sequence_end <= inference_key_memory.size(0)
+                # Copy key and values.
+                inference_key_memory[sequence_start:sequence_end,
+                                    batch_start:batch_end, ...] = key_layer
+                inference_value_memory[sequence_start:sequence_end,
+                                    batch_start:batch_end, ...] = value_layer
+                key_layer = inference_key_memory[
+                    :sequence_end, batch_start:batch_end, ...]
+                value_layer = inference_value_memory[
+                    :sequence_end, batch_start:batch_end, ...]
 
 
-            # adjust the key rotary positional embedding
+                # adjust the key rotary positional embedding
+                if rotary_pos_emb is not None:
+                    q_pos_emb, k_pos_emb = rotary_pos_emb
+                    # need to cross check this condition during inference
+                    # if not set_inference_key_value_memory:
+                    if not is_first_step:
+                        # In inference, we compute one token at a time.
+                        # Select the correct positional embedding
+                        # (only the last token in the sequence)
+                        q_pos_emb = q_pos_emb[sequence_end - 1 : sequence_end]
+                    else:
+                        # In the first forward pass of inference,
+                        # we use the entire provided prefix.
+                        # q_pos_emb here has the rope embeddings of the entire
+                        # prefix + to-be-generated output so
+                        # we slice to just the prefix.
+                        q_pos_emb = q_pos_emb[:sequence_end, :, :, :]
+                    k_pos_emb = k_pos_emb[:sequence_end, :, :, :]
+                    rotary_pos_emb = (q_pos_emb, k_pos_emb)
+
+
+            # apply relative positional encoding (rotary embedding)
             if rotary_pos_emb is not None:
-                q_pos_emb, k_pos_emb = rotary_pos_emb
-                # need to cross check this condition during inference
-                # if not set_inference_key_value_memory:
-                if not is_first_step:
-                    # In inference, we compute one token at a time.
-                    # Select the correct positional embedding
-                    # (only the last token in the sequence)
-                    q_pos_emb = q_pos_emb[sequence_end - 1 : sequence_end]
+                if not self.enable_ds_sequence_parallel:
+                    q_pos_emb, k_pos_emb = rotary_pos_emb
+                    query_layer = apply_rotary_pos_emb(query_layer, q_pos_emb)
+                    key_layer = apply_rotary_pos_emb(key_layer, k_pos_emb)
+
+            if self.enable_ds_sequence_parallel:
+                batch_dim_idx = 1
+                if self.use_flash_attn:
+                    if not self.use_flash_attn_triton:
+                        query_layer, key_layer, value_layer = [rearrange(x, 's b ... -> b s ...').contiguous()
+                                for x in (query_layer, key_layer, value_layer)]
+                        batch_dim_idx = 0
+
+                    context_layer = self.dist_attn(query_layer, key_layer, value_layer, batch_dim_idx, rotary_pos_emb=rotary_pos_emb)
+
+                    if not self.use_flash_attn_triton:
+                        context_layer = rearrange(context_layer, 'b s h d -> s b (h d)').contiguous()
                 else:
-                    # In the first forward pass of inference,
-                    # we use the entire provided prefix.
-                    # q_pos_emb here has the rope embeddings of the entire
-                    # prefix + to-be-generated output so
-                    # we slice to just the prefix.
-                    q_pos_emb = q_pos_emb[:sequence_end, :, :, :]
-                k_pos_emb = k_pos_emb[:sequence_end, :, :, :]
-                rotary_pos_emb = (q_pos_emb, k_pos_emb)
-
-
-        # ==================================
-        # core attention computation
-        # ==================================
-
-        # apply relative positional encoding (rotary embedding)
-        if rotary_pos_emb is not None:
-            if not self.enable_ds_sequence_parallel:
-                q_pos_emb, k_pos_emb = rotary_pos_emb
-                query_layer = apply_rotary_pos_emb(query_layer, q_pos_emb)
-                key_layer = apply_rotary_pos_emb(key_layer, k_pos_emb)
-            # TODO, can apply positional embedding to value_layer so it has
-            # absolute positional embedding.
-            # otherwise, only relative positional embedding takes effect
-            # value_layer = apply_rotary_pos_emb(value_layer, k_pos_emb)
-
-        if self.enable_ds_sequence_parallel:
-            batch_dim_idx = 1
-            if self.use_flash_attn:
-                if not self.use_flash_attn_triton:
-                    query_layer, key_layer, value_layer = [rearrange(x, 's b ... -> b s ...').contiguous()
-                            for x in (query_layer, key_layer, value_layer)]
-                    batch_dim_idx = 0
-
-                context_layer = self.dist_attn(query_layer, key_layer, value_layer, batch_dim_idx, rotary_pos_emb=rotary_pos_emb)
-
-                if not self.use_flash_attn_triton:
-                    context_layer = rearrange(context_layer, 'b s h d -> s b (h d)').contiguous()
+                    context_layer = self.dist_attn(query_layer, key_layer, value_layer, attention_mask)
             else:
-                context_layer = self.dist_attn(query_layer, key_layer, value_layer, attention_mask)
-        else:
-            if self.use_flash_attn:
-                if not self.use_flash_attn_triton:
-                    query_layer, key_layer, value_layer = [rearrange(x, 's b ... -> b s ...').contiguous()
-                            for x in (query_layer, key_layer, value_layer)]
+                if self.use_flash_attn:
+                    if not self.use_flash_attn_triton:
+                        query_layer, key_layer, value_layer = [rearrange(x, 's b ... -> b s ...').contiguous()
+                                for x in (query_layer, key_layer, value_layer)]
 
-                if self.sequence_parallel:
-                    context_layer = self.core_attention_flash(query_layer, key_layer, value_layer)
-                else:
-                    with tensor_parallel.get_cuda_rng_tracker().fork():
+                    if self.sequence_parallel:
                         context_layer = self.core_attention_flash(query_layer, key_layer, value_layer)
+                    else:
+                        with tensor_parallel.get_cuda_rng_tracker().fork():
+                            context_layer = self.core_attention_flash(query_layer, key_layer, value_layer)
 
-                if not self.use_flash_attn_triton:
-                    context_layer = rearrange(context_layer, 'b s h d -> s b (h d)').contiguous()
-            else:
-                if self.checkpoint_core_attention:
-                    context_layer = self._checkpointed_attention_forward(
-                        query_layer, key_layer, value_layer, attention_mask)
+                    if not self.use_flash_attn_triton:
+                        context_layer = rearrange(context_layer, 'b s h d -> s b (h d)').contiguous()
                 else:
-                    context_layer = self.core_attention(
-                        query_layer, key_layer, value_layer, attention_mask)
+                    if self.checkpoint_core_attention:
+                        context_layer = self._checkpointed_attention_forward(
+                            query_layer, key_layer, value_layer, attention_mask)
+                    else:
+                        context_layer = self.core_attention(
+                            query_layer, key_layer, value_layer, attention_mask)
 
-        # =================
-        # Output. [sq, b, h]
-        # =================
+            output, bias = self.dense(context_layer)
 
-        output, bias = self.dense(context_layer)
-
-        return output, bias
+            return output, bias
 
 
 def bias_dropout_add(x, bias, residual, prob, training):
@@ -987,6 +1187,7 @@ class ParallelTransformerLayer(MegatronModule):
         super(ParallelTransformerLayer, self).__init__()
         self.layer_number = layer_number
         self.layer_type = layer_type
+        self.skip_input_layernorm = (self.layer_number == 0)
 
         self.apply_residual_connection_post_layernorm \
             = config.apply_residual_connection_post_layernorm
@@ -994,6 +1195,13 @@ class ParallelTransformerLayer(MegatronModule):
         self.bf16 = config.bf16
         self.fp32_residual_connection = config.fp32_residual_connection
 
+        is_global_attention = True
+        if args.use_switch_attention:
+            if layer_number % args.global_attn_every_n_layers != 0:
+                is_global_attention = False
+        print(f"Layer {self.layer_number}: "
+              f"use_switch_attention={args.use_switch_attention}, "
+              f"is_global={is_global_attention}")
         # Layernorm on the input data.
         if args.normalization == 'layernorm':
             if get_accelerator().device_name() == 'cuda':
@@ -1020,6 +1228,7 @@ class ParallelTransformerLayer(MegatronModule):
             self.self_attention = ParallelAttention(
                 config,
                 layer_number,
+                is_global_attention=is_global_attention,                
                 attention_type=AttnType.self_attn,
                 attn_mask_type=self_attn_mask_type)
             
@@ -1052,6 +1261,7 @@ class ParallelTransformerLayer(MegatronModule):
             self.inter_attention = ParallelAttention(
                 config,
                 layer_number,
+                is_global_attention=is_global_attention,
                 attention_type=AttnType.cross_attn)
             # Layernorm on the attention output.
             if args.normalization == 'layernorm':
@@ -1334,11 +1544,15 @@ class ParallelTransformerLayer(MegatronModule):
                 retriever_attn_mask=None,
                 inference_params=None,
                 rotary_pos_emb=None,
-                aggregated_moe_loss=None):
+                aggregated_moe_loss=None,
+                input_ids=None):
         # hidden_states: [s, b, h]
+        if self.skip_input_layernorm:
+            print("Skipping input layernorm for layer %d" % self.layer_number)
+            layernorm_output = hidden_states
+        else:
+            layernorm_output = self.input_layernorm(hidden_states)
 
-        # Layer norm at the beginning of the transformer layer.
-        layernorm_output = self.input_layernorm(hidden_states)
 
         # Self attention.
         try:
@@ -1348,14 +1562,14 @@ class ParallelTransformerLayer(MegatronModule):
                     attention_mask,
                     inference_params=inference_params,
                     rotary_pos_emb=rotary_pos_emb,
-                    cpu_offloading=self.ds_sequence_parallel_fpdt_offloading)
+                    cpu_offloading=self.ds_sequence_parallel_fpdt_offloading, input_ids=input_ids)
         except TypeError:
             attention_output, attention_bias = \
                 self.self_attention(
                     layernorm_output,
                     attention_mask,
                     inference_params=inference_params,
-                    rotary_pos_emb=rotary_pos_emb)
+                    rotary_pos_emb=rotary_pos_emb, input_ids=input_ids)
             
         # Residual connection.
         if self.apply_residual_connection_post_layernorm:
@@ -1712,8 +1926,9 @@ class ParallelTransformer(MegatronModule):
         self.transformer_engine_rope_available = False
         if self.transformer_impl == 'transformer_engine':
             global transformer_engine
-            import transformer_engine
             from importlib.metadata import version
+
+            import transformer_engine
             from pkg_resources import packaging
 
             te_version = packaging.version.Version(version("transformer-engine"))
@@ -1897,7 +2112,7 @@ class ParallelTransformer(MegatronModule):
 
     def _checkpointed_forward(self, hidden_states, attention_mask,
                               encoder_output, enc_dec_attn_mask,
-                              rotary_pos_emb, is_first_microbatch):
+                              rotary_pos_emb, is_first_microbatch, input_ids=None):
         args = get_args()
 
         """Forward method with activation checkpointing."""
@@ -1907,7 +2122,7 @@ class ParallelTransformer(MegatronModule):
                 moe_losses = []
                 for index in range(start, end):
                     layer = self._get_layer(index)
-                    output = layer(x_, *args, **kwargs)
+                    output = layer(x_, *args, **kwargs, input_ids=input_ids)
                     if isinstance(output, tuple):
                         x_, moe_loss = output
                     else:
@@ -2015,7 +2230,7 @@ class ParallelTransformer(MegatronModule):
                 retriever_output=None,
                 retriever_attn_mask=None,
                 inference_params=None,
-                rotary_pos_emb=None):
+                rotary_pos_emb=None, input_ids=None):
         # hidden_states: [s, b, h]
 
         # Checks.
@@ -2023,43 +2238,10 @@ class ParallelTransformer(MegatronModule):
             assert self.recompute_granularity is None, \
                 'inference does not work with activation checkpointing'
 
-        # TODO: Below old DeepSpeed code are commented because it's unsure whether
-        # it is still relevant.
-        # # Reza's note: DeepSpeed inference does not support transposes
-        # if not self.ds_inference:
-        #     if self.pre_process:
-        #         # Data format change to avoid explicit tranposes : [b s h] --> [s b h].
-        #         # If the input flag for fp32 residual connection is set, convert for float.
-        #         if self.fp32_residual_connection:
-        #             hidden_states = hidden_states.transpose(0, 1).contiguous().float()
-        #         # Otherwise, leave it as is.
-        #         else:
-        #             hidden_states = hidden_states.transpose(0, 1).contiguous()
-        #     else:
-        #         # See set_input_tensor()
-        #         hidden_states = self.input_tensor
-        #     if encoder_output is not None:
-        #          encoder_output = encoder_output.transpose(0, 1).contiguous()
-
         if not self.pre_process:
             # See set_input_tensor()
             hidden_states = self.input_tensor
 
-        # Viewless tensor.
-        # - We only need to create a viewless tensor in the case of micro batch
-        #   size (mbs) == 1, since in this case, 'hidden_states.transpose()'
-        #   above creates a view tensor, and '.contiguous()' is a pass-through.
-        #   For mbs >= 2, '.contiguous()' creates a new tensor, eliminating
-        #   the need to make it viewless.
-        #
-        #   However, we don't explicitly check mbs == 1 here because
-        #   make_viewless_tensor() has negligible overhead when its input
-        #   is already viewless.
-        #
-        # - For the 'else' case above, calling make_viewless_tensor() here is
-        #   likely redundant, since p2p_communication.py (likely originator)
-        #   already creates viewless tensors. That said, make_viewless_tensor()
-        #   is called here to be future-proof and corner-case-proof.
         hidden_states = core.utils.make_viewless_tensor(
             hidden_states,
             requires_grad=True,
@@ -2095,19 +2277,20 @@ class ParallelTransformer(MegatronModule):
                                                                encoder_output,
                                                                enc_dec_attn_mask,
                                                                rotary_pos_emb,
-                                                               is_first_microbatch)
+                                                               is_first_microbatch, input_ids=input_ids)
                 elif self.recompute_granularity == 'full':
                     hidden_states, moe_losses = self._checkpointed_forward(hidden_states,
                                                                attention_mask,
                                                                encoder_output,
                                                                enc_dec_attn_mask,
                                                                rotary_pos_emb,
-                                                               is_first_microbatch)
+                                                               is_first_microbatch, input_ids=input_ids)
                 else:
                     forward_kwargs = {
                         'encoder_output': encoder_output,
                         'enc_dec_attn_mask': enc_dec_attn_mask,
                         'inference_params': inference_params,
+                        'input_ids': input_ids
                     }
 
                     if self.transformer_impl == 'transformer_engine':

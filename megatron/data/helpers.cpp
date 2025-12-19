@@ -14,7 +14,7 @@
 namespace py = pybind11;
 using namespace std;
 
-const int32_t LONG_SENTENCE_LEN = 512;
+const int32_t LONG_SENTENCE_LEN = 1025;
 
 
 void build_blending_indices(py::array_t<uint8_t>& dataset_index,

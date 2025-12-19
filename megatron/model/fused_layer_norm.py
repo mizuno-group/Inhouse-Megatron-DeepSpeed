@@ -1,7 +1,7 @@
 # Copyright (C) 2024 Habana Labs, Ltd. an Intel Company.
 # Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
 
-"""This code is copied fron NVIDIA apex:
+"""This code is copied from NVIDIA apex:
       https://github.com/NVIDIA/apex
    with some changes. """
 
@@ -31,12 +31,12 @@ fused_layer_norm_cuda = None
 
 
 class MixedFusedLayerNorm(torch.nn.Module):
-
   def __init__(self, normalized_shape, eps=1e-5,
                no_persist_layer_norm=True,
                sequence_parallel=False,
                apply_layernorm_1p=False,
-               mem_efficient_ln=True):
+               mem_efficient_ln=True,
+               train_bias: bool = False): # added for modern bert
         super(MixedFusedLayerNorm, self).__init__()
 
         self.apply_layernorm_1p = apply_layernorm_1p
@@ -59,15 +59,22 @@ class MixedFusedLayerNorm(torch.nn.Module):
             normalized_shape = (normalized_shape,)
         self.normalized_shape = torch.Size(normalized_shape)
         self.eps = eps
+        self.train_bias = train_bias # added for modern bert
         init_device = None
+        self.weight = Parameter(torch.empty(*normalized_shape,
+                                            device=init_device,
+                                            dtype=get_args().params_dtype))
+        if self.train_bias:
+            self.bias = Parameter(torch.empty(*normalized_shape,
+                                              device=init_device,
+                                              dtype=get_args().params_dtype))
+        else:
+            print("WARNING: FusedLayerNorm is created without bias parameter.")
+            self.register_buffer('bias', torch.zeros(*normalized_shape,
+                                                     device=init_device,
+                                                     dtype=get_args().params_dtype))
         if get_accelerator().device_name() == 'hpu':
             init_device = get_accelerator().current_device_name() 
-        self.weight = Parameter(torch.empty(*normalized_shape,
-                                device=init_device,
-                                dtype=get_args().params_dtype))
-        self.bias = Parameter(torch.empty(*normalized_shape,
-                              device=init_device,
-                              dtype=get_args().params_dtype))
         self.reset_parameters()
         self.no_persist_layer_norm = no_persist_layer_norm
         self.sequence_parallel = sequence_parallel
@@ -78,7 +85,6 @@ class MixedFusedLayerNorm(torch.nn.Module):
 
 
   def reset_parameters(self):
-
     if self.apply_layernorm_1p:
         init.zeros_(self.weight)
         init.zeros_(self.bias)

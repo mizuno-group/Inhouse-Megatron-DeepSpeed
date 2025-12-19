@@ -14,6 +14,7 @@ from .distrib_optimizer import DistributedOptimizer
 from .grad_scaler import ConstantGradScaler, DynamicGradScaler
 from .optimizer import Float16OptimizerWithFloat16Params, FP32Optimizer
 
+from optimi import StableAdamW
 
 def get_param_groups(modules,
                      no_weight_decay_cond,
@@ -28,6 +29,12 @@ def get_param_groups(modules,
     wd_scale_lr = []
     no_wd_no_scale_lr = []
     no_wd_scale_lr = []
+    
+    wd_no_scale_lr_name = []
+    wd_scale_lr_name = []
+    no_wd_no_scale_lr_name = []
+    no_wd_scale_lr_name = []
+
     for module in modules:
         for name, param in module.named_parameters():
             if not param.requires_grad:
@@ -46,22 +53,26 @@ def get_param_groups(modules,
 
             if not no_wd and not scale_lr:
                 wd_no_scale_lr.append(param)
+                wd_no_scale_lr_name.append(name)
             elif not no_wd and scale_lr:
                 wd_scale_lr.append(param)
+                wd_scale_lr_name.append(name)
             elif no_wd and not scale_lr:
                 no_wd_no_scale_lr.append(param)
+                no_wd_no_scale_lr_name.append(name)
             else:
                 no_wd_scale_lr.append(param)
+                no_wd_scale_lr_name.append(name)
 
     param_groups = []
-    if len(wd_no_scale_lr):
-        param_groups.append({'name': 'wd_no_scale_lr', 'params': wd_no_scale_lr, 'wd_mult': 1.0, 'lr_mult': 1.0})
-    if len(wd_scale_lr):
-        param_groups.append({'name': 'wd_scale_lr', 'params': wd_scale_lr, 'wd_mult': 1.0, 'lr_mult': lr_mult})
     if len(no_wd_no_scale_lr):
-        param_groups.append({'name': 'no_wd_no_scale_lr', 'params': no_wd_no_scale_lr, 'wd_mult': 0.0, 'lr_mult': 1.0})
+        param_groups.append({'name': 'no_wd_no_scale_lr', 'params': no_wd_no_scale_lr, 'wd_mult': 0.0, 'lr_mult': 1.0, 'param_names': no_wd_no_scale_lr_name})
     if len(no_wd_scale_lr):
-        param_groups.append({'name': 'no_wd_scale_lr', 'params': no_wd_scale_lr, 'wd_mult': 0.0, 'lr_mult': lr_mult})
+        param_groups.append({'name': 'no_wd_scale_lr', 'params': no_wd_scale_lr, 'wd_mult': 0.0, 'lr_mult': lr_mult, 'param_names': no_wd_scale_lr_name})
+    if len(wd_no_scale_lr):
+        param_groups.append({'name': 'wd_no_scale_lr', 'params': wd_no_scale_lr, 'wd_mult': 1.0, 'lr_mult': 1.0, 'param_names': wd_no_scale_lr_name})
+    if len(wd_scale_lr):
+        param_groups.append({'name': 'wd_scale_lr', 'params': wd_scale_lr, 'wd_mult': 1.0, 'lr_mult': lr_mult, 'param_names': wd_scale_lr_name})
 
     return param_groups
 
@@ -79,7 +90,6 @@ def get_megatron_optimizer(model,
     if args.create_moe_param_group:
         from deepspeed.moe.utils import split_params_into_different_moe_groups_for_optimizer
         param_groups = split_params_into_different_moe_groups_for_optimizer(param_groups)
-
     if args.cpu_optimizer:
         assert args.optimizer == 'adam', 'CPU offloading is for Adam'
         if args.cpu_torch_adam:
@@ -108,6 +118,30 @@ def get_megatron_optimizer(model,
                             lr=args.lr,
                             weight_decay=args.weight_decay,
                             momentum=args.sgd_momentum)
+        elif args.optimizer == 'stable_adamw':
+            optimi_param_groups = []
+            for group in param_groups:
+                new_group = {
+                    'params': group['params'],
+                    'param_names': group['param_names'],
+                    'weight_decay': args.weight_decay * group.get('wd_mult', 1.0),
+                    'wd_mult': group.get('wd_mult', 1.0)
+                }
+                if group.get('lr_mult', 1.0) != 1.0:
+                    new_group['lr'] = args.lr * group.get('lr_mult')
+                    new_group['lr_mult'] = group.get('lr_mult', 1.0)
+                optimi_param_groups.append(new_group)
+            optimizer = StableAdamW(optimi_param_groups,
+                                    lr=args.lr,
+                                    weight_decay=args.weight_decay,
+                                    betas=(args.adam_beta1, args.adam_beta2),
+                                    eps=args.adam_eps,
+                                    decouple_lr=args.stable_adamw_decouple_lr,
+                                    max_lr=args.lr if args.stable_adamw_decouple_lr else None,
+                                    kahan_sum=args.stable_adamw_kahan_sum,
+                                    triton=True,
+                                    foreach=False
+                                    )
         else:
             raise Exception('{} optimizer is not supported.'.format(
             args.optimizer))

@@ -9,13 +9,16 @@ import torch.nn.functional as F
 from megatron import get_args
 from megatron.core import mpu, tensor_parallel
 from megatron.core.enums import ModelType
+from megatron.model import LayerNorm
 
 from .enums import AttnMaskType, LayerType
 from .module import MegatronModule
-from .rotary_pos_embedding import apply_rotary_pos_emb, RotaryEmbedding
+from .rotary_pos_embedding import RotaryEmbedding
 from .transformer import ParallelTransformer
 from .utils import get_linear_layer
 from .utils import init_method_normal, scaled_init_method_normal, gather_and_init
+
+from megatron.model.full_megatron_init import ModuleType
 
 
 def parallel_lm_logits(input_, word_embeddings_weight, parallel_output,
@@ -157,6 +160,7 @@ class Embedding(MegatronModule):
         self.params_dtype = args.params_dtype
         self.word_embeddings = tensor_parallel.VocabParallelEmbedding(
             vocab_size, self.hidden_size, config=config, init_method=config.init_method)
+        self.word_embeddings.type_of_module = ModuleType.emb
         self._word_embeddings_key = 'word_embeddings'
 
         # Position embedding (serial).
@@ -418,6 +422,12 @@ class TransformerLanguageModel(MegatronModule):
                                        config,
                                        self.num_tokentypes,
                                        args.embedding_weights_in_fp32)
+            if args.layernorm_embedding:            
+                self.embedding_layernorm = LayerNorm(
+                    config.hidden_size,
+                    eps=config.layernorm_epsilon,
+                    sequence_parallel=config.sequence_parallel
+                )
             self._embedding_key = 'embedding'
 
         # Rotary positional embeddings
@@ -524,6 +534,8 @@ class TransformerLanguageModel(MegatronModule):
         if self.pre_process:
             encoder_input = self.embedding(enc_input_ids, enc_position_ids,
                                            tokentype_ids=tokentype_ids)
+            if args.layernorm_embedding:    
+                encoder_input = self.embedding_layernorm(encoder_input)
         else:
             encoder_input = None
 
@@ -559,7 +571,8 @@ class TransformerLanguageModel(MegatronModule):
                     retriever_input=retriever_input,
                     retriever_attn_mask=retriever_attn_mask,
                     inference_params=inference_params,
-                    rotary_pos_emb=rotary_pos_emb)
+                    rotary_pos_emb=rotary_pos_emb,
+                    input_ids=enc_input_ids)
             else:
                 encoder_output = self.encoder_hidden_state
         else:

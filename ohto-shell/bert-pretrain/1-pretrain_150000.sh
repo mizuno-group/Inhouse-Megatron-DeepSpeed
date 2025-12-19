@@ -1,9 +1,9 @@
 #!/bin/sh
-#PBS -q short-g
-#PBS -l select=2
+#PBS -q regular-g
+#PBS -l select=64
 #PBS -W group_list=gg17
-#PBS -o test.out
-#PBS -e test.err
+#PBS -o med_150000.out
+#PBS -e med_150000.err
 
 module purge
 module load cmake
@@ -13,41 +13,37 @@ module load cudnn/9.5.1.17
 module load ompi-cuda/4.1.6-12.6
 
 source /work/gg17/a97006/.g_bashrc
-pyenv install 3.12.4 # This might take time; consider preparing an env beforehand
 pyenv local 3.12.4
 
-cd ~/env/llm-pyenv-3
+cd ~/env/llm-pyenv-4
 source ./250/bin/activate
+
+jobname="med-bert-full-150000-all-merged"
 
 dir='/work/gg17/a97006/250519_modern_bert_0/Megatron-DeepSpeed/examples_deepspeed/bert_with_pile'
 wandb login 65afaa936940cf3a198fba3da2d51b71b797b77e # Consider using environment variable WANDB_API_KEY
 ###############################################################################
 seq_len=1024
-global_batch_size=16
-lr=1e-4
+global_batch_size=2560
+lr=8e-4
 min_lr=1e-5
 
 ## BERT 110M (same config as original BERT-Base model)
-model_size=0.11
-num_layers=12
+model_size=0.149
+num_layers=22
 hidden_size=768
 num_attn_heads=12
 init_std=0.02
-## BERT 336M (same config as original BERT-Large model)
-# model_size=0.336
-# num_layers=24
-# hidden_size=1024
-# num_attn_heads=16
-# init_std=0.02
 ############################################################################### Training duration configs
 train_iters_in_million=2
-train_iters=$((${train_iters_in_million} * 10000)) # 2 * 10000 = 20000
-
+# train_iters=$((${train_iters_in_million} * 1000000)) # 2 * 10000 = 20000
+train_iters=130900
 ###############################################################################
 ### lr configs
-lr_warmup_iters=100 # これが lr_warmup_steps に対応
+lr_warmup_iters=10000 # これが lr_warmup_steps に対応
 lr_decay_iters_in_million=${train_iters_in_million} # 2
-lr_decay_iters=$((${lr_decay_iters_in_million} * 10000)) # 2 * 10000 = 20000
+# lr_decay_iters=$((${lr_decay_iters_in_million} * 10000)) # 2 * 10000 = 20000
+lr_decay_iters=130900 # これが lr_decay_steps に対応
 lr_decay_style="linear"
 ####################################################
 ### Parallelism configs
@@ -97,12 +93,13 @@ if [ ${batch_size} -eq 0 ]; then
     echo "Warning: Calculated micro batch size is 0. Setting to 1. Check global_batch_size and dp_size."
     batch_size=1
 fi
+batch_size=20
 ###############################################################################
 ### Misc configs
-log_interval=1000
-eval_iters=10
-eval_interval=100
-num_save=100
+log_interval=20000
+eval_iters=1
+eval_interval=20000
+num_save=30
 save_interval=$((${train_iters} / ${num_save}))
 activation_checkpoint="false"
 log_optimizer_state="true"
@@ -111,21 +108,9 @@ log_optimizer_state="true"
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 host="${HOSTNAME}" # This will be the hostname of the node running this script (master PBS job)
 
-jobname="bert-pubmed-test"
-
-# BLEND DATASET
-pubmed_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/pubmed/pubmed_30000/pubmed_text_document"
-weight_pubmed=1.0
-pmc_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/pmc/pubmed_30000/pmc_text_document"
-weight_pmc=0.0
-fda_label_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/fda_label/pubmed_30000/fda_label_text_document"
-weight_fda_label=0.0
-nih_books_path="/work/gg17/a97006/250519_modern_bert_0/preprocessed/nih_books/pubmed_30000/nih_books_text_document"
-weight_nih_books=0.0
 # Combine the datasets into a single data path
-data_path="${weight_pubmed} ${pubmed_path} ${weight_pmc} ${pmc_path} ${weight_fda_label} ${fda_label_path} ${weight_nih_books} ${nih_books_path}"
-
-vocab_path="/work/gg17/a97006/250519_modern_bert_0/tokenizer/vocab_30000.txt"
+data_path="/work/gg17/a97006/0-250519_modern_bert_0/251004_preprocessed/4_merged/all_merged_150000-1024/4_merged_text_sentence"
+vocab_path="/work/gg17/a97006/0-250519_modern_bert_0/251004_tokenizer/vocab_150000.txt"
 
 num_workers=4
 
@@ -133,6 +118,7 @@ jobname="${jobname}-${model_size}B-iters-${train_iters_in_million}M"
 jobname="${jobname}-lr-${lr}-min-${min_lr}-wmup-${lr_warmup_iters}-dcy-${lr_decay_iters_in_million}M-sty-${lr_decay_style}"
 jobname="${jobname}-gbs-${global_batch_size}-mbs-${batch_size}-gpu-${num_gpus}-zero-${zero_stage}-mp-${mp_size}-pp-${pp_size}"
 if [ "${no_pp}" = "true" ]; then
+
     jobname="${jobname}-nopp"
 fi
 
@@ -153,14 +139,16 @@ mkdir -p ${tensorboard_path}
 data_options=" \
     --vocab-file ${vocab_path} \
     --data-path ${data_path} \
-    --num-workers 128 \
+    --num-workers 4 \
     --data-impl mmap"
 
 megatron_options=" \
     --bert-no-binary-head \
+    --dataloader-type cyclic \
+    --disable-bias-linear \
     --override-opt_param-scheduler \
     --adam-beta1 0.9 \
-    --adam-beta2 0.999 \
+    --adam-beta2 0.98 \
     --init-method-std ${init_std} \
     --tensor-model-parallel-size ${mp_size} \
     --lr-decay-iters ${lr_decay_iters} \
@@ -172,19 +160,22 @@ megatron_options=" \
     --num-attention-heads ${num_attn_heads} \
     --seq-length ${seq_len} \
     --max-position-embeddings ${seq_len} \
+    --mask-prob 0.3 \
     --train-iters ${train_iters} \
     --lr ${lr} \
     --min-lr ${min_lr} \
     --lr-decay-style ${lr_decay_style} \
-    --split 949,50,1 \
+    --split 998,1,1 \
     --log-interval ${log_interval} \
     --eval-interval ${eval_interval} \
     --eval-iters ${eval_iters} \
     --save-interval ${save_interval} \
-    --weight-decay 1e-2 \
+    --weight-decay 1e-4 \
     --clip-grad 1.0 \
     --num-workers ${num_workers} \
-    --fp16 \
+    --bf16 \
+    --geglu \
+    --layernorm-embedding \
     --load ${checkpoint_path} \
     --save ${checkpoint_path} \
     --tensorboard-queue-size 1 \
@@ -192,9 +183,22 @@ megatron_options=" \
     --log-batch-size-to-tensorboard \
     --log-validation-ppl-to-tensorboard \
     --tensorboard-dir ${tensorboard_path} \
-    --wandb-project deepspeed-megatron \
-    --wandb-exp-name test_2gpus \
-    --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/users/a97006/project/bert_with_pile"
+    --use-switch-attention \
+    --use-switch-attention-rope \
+    --global-rope-theta 10000 \
+    --local-rope-theta 10000 \
+    --global-attn-every-n-layers 3 \
+    --ffn-hidden-size 1152 \
+    --local-window-size 128 \
+    --use-flash-attn-v2 \
+    --no-position-embedding \
+    --optimizer stable_adamw \
+    --stable-adamw-kahan-sum \
+    --stable-adamw-decouple-lr \
+    --full-megatron-model-init \
+    --wandb-project med-modern-bert-true \
+    --wandb-exp-name 251008_merged_150000 \
+    --wandb-save-dir /work/gg17/a97006/250519_modern_bert_0/Inhouse-Megatron-DeepSpeed/users/a97006/project/bert_with_pile"
 
 if [ "${activation_checkpoint}" = "true" ]; then
 megatron_options="${megatron_options} \
@@ -327,10 +331,7 @@ HOST=`head -n 1 ${PBS_NODEFILE}`
 HOST_IP=$(getent hosts $HOST | awk '{print $1}')
 export CUDA_HOME="/work/opt/local/aarch64/cores/cuda/12.6"
 MPIRUN_OPTIONS="--hostfile ${UNIQUE_NODES_FILE} -np ${num_node} -npernode 1 --map-by node -x CUDA_HOME -x LD_LIBRARY_PATH -x PATH"
-# MPIRUN_OPTIONS はお使いのMPI実装に合わせてカスタマイズ可能です。例: OpenMPIの場合
-# MPIRUN_OPTIONS="--hostfile ${UNIQUE_NODES_FILE} -np ${num_node} --map-by node -report-bindings"
 
-# mpirunによって起動される各ノード上の ${num_node} 個のプロセスが、以下のtorchrunコマンドを実行します:
 TORCHRUN_CMD="torchrun \
     --nnodes ${num_node} \
     --nproc_per_node ${num_gpus_pernode} \

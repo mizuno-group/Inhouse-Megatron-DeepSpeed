@@ -6,6 +6,7 @@ from deepspeed.accelerator.real_accelerator import get_accelerator
 if get_accelerator().device_name() == 'xpu':
     import intel_extension_for_pytorch
 if get_accelerator().device_name() == 'cuda':
+    print("Using NVIDIA GPU")
     from .fused_layer_norm import MixedFusedLayerNorm as LayerNorm
     from apex.normalization import MixedFusedRMSNorm as RMSNorm
 else:
@@ -17,7 +18,6 @@ else:
 
 from .distributed import DistributedDataParallel
 from .bert_model import BertModel
-from .modern_bert_model import ModernBertModel
 from .gpt_model import GPTModel, GPTModelPipe
 from .t5_model import T5Model
 from .language_model import get_language_model

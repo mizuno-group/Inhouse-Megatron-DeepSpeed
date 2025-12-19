@@ -2,39 +2,36 @@
 
 """BERT model."""
 
+import math
+
 import torch
+import torch.nn.init as init
 
 from megatron import get_args
 from megatron.core import tensor_parallel
-from megatron.model.enums import AttnMaskType
-from megatron.model.language_model import parallel_lm_logits
-from megatron.model.language_model import get_language_model
 from megatron.model import LayerNorm
-from megatron.model.utils import openai_gelu, erf_gelu
-from megatron.model.utils import get_linear_layer
-from megatron.model.utils import init_method_normal
-from megatron.model.utils import scaled_init_method_normal
+from megatron.model.enums import AttnMaskType
+from megatron.model.full_megatron_init import (ModuleType,
+                                               apply_full_megatron_init)
+from megatron.model.language_model import (get_language_model,
+                                           parallel_lm_logits)
+from megatron.model.utils import (erf_gelu, get_linear_layer,
+                                  init_method_normal, openai_gelu,
+                                  scaled_init_method_normal)
+
 from .module import MegatronModule
 
 
 def bert_extended_attention_mask(attention_mask):
-    # We create a 3D attention mask from a 2D tensor mask.
-    # [b, 1, s]
     attention_mask_b1s = attention_mask.unsqueeze(1)
-    # [b, s, 1]
     attention_mask_bs1 = attention_mask.unsqueeze(2)
-    # [b, s, s]
     attention_mask_bss = attention_mask_b1s * attention_mask_bs1
-    # [b, 1, s, s]
     extended_attention_mask = attention_mask_bss.unsqueeze(1)
-
-    # Convert attention mask to binary:
     extended_attention_mask = (extended_attention_mask < 0.5)
 
     return extended_attention_mask
 
 def bert_position_ids(token_ids):
-    # Create position ids
     seq_length = token_ids.size(1)
     position_ids = torch.arange(seq_length, dtype=torch.long,
                                 device=token_ids.device)
@@ -42,28 +39,24 @@ def bert_position_ids(token_ids):
 
     return position_ids
 
-
 class BertLMHead(MegatronModule):
-    """Masked LM head for Bert
-
-    Arguments:
-        config: TransformerConfig object
-        mpu_vocab_size: model parallel size of vocabulary.
-        hidden_size: hidden size
-        parallel_output: whether output logits being distributed or not.
-    """
-
     def __init__(self, mpu_vocab_size, hidden_size, config, parallel_output):
         super().__init__(config=config)
 
         args = get_args()
-        self.bias = torch.nn.Parameter(torch.zeros(mpu_vocab_size))
+
+        fan_in = hidden_size
+        bound = 1 / math.sqrt(fan_in) if fan_in > 0 else 0
+        bias_tensor = torch.empty(mpu_vocab_size)
+        init.uniform_(bias_tensor, -bound, bound)
+        self.bias = torch.nn.Parameter(bias_tensor)
+
         tensor_parallel.set_tensor_model_parallel_attributes(self.bias, True, 0, 1)
         self.parallel_output = parallel_output
 
         self.dense = get_linear_layer(hidden_size, hidden_size, config.init_method, gather_params_on_init=args.zero_stage == 3)
         setattr(self.dense.weight, 'sequence_parallel', config.sequence_parallel)
-        setattr(self.dense.bias, 'sequence_parallel', config.sequence_parallel)
+        # setattr(self.dense.bias, 'sequence_parallel', config.sequence_parallel)
 
         self.layernorm = LayerNorm(hidden_size,
                                    eps=config.layernorm_epsilon,
@@ -130,7 +123,6 @@ class BertModel(MegatronModule):
         super().__init__(config=config)
         args = get_args()
 
-        # TODO this option is not yet implemented in BERT
         assert args.untie_embeddings_and_output_weights is False
 
         self.fp16_lm_cross_entropy = args.fp16_lm_cross_entropy
@@ -158,6 +150,7 @@ class BertModel(MegatronModule):
         if self.post_process:
             self.lm_head = BertLMHead(self.shared_embedding_or_output_weight().size(0), config.hidden_size,
                                       config, parallel_output)
+            self.lm_head.type_of_module = ModuleType.final_out
             self._lm_head_key = 'lm_head'
             self.binary_head = None
             if self.add_binary_head:
@@ -165,6 +158,10 @@ class BertModel(MegatronModule):
                                                     config.init_method,
                                                     args.zero_stage == 3)
                 self._binary_head_key = 'binary_head'
+        
+        if args.full_megatron_model_init:
+            print("Applying ModernBERT's 'full_megatron_init' to the entire model...")
+            apply_full_megatron_init(self, config)
 
     def set_input_tensor(self, input_tensor):
         """See megatron.model.transformer.set_input_tensor()"""

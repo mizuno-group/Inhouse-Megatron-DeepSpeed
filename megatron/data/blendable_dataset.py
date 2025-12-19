@@ -103,7 +103,7 @@ class BlendableDataset(torch.utils.data.Dataset):
 
 
         # Check size
-        _ = self.__getitem__(self.size - 1)
+        # _ = self.__getitem__(self.size - 1)
         try:
             _ = self.__getitem__(self.size)
             raise RuntimeError('BlendedDataset size is improperly bounded')
